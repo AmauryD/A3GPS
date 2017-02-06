@@ -112,16 +112,20 @@ _load_saved_path_btn ctrlAddEventHandler ["ButtonClick",{
 _load_saved_path_btn ctrlAddEventHandler ["MouseButtonClick",{if((_this select 1) == 1) then {[["CustomGPS", "loadSavedPath"],nil,nil,nil,nil,nil,true] call BIS_fnc_advHint}}];
 
 _drop_data_btn ctrlAddEventHandler ["ButtonClick",{ //reset some things , i don't know why this exists
-	profileNamespace setVariable ["gps_saved",[]];
-	profileNamespace setVariable ["gps_settings",[
-		["markers_color","colorBlue"],
-		["objects_color","Sign_Arrow_Direction_Blue_F"]
-	]];
-	if(["GPS","onMapSingleClick"] call misc_fnc_stackedEventHandlerExists) then {
-		["GPS","onMapSingleClick"] call bis_fnc_removeStackedEventHandler;
+	[] spawn {
+		if(["Etes vous sûr ? Cela va effacer toutes vos données", "Attention", true, true , findDisplay 369852] call BIS_fnc_guiMessage) then {
+			profileNamespace setVariable ["gps_saved",[]];
+			profileNamespace setVariable ["gps_settings",[
+				["markers_color","colorBlue"],
+				["objects_color","Sign_Arrow_Direction_Blue_F"]
+			]];
+			if(["GPS","onMapSingleClick"] call misc_fnc_stackedEventHandlerExists) then {
+				["GPS","onMapSingleClick"] call bis_fnc_removeStackedEventHandler;
+			};
+			gps_saveCurrent = false;
+			(findDisplay 369852) closeDisplay 0;
+		};
 	};
-	gps_saveCurrent = false;
-	(findDisplay 369852) closeDisplay 0;
 }]; 
 
 _objectsColorPicker ctrlAddEventHandler ["LBSelChanged",{

@@ -1,4 +1,4 @@
-//#ifndef GUI_BASE
+
 //#define GUI_BASE
 //---------------------------------
 // Common defines

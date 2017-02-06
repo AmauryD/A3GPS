@@ -66,6 +66,9 @@ _iteration = 0;
 while {!(_currNodeObject isEqualTo _nearestEndNodeObject)} do {
  	_parent = [] call gps_fnc_getWeakestNode;
  	_parentObject = _parent select 0; _currNodeObject = _parentObject;
+
+ 	if(_parentObject isEqualTo objNull) exitWith { ["FATAL ERROR"] call gps_menu_fnc_setGPSInfo; };
+
  	_parentWeigth = _parent select 1;
  	[_parentObject] call gps_fnc_setNodePassedBy;
 

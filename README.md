@@ -1,3 +1,8 @@
 # A3GPS
-A 'real' GPS for the game Arma 3
+
+## Description
+
+A3GPS provides a real GPS for arma 3
+
+## Installation
 

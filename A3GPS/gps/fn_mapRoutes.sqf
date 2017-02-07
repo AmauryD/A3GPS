@@ -32,7 +32,7 @@ gps_allRoadsWithInter = gps_allRoads apply {
         };
      };
   }foreach _near;
-
+  
   missionNamespace setVariable [format["gps_connected_%1",str _road],_connected];
   [_road,_connected]
 };
@@ -64,6 +64,7 @@ _fn_mapTheMap = {
               _segmentValue = round (_segmentValue / 1.5); 
           };
           _linkedCrossRoads pushBack [_currRoad,_segmentValue];
+          _linkedSegments pushBack [_currRoad,[]];
       }else{
 
         while{count _connected <= 2} do {

@@ -23,8 +23,8 @@ _start = diag_tickTime;
 
 [] call gps_fnc_deletePathHelpers;
 
-_nearestStartNodeObject = [_startRoute,gps_onlyCrossRoads] call misc_fnc_nearestPos;
-_nearestEndNodeObject = [_endRoute,gps_onlyCrossRoads] call misc_fnc_nearestPos;
+private _nearestStartNodeObject = [_startRoute,gps_onlyCrossRoads] call misc_fnc_nearestPos;
+private _nearestEndNodeObject = [_endRoute,gps_onlyCrossRoads] call misc_fnc_nearestPos;
 
 gps_saveCurrent = ["Voulez-vous sauvegarder ce trajet ?", "Sauvegarde", true, true , findDisplay 369852] call BIS_fnc_guiMessage;
 if(gps_saveCurrent) then {
@@ -100,10 +100,11 @@ while {!(_currNodeObject isEqualTo _nearestEndNodeObject)} do {
 
 _current = _nearestEndNodeObject;
 _path = [];
+_path pushBack _current;
 
 while{!(_current isEqualTo _nearestStartNodeObject)} do {
-  _path pushBack _current;
   _current = [_current] call gps_fnc_getPredecessor;
+  _path pushBack _current;
 };
 
 reverse _path;

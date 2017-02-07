@@ -2,8 +2,9 @@
 
 ## Description
 
-A3GPS provides a real GPS for arma 3
-Developpement in progress
+A3GPS provides a real GPS for Arma 3.
+Only available in french for now , will be translated later.
+Developpement in progress.
 
 ## Installation
 

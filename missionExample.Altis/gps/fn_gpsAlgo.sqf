@@ -67,7 +67,9 @@ while {!(_currNodeObject isEqualTo _nearestEndNodeObject)} do {
  	_parent = [] call gps_fnc_getWeakestNode;
  	_parentObject = _parent select 0; _currNodeObject = _parentObject;
 
- 	if(_parentObject isEqualTo objNull) exitWith { ["FATAL ERROR"] call gps_menu_fnc_setGPSInfo; };
+ 	if(_parentObject isEqualTo objNull) then { 
+ 		throw "ERR_ROAD_NOT_FOUND";		// stop the script and throw error
+ 	};
 
  	_parentWeigth = _parent select 1;
  	[_parentObject] call gps_fnc_setNodePassedBy;

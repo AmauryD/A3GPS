@@ -83,10 +83,16 @@ _map ctrlAddEventHandler ["MouseButtonClick",{
 	_pos = _control ctrlMapScreenToWorld [_xCoord, _yCoord];
 
 	if(_shift) then {
-		_pos spawn gps_fnc_gpsAlgo;
+		_pos spawn {
+			try {
+				_this call gps_fnc_gpsAlgo;
+			}catch{		// Fatal error handling
+				[format["Error : %1",_exception]] call gps_menu_fnc_setGPSInfo; 
+				[] call gps_fnc_deletePathHelpers;
+			};
+		};
 	};
 }];
-
 
 _newpath_btn ctrlAddEventHandler ["MouseButtonClick",{if((_this select 1) == 0) then {[["CustomGPS", "newPath"],nil,nil,nil,nil,nil,true] call BIS_fnc_advHint}}];
 

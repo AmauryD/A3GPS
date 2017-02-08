@@ -21,8 +21,8 @@ Developpement in progress.
 ```
 
 ### In the gps init file :
-  -edit the folder path for each functions
-  exemple :
+  - edit the folder path for each functions.
+  Exemple :
   ```sqf
   gps_fnc_generatePathHelpers = compileFinal preprocessFileLineNumbers "gps\fn_generatePathHelpers.sqf";
    ```
@@ -34,3 +34,11 @@ Developpement in progress.
 Now it should work , have fun !
 
 ## Known Issues
+
+- If you already have a 'CfgHints' class defined , juste copy the content of the cfgHints in config.hpp into it.
+
+- If you have already a mission with defined controls class , the mission will throw you an error "class XXX already defined ..." . to fix this , just remove the file common.hpp and the '#include "common.hpp"' in the menu.hpp in the menu folder.
+
+
+
+

@@ -10,12 +10,14 @@ Developpement in progress.
 
 ## Installation
 
-### in your description.ext file add : 
+### in your description.ext file 
+Add this line : 
 ```sqf
   #include "path_to_gps_folder\config.hpp"
 ```
 
-### in your init file file add : 
+### in your init file file 
+Add this line : 
 ```sqf
   [] execVM "path_to_gps_folder\init.sqf"
 ```

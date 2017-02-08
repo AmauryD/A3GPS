@@ -18,19 +18,19 @@ The path is not always the shortest , I need to improve the virtual mapping.
 
 ## Installation
 
-### in your description.ext file 
+#### in your description.ext file 
 Add this line : 
 ```sqf
   #include "path_to_gps_folder\config.hpp"
 ```
 
-### in your init file file 
+#### in your init file file 
 Add this line : 
 ```sqf
   [] execVM "path_to_gps_folder\init.sqf"
 ```
 
-### In the gps init file :
+#### In the gps init file :
 Edit the folder path for each functions.
   
   Exemple :

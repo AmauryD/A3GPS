@@ -8,7 +8,7 @@ Only available in french for now , will be translated later.
 
 Developpement in progress.
 
-### Informations
+#### Informations
 
 The path calculating may be slow for now , it'll be improved later.
 

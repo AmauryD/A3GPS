@@ -23,11 +23,12 @@ Add this line :
 ```
 
 ### In the gps init file :
-  - edit the folder path for each functions.
+Edit the folder path for each functions.
+  
   Exemple :
   ```sqf
   gps_fnc_generatePathHelpers = compileFinal preprocessFileLineNumbers "gps\fn_generatePathHelpers.sqf";
-   ```
+  ```
   to
   ```sqf
   gps_fnc_generatePathHelpers = compileFinal preprocessFileLineNumbers "client\addons\gps\fn_generatePathHelpers.sqf";

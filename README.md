@@ -41,7 +41,11 @@ Edit the folder path for each functions.
   ```sqf
   gps_fnc_generatePathHelpers = compileFinal preprocessFileLineNumbers "client\addons\gps\fn_generatePathHelpers.sqf";
   ```
-  
+
+### To call the Menu
+
+Use the function **gps_menu_fnc_loadGPSMenu** to call the menu
+
 Now it should work , have fun !
 
 ## Known Issues

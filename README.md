@@ -24,7 +24,7 @@ Add this line :
   #include "path_to_gps_folder\config.hpp"
 ```
 
-### in your init file file 
+### in your init file
 Add this line : 
 ```sqf
   [] execVM "path_to_gps_folder\init.sqf"

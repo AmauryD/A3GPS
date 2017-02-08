@@ -3,10 +3,14 @@
 ## Description
 
 A3GPS provides a real GPS for Arma 3.
-
 Only available in french for now , will be translated later.
-
 Developpement in progress.
+
+### Informations
+
+The path calculating may be slow for now , it'll be improved later.
+The path is not real time calculated : if you're not following the path , the GPS will not generate a new path automatically.
+The path is not always the shortest , I need to improve the virtual mapping.
 
 ## Installation
 

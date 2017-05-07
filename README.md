@@ -1,5 +1,7 @@
 # A3GPS
 
+project paused
+
 ## Description
 
 A3GPS provides a real GPS for Arma 3.

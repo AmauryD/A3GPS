@@ -1,6 +1,6 @@
 # A3GPS
 
-project paused
+working on new algorithm , 10-100 times faster depending on the situation
 
 ## Description
 

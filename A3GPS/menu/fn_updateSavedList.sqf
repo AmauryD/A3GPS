@@ -1,3 +1,10 @@
+/**
+	@Author : [Utopia] Amaury
+	@Creation : 8/05/17
+	@Modified : --
+	@Description : nothing to say
+**/
+
 disableSerialization;
 
 private _display = findDisplay 369852;

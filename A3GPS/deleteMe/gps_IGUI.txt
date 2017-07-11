@@ -1,0 +1,12 @@
+/* #Coxujo
+$[
+	1.063,
+	["dz",[[0,0,1,1],0.025,0.04,"GUI_GRID"],0,0,0],
+	[1000,"gps_map: RscMapControl",[1,"",["-0.00197386 * safezoneW + safezoneX","0.363994 * safezoneH + safezoneY","0.159357 * safezoneW","0.272012 * safezoneH"],[-1,-1,-1,-1],[-1,-1,-1,-1],[-1,-1,-1,-1],"","-1"],["idc = 2200;","mapOrientation = 1;","moveOnEdges = 1;","showCountourInterval = 1;"]],
+	[2200,"gps_status_background",[1,"",["-0.00197386 * safezoneW + safezoneX","0.329993 * safezoneH + safezoneY","0.159357 * safezoneW","0.340014 * safezoneH"],[-1,-1,-1,-1],[-1,-1,-1,-1],[-1,-1,-1,-1],"","-1"],["idc = 2201;"]],
+	[1100,"gps_status",[1,"",["-0.00197384 * safezoneW + safezoneX","0.636006 * safezoneH + safezoneY","0.159357 * safezoneW","0.0340014 * safezoneH"],[-1,-1,-1,-1],[-1,-1,-1,-1],[-1,-1,-1,-1],"","0.6 * 			(			(			((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 			(			(			((safezoneW / safezoneH) min 1.2) / 1.2) / 25)"],["idc = 1000;"]],
+	[1101,"gps_status_header_azimut",[1,"",["-0.00197386 * safezoneW + safezoneX","0.329993 * safezoneH + safezoneY","0.047807 * safezoneW","0.0340014 * safezoneH"],[-1,-1,-1,-1],[-1,-1,-1,-1],[-1,-1,-1,-1],"","-1"],["idc = 1101;"]],
+	[1102,"gps_status_header_grid",[1,"",["0.0458331 * safezoneW + safezoneX","0.329993 * safezoneH + safezoneY","0.0557749 * safezoneW","0.0340014 * safezoneH"],[-1,-1,-1,-1],[-1,-1,-1,-1],[-1,-1,-1,-1],"","-1"],["idc = 1102;"]],
+	[1103,"gps_status_header_time",[1,"",["0.101608 * safezoneW + safezoneX","0.329993 * safezoneH + safezoneY","0.0557749 * safezoneW","0.0340014 * safezoneH"],[-1,-1,-1,-1],[-1,-1,-1,-1],[-1,-1,-1,-1],"","-1"],["idc = 1103;"]]
+]
+*/

@@ -7,18 +7,21 @@
 
 /** GPS FUNCTIONS  **/
 gps_fnc_mapRoutes = compileFinal preprocessFileLineNumbers "gps\fn_mapRoutes.sqf";
-gps_fnc_gpsAlgo = compileFinal preprocessFileLineNumbers "gps\fn_gpsAlgo.sqf";
-gps_fnc_setNodeWeight = compileFinal preprocessFileLineNumbers "gps\fn_setNodeWeight.sqf";
-gps_fnc_getNodeWeight = compileFinal preprocessFileLineNumbers "gps\fn_getNodeWeight.sqf";
-gps_fnc_setNodePassedBy = compileFinal preprocessFileLineNumbers "gps\fn_setNodePassedBy.sqf";
-gps_fnc_wasNodeChecked = compileFinal preprocessFileLineNumbers "gps\fn_wasNodeChecked.sqf";
-gps_fnc_getWeakestNode = compileFinal preprocessFileLineNumbers "gps\fn_getWeakestNode.sqf";
-gps_fnc_nodeAssignPredecessor = compileFinal preprocessFileLineNumbers "gps\fn_nodeAssignPredecessor.sqf";
-gps_fnc_getPredecessor = compileFinal preprocessFileLineNumbers "gps\fn_getPredecessor.sqf";
 gps_fnc_roadsConnectedTo = compileFinal preprocessFileLineNumbers "gps\fn_roadsConnectedTo.sqf";
 gps_fnc_loadSavedPath = compileFinal preprocessFileLineNumbers "gps\fn_loadSavedPath.sqf";
 gps_fnc_deletePathHelpers =  compileFinal preprocessFileLineNumbers "gps\fn_deletePathHelpers.sqf";
 gps_fnc_generatePathHelpers = compileFinal preprocessFileLineNumbers "gps\fn_generatePathHelpers.sqf";
+gps_fnc_tracking = compileFinal preprocessFileLineNumbers "gps\fn_tracking.sqf";
+gps_fnc_generateNodePath = compileFinal preprocessFileLineNumbers "gps\fn_generateNodePath.sqf";
+
+gps_fnc_aStar = compileFinal preprocessFileLineNumbers "gps\algorithms\AStar\fn_AStar.sqf";
+gps_fnc_findLeast = compileFinal preprocessFileLineNumbers "gps\algorithms\AStar\fn_findLeast.sqf";
+gps_fnc_isInList = compileFinal preprocessFileLineNumbers "gps\algorithms\AStar\fn_isInList.sqf";
+
+
+gps_fnc_main = compileFinal preprocessFileLineNumbers "gps\fn_main.sqf";
+
+gps_fnc_createMarker = compileFinal preprocessFileLineNumbers "gps\fn_createMarker.sqf";
 
 /** TEST FUNCTIONS **/
 //dev_fnc_getConnectedSegments = compileFinal preprocessFileLineNumbers "fn_getConnectedSegments.sqf";
@@ -28,20 +31,37 @@ gps_menu_fnc_loadGPSMenu =  compileFinal preprocessFileLineNumbers "menu\fn_load
 gps_menu_fnc_setGPSInfo = compileFinal preprocessFileLineNumbers "menu\fn_setGPSInfo.sqf"; // = update
 gps_menu_fnc_gpsHelp = compileFinal preprocessFileLineNumbers "menu\fn_gpsHelp.sqf";
 gps_menu_fnc_updateSavedList = compileFinal preprocessFileLineNumbers "menu\fn_updateSavedList.sqf";
+gps_menu_fnc_runHud = compileFinal preprocessFileLineNumbers "menu\fn_runHud.sqf";
+gps_menu_fnc_loadHud = compileFinal preprocessFileLineNumbers "menu\fn_loadHud.sqf";
 
 /** MISCELLANEOUS FUNCTIONS **/
 misc_fnc_createMarker = compileFinal preprocessFileLineNumbers "misc\fn_createmarker.sqf";
 misc_fnc_deleteAllMarkers = compileFinal preprocessFileLineNumbers "misc\fn_deleteAllMarkers.sqf";
 misc_fnc_nearestPos = compileFinal preprocessFileLineNumbers "misc\fn_nearestPos.sqf";
+misc_fnc_farestPos = compileFinal preprocessFileLineNumbers "misc\fn_farestPos.sqf";
 misc_fnc_nearestLocation = compileFinal preprocessFileLineNumbers "misc\fn_nearestLocation.sqf";
 misc_fnc_stackedEventHandlerExists = compileFinal preprocessFileLineNumbers "misc\fn_stackedEventHandlerExists.sqf";
 misc_fnc_editDialog = compileFinal preprocessFileLineNumbers "misc\fn_editDialog.sqf";
+misc_fnc_pushFront = compileFinal preprocessFileLineNumbers "misc\fn_pushFront.sqf";
+misc_fnc_nearestRoadInArray = compileFinal preprocessFileLineNumbers "misc\fn_nearestRoadInArray.sqf";
+
+misc_fnc_localize = compileFinal preprocessFileLineNumbers "misc\fn_localize.sqf";
+misc_fnc_getSetting = compileFinal preprocessFileLineNumbers "misc\fn_getSetting.sqf";
+misc_fnc_setSetting = compileFinal preprocessFileLineNumbers "misc\fn_setSetting.sqf";
+
+misc_fnc_hashTable_find = compileFinal preprocessFileLineNumbers "misc\hashTable\fn_find.sqf";
+misc_fnc_hashTable_set = compileFinal preprocessFileLineNumbers "misc\hashTable\fn_set.sqf";
+misc_fnc_hashTable_create = compileFinal preprocessFileLineNumbers "misc\hashTable\fn_create.sqf";
+
+misc_fnc_relDirTo =  compileFinal preprocessFileLineNumbers "misc\fn_relDirTo.sqf";
+misc_fnc_averageFromAngles = compileFinal preprocessFileLineNumbers	"misc\fn_averageFromAngles.sqf";
 
 if(isNil {profileNamespace getVariable "gps_saved"}) then {  // to store path nodes position
 	profileNamespace setVariable ["gps_saved",[]];
 };
 if(isNil {profileNamespace getVariable "gps_settings"}) then {
 	profileNamespace setVariable ["gps_settings",[
+		["lang","en"],
 		["markers_color","colorBlue"],
 		["objects_color","Sign_Arrow_Direction_Blue_F"]
 	]];
@@ -52,6 +72,7 @@ gps_local_markers =	[];
 gps_local_objects = [];
 gps_curr_thread = scriptNull;
 gps_status_text = "Pas de status";
+gps_version = "2.0";
 
 waitUntil {!isNull findDisplay 46};
 
@@ -61,4 +82,47 @@ waitUntil {	//wait for the virtual mapping to be done
    scriptDone _handle
 };
 
+player addAction ["GPS",gps_menu_fnc_loadGPSMenu];
+/**
+player addAction ["Show all crossRoads",{
+	{deleteMarker _x}foreach allMapMarkers;
+	{
+		[nil,getPosATL _x,str _x,'mil_dot'] call misc_fnc_createMarker;
+	}foreach gps_onlyCrossRoads;
+}];
+
+player addAction ["Show all roads (near player)",{
+	{deleteMarker _x}foreach allMapMarkers;
+	{
+		[nil,getPosATL _x,str _x,'mil_dot'] call misc_fnc_createMarker;
+	}foreach (player nearRoads 1000);
+}];
 //gps_menu_fnc_loadGPSMenu
+
+onMapSingleClick "
+	private _nearestStartNodeObject = [_pos,gps_onlyCrossRoads] call misc_fnc_nearestPos;
+
+	if(_shift) then {
+		{deleteMarkerLocal _x;} forEach allMapMarkers;
+		[nil,getPosATL _nearestStartNodeObject,'main','mil_dot'] call misc_fnc_createMarker;
+		_connectedNodes = missionNamespace getVariable format['gps_cross_%1',str _nearestStartNodeObject];
+
+		{
+			[nil,getPosATL (_x select 0),str (_x select 1),'mil_dot'] call misc_fnc_createMarker;
+		}foreach _connectedNodes;
+	}else{
+		if(isNil 'gps_highways') then {gps_highways = [];};
+		if(_alt) then {
+			hintSilent str _pos;
+			[nil,_pos,str _pos,'mil_dot'] call misc_fnc_createMarker;
+			gps_highways pushBackUnique roadAt _pos;
+			copyToClipboard str gps_highways;
+		}else{
+			
+		};
+	};
+
+	true
+"
+
+**/

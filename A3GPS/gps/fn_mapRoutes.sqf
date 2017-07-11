@@ -11,24 +11,28 @@ scriptName "gps_virtual_mapping";
 
 _start = diag_tickTime;
 
-#include "data\Altis.sqf"
+gps_data_map_center = [worldSize / 2,worldSize / 2,0];
 
-gps_allRoads = [16085,16997,0] nearRoads 25000; // almost the center of the map
+call compile preprocessFileLineNumbers format ["gps\data\%1.sqf",worldName];
+
+gps_allRoads = gps_data_map_center nearRoads (worldSize / 2);
 gps_allRoadsWithInter = [];
 gps_allCrossRoads = [];
 gps_allCrossRoadsWithWeight = [];
 gps_onlyCrossRoads = [];
-gps_roadSegments = [];
+gps_roadSegments = [count gps_allRoads] call misc_fnc_hashTable_create;
+
+gps_alreadyLinked = [];
 
 gps_allRoadsWithInter = gps_allRoads apply {
   private _road = _x;
-  private _near = getPosATL _road nearRoads 15;
+  private _near = getPosATL _road nearRoads 17;
   private _connected = roadsConnectedTo _road;
 
   {
      if !(_x in _connected) then {
         if(count roadsConnectedTo _x isEqualTo 1) then {
-          _connected pushBack _x;
+          _connected pushBackUnique _x;
         };
      };
   }foreach _near;
@@ -38,7 +42,11 @@ gps_allRoadsWithInter = gps_allRoads apply {
 };
 
 {
-  if(count (_x select 1) > 2) then {gps_allCrossRoads pushBack _x}
+  _fn_isCrossRoad = {
+  		_nbr = {_x in gps_allCrossRoads}count _this;
+  		_nbr > 0
+  };
+  if(count (_x select 1) > 2 && !(_x call _fn_isCrossRoad)) then {gps_allCrossRoads pushBack _x}
 } forEach gps_allRoadsWithInter;
 
 gps_onlyCrossRoads = gps_allCrossRoads apply {_x select 0};
@@ -48,38 +56,38 @@ _fn_mapTheMap = {
   private _linkedTo = _this select 1;
   private _linkedCrossRoads = [];
   private _linkedSegments = [];
+  private _previous = _crossRoad;
 
   {
       private _currRoad = _x;
       private _connected = [_currRoad] call gps_fnc_roadsConnectedTo;
-      private _segmentValue = 0;
+      private _segmentValue = 1;
       private _passedBy = [];
       _passedBy pushBack _crossRoad;
 
       if(count _connected > 2) then {  
-          if(str _currRoad in _gps_highWays && str _crossRoad in _gps_highWays) then {
-              _segmentValue = round (_segmentValue / 2); 
+          if(str _currRoad in gps_data_highWays && str _crossRoad in gps_data_highWays) then {
+              _segmentValue = (_segmentValue / 5); 
           };
-          if(str _currRoad in _gps_normalWays && str _crossRoad in _gps_normalWays) then {
-              _segmentValue = round (_segmentValue / 1.5); 
+          if(str _currRoad in gps_data_normalWays && str _crossRoad in gps_data_normalWays) then {
+              _segmentValue = (_segmentValue / 2); 
           };
           _linkedCrossRoads pushBack [_currRoad,_segmentValue];
           _linkedSegments pushBack [_currRoad,[]];
       }else{
-
         while{count _connected <= 2} do {
           _connected = [_currRoad] call gps_fnc_roadsConnectedTo;
           _passedBy pushBack _currRoad;
-          _segmentValue = _segmentValue + 1;
+          _segmentValue = _segmentValue + (_previous distance _currRoad);
 
           if(count _connected isEqualTo 0) exitWith {};
           if(count _connected isEqualTo 1) exitWith {};
           if(count _connected > 2) exitWith {  
-            if(str _currRoad in _gps_highWays && str _crossRoad in _gps_highWays) then {
-                _segmentValue = round (_segmentValue / 2); 
+            if(str _currRoad in gps_data_highWays && str _crossRoad in gps_data_highWays) then {
+                _segmentValue = (_segmentValue / 5); 
             };
-            if(str _currRoad in _gps_normalWays && str _crossRoad in _gps_normalWays) then {
-              _segmentValue = round (_segmentValue / 1.5); 
+            if(str _currRoad in gps_data_normalWays && str _crossRoad in gps_data_normalWays) then {
+              _segmentValue = (_segmentValue / 2); 
             };
             _linkedCrossRoads pushBack [_currRoad,_segmentValue];
             _passedBy deleteAt (count _passedBy - 1);
@@ -87,6 +95,7 @@ _fn_mapTheMap = {
           };
            
           _oldRoad = _currRoad;
+          _previous = _oldRoad;
           {
             if(!(_x in _passedBy)) then {
               _currRoad = _x;
@@ -97,7 +106,8 @@ _fn_mapTheMap = {
         };
       };
   } forEach _linkedTo;
-  gps_roadSegments pushBack _linkedSegments;
+  //gps_roadSegments pushBack _linkedSegments;
+  [gps_roadSegments,parseNumber str _crossRoad,_linkedSegments] call misc_fnc_hashTable_set;
   _linkedCrossRoads
 };
 
@@ -108,4 +118,4 @@ gps_allCrossRoadsWithWeight = gps_allCrossRoads apply {
     _res
 };
 
-systemChat format ["GPS : Le mapping virtuel s'est terminé en %1 secondes sans problèmes",round (diag_tickTime - _start)];
+systemChat format [["STR_VMAP_INIT_DONE"] call misc_fnc_localize,round (diag_tickTime - _start)];

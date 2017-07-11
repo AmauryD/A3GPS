@@ -11,10 +11,14 @@ private _pos = param [1,[0,0,0],[[]]];
 private _text = param [2,"",[""]];
 private _type = param [3,"mil_dot",[""]];
 private _color = param [4,"ColorBlack",[""]];
+private _size = param [5,[1,1],[[]]];
+private _dir = param [6,0,[0]];
 
 _mark = createMarkerLocal [_name,_pos];
 _mark setMarkerTextLocal _text;
 _mark setMarkerTypeLocal _type;
 _mark setMarkerColorLocal _color;
+_mark setMarkerSizeLocal _size;
+_mark setMarkerDirLocal _dir;
 
 _mark

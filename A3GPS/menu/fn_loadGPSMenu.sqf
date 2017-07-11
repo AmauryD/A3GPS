@@ -23,22 +23,16 @@ _drop_data_btn = _display displayCtrl 1604;
 _close_btn = _display displayCtrl 1605;
 _help_btn = _display displayCtrl 1606;
 
-_objectsColorPicker = _display displayCtrl 2100;
+_drop_data_btn ctrlSetText (["STR_MENU_DROP_DATA"] call misc_fnc_localize);
+_stop_path ctrlSetText (["STR_MENU_STOP_PROCESS"] call misc_fnc_localize);
+_delete_saved_path_btn ctrlSetText (["STR_MENU_DELETE_SAVED_PATH"] call misc_fnc_localize);
+_newpath_btn ctrlSetText (["STR_MENU_NEW_PATH"] call misc_fnc_localize);
+_load_saved_path_btn ctrlSetText (["STR_MENU_LOAD_SAVED_PATH"] call misc_fnc_localize);
+
+
 _markerColorPicker = _display displayCtrl 2101;
 
-_color = [profileNamespace getVariable "gps_settings","markers_color"] call bis_fnc_getFromPairs;
-_class = [profileNamespace getVariable "gps_settings","objects_color"] call bis_fnc_getFromPairs;
-
-{	
-
-	_index = _objectsColorPicker lbAdd (_x select 0);
-	_objectsColorPicker lbSetData [_index,_x select 1];
-	_objectsColorPicker lbSetPicture [_index,("\A3\editorpreviews_f\Data\CfgVehicles\" + (_x select 1) + ".jpg")];
-
-	if(_class == _x select 1) then {
-		_objectsColorPicker lbSetCurSel _forEachIndex;
-	};
-}forEach [["","Sign_Arrow_Direction_F"],["","Sign_Arrow_Direction_Green_F"],["","Sign_Arrow_Direction_Blue_F"],["","Sign_Arrow_Direction_Yellow_F"],["","Sign_Arrow_Direction_Cyan_F"]];
+_color = ["markers_color"] call misc_fnc_getSetting;
 
 {	
 	_index = _markerColorPicker lbAdd (_x select 0);
@@ -71,7 +65,7 @@ _delete_saved_path_btn ctrlAddEventHandler ["ButtonClick",{
 
 	[] call gps_menu_fnc_updateSavedList;
 }];
-_delete_saved_path_btn ctrlAddEventHandler ["MouseButtonClick",{if((_this select 1) == 1) then {[["CustomGPS", "deleteSavedPath"],nil,nil,nil,nil,nil,true] call BIS_fnc_advHint}}];
+_delete_saved_path_btn ctrlAddEventHandler ["MouseButtonClick",{if((_this select 1) == 1) then {hintSilent parseText (["STR_MENU_HINT_DELETE_SAVED_PATH"] call misc_fnc_localize)}}];
 
 _map ctrlAddEventHandler ["MouseButtonClick",{
 	_control = _this select 0;
@@ -85,7 +79,7 @@ _map ctrlAddEventHandler ["MouseButtonClick",{
 	if(_shift) then {
 		_pos spawn {
 			try {
-				_this call gps_fnc_gpsAlgo;
+				_this call gps_fnc_main;
 			}catch{		// Fatal error handling
 				[format["Error : %1",_exception]] call gps_menu_fnc_setGPSInfo; 
 				[] call gps_fnc_deletePathHelpers;
@@ -94,16 +88,17 @@ _map ctrlAddEventHandler ["MouseButtonClick",{
 	};
 }];
 
-_newpath_btn ctrlAddEventHandler ["MouseButtonClick",{if((_this select 1) == 0) then {[["CustomGPS", "newPath"],nil,nil,nil,nil,nil,true] call BIS_fnc_advHint}}];
+_newpath_btn ctrlAddEventHandler ["MouseButtonClick",{hintSilent parseText (["STR_MENU_HINT_NEW_PATH"] call misc_fnc_localize)}];
 
 _stop_path ctrlAddEventHandler ["ButtonClick",{
 	["Arrêt du processus et nettoyage de la carte."] call gps_menu_fnc_setGPSInfo;
 	terminate gps_curr_thread;
+	terminate gps_track_handle;
 	[] call gps_fnc_deletePathHelpers;
 	gps_saveCurrent = false;
 	["Carte nettoyée."] call gps_menu_fnc_setGPSInfo;
 }];
-_stop_path ctrlAddEventHandler ["MouseButtonClick",{if((_this select 1) == 1) then {[["CustomGPS", "stopProcess"],nil,nil,nil,nil,nil,true] call BIS_fnc_advHint}}];
+_stop_path ctrlAddEventHandler ["MouseButtonClick",{if((_this select 1) == 1) then {hintSilent parseText (["STR_MENU_HINT_STOP_PROCESS"] call misc_fnc_localize)}}];
 
 _load_saved_path_btn ctrlAddEventHandler ["ButtonClick",{
 	_display = findDisplay 369852;
@@ -115,15 +110,14 @@ _load_saved_path_btn ctrlAddEventHandler ["ButtonClick",{
 
 	[_selected] spawn gps_fnc_loadSavedPath;
 }];
-_load_saved_path_btn ctrlAddEventHandler ["MouseButtonClick",{if((_this select 1) == 1) then {[["CustomGPS", "loadSavedPath"],nil,nil,nil,nil,nil,true] call BIS_fnc_advHint}}];
+_load_saved_path_btn ctrlAddEventHandler ["MouseButtonClick",{if((_this select 1) == 1) then {hintSilent parseText (["STR_MENU_HINT_LOAD_SAVED_PATH"] call misc_fnc_localize)}}];
 
 _drop_data_btn ctrlAddEventHandler ["ButtonClick",{ //reset some things , i don't know why this exists
 	[] spawn {
 		if(["Etes vous sûr ? Cela va effacer toutes vos données", "Attention", true, true , findDisplay 369852] call BIS_fnc_guiMessage) then {
 			profileNamespace setVariable ["gps_saved",[]];
 			profileNamespace setVariable ["gps_settings",[
-				["markers_color","colorBlue"],
-				["objects_color","Sign_Arrow_Direction_Blue_F"]
+				["markers_color","colorBlue"]
 			]];
 			if(["GPS","onMapSingleClick"] call misc_fnc_stackedEventHandlerExists) then {
 				["GPS","onMapSingleClick"] call bis_fnc_removeStackedEventHandler;
@@ -134,14 +128,6 @@ _drop_data_btn ctrlAddEventHandler ["ButtonClick",{ //reset some things , i don'
 	};
 }]; 
 
-_objectsColorPicker ctrlAddEventHandler ["LBSelChanged",{
-	_control = _this select 0;
-	_index = _this select 1;
-
-	_type = _control lbData _index;
-
-	[profileNamespace getVariable "gps_settings","objects_color",_type] call bis_fnc_setToPairs;
-}];
 
 _markerColorPicker ctrlAddEventHandler ["LBSelChanged",{
 	_control = _this select 0;
@@ -149,16 +135,10 @@ _markerColorPicker ctrlAddEventHandler ["LBSelChanged",{
 
 	_type = _control lbData _index;
 
-	[profileNamespace getVariable "gps_settings","markers_color",_type] call bis_fnc_setToPairs;
+	["markers_color",_type] call misc_fnc_setSetting;
 }];
 
-_drop_data_btn ctrlAddEventHandler ["MouseButtonClick",{if((_this select 1) == 1) then {[["CustomGPS", "dropData"],nil,nil,nil,nil,nil,true] call BIS_fnc_advHint}}];
-_saved_paths_list ctrlAddEventHandler ["MouseButtonClick",{if((_this select 1) == 1) then {[["CustomGPS", "savedList"],nil,nil,nil,nil,nil,true] call BIS_fnc_advHint}}];
-_objectsColorPicker ctrlAddEventHandler ["MouseButtonClick",{if((_this select 1) == 1) then {[["CustomGPS", "objectsColor"],nil,nil,nil,nil,nil,true] call BIS_fnc_advHint}}];
-_markerColorPicker ctrlAddEventHandler ["MouseButtonClick",{if((_this select 1) == 1) then {[["CustomGPS", "markersColor"],nil,nil,nil,nil,nil,true] call BIS_fnc_advHint}}];
+_drop_data_btn ctrlAddEventHandler ["MouseButtonClick",{if((_this select 1) == 1) then {hintSilent parseText (["STR_MENU_HINT_DROP_DATA"] call misc_fnc_localize)}}];
 
 _help_btn ctrlAddEventHandler ["ButtonClick",gps_menu_fnc_GPSHelp];
 _close_btn ctrlAddEventHandler ["ButtonClick",{(findDisplay 369852) closeDisplay 0}];
-
-_status_text ctrlSetText gps_status_text;
-_status_text ctrlSetTooltip "C'est ici que s'affiche les messages du GPS et la recherche.\nNe soyez pas effrayés par tous les numéros de route et chiffres incompréhensibles , c'est juste pour vous informer que le GPS travaille et n'a pas planté.";

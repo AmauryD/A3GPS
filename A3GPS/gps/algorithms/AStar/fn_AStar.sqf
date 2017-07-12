@@ -11,7 +11,6 @@ private _start = diag_tickTime;
 private _startRoute = _this select 0;
 private _goalRoute = _this select 1;
 private _nameSpace = _this select 2;
-private _precision = param [3,1,[0]];
 
 private _open_list = [];
 private _closed_list = [];
@@ -31,7 +30,7 @@ while {count _open_list != 0} do {
         _child_parent_link_weight = _x select 1;
 
         _g = (_qObject select 3) + _child_parent_link_weight;
-        _h = (_goalRoute distance _childObject) / _precision; //less impact 
+        _h = (_goalRoute distance _childObject) / 1.5; //less impact 
         _f = _g + _h;
         
         _successor = str _childObject;

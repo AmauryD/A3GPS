@@ -269,7 +269,15 @@ class GPS_menu {
 			h = 0.022 * safezoneH;
 		};
 		*/
-		class color_objects: RscCombo
+		class language: RscCombo
+		{
+			idc = 2100;
+			x = 0.407187 * safezoneW + safezoneX;
+			y = 0.401 * safezoneH + safezoneY;
+			w = 0.0309375 * safezoneW;
+			h = 0.022 * safezoneH;
+		};
+		class color_markers: RscCombo
 		{
 			idc = 2101;
 			x = 0.371094 * safezoneW + safezoneX;

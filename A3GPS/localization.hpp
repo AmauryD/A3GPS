@@ -1,4 +1,10 @@
 class GPS_Localization {
+	
+	class STR_languages {
+		en = "English";
+		fr = "Français";
+	};
+
 	class STR_ROAD_CONTINUE {
 		en = "Follow the road during";
 		fr = "Suivez la route durant";

@@ -23,6 +23,7 @@ _drop_data_btn = _display displayCtrl 1604;
 _close_btn = _display displayCtrl 1605;
 _help_btn = _display displayCtrl 1606;
 
+
 _drop_data_btn ctrlSetText (["STR_MENU_DROP_DATA"] call misc_fnc_localize);
 _stop_path ctrlSetText (["STR_MENU_STOP_PROCESS"] call misc_fnc_localize);
 _delete_saved_path_btn ctrlSetText (["STR_MENU_DELETE_SAVED_PATH"] call misc_fnc_localize);
@@ -31,8 +32,14 @@ _load_saved_path_btn ctrlSetText (["STR_MENU_LOAD_SAVED_PATH"] call misc_fnc_loc
 
 
 _markerColorPicker = _display displayCtrl 2101;
+_langPicker = _display displayCtrl 2100;
 
 _color = ["markers_color"] call misc_fnc_getSetting;
+
+{
+	_idx = _langPicker lbAdd (getText _x);
+	_langPicker	lbSetData [_idx,(configName _x)];
+}foreach (configProperties [(missionConfigFile >> "GPS_localization" >> "STR_LANGUAGES")]);
 
 {	
 	_index = _markerColorPicker lbAdd (_x select 0);
@@ -136,6 +143,17 @@ _markerColorPicker ctrlAddEventHandler ["LBSelChanged",{
 	_type = _control lbData _index;
 
 	["markers_color",_type] call misc_fnc_setSetting;
+}];
+
+_langPicker ctrlAddEventHandler ["LBSelChanged",{
+	_control = _this select 0;
+	_index = _this select 1;
+
+	_type = _control lbData _index;
+
+	["lang",_type] call misc_fnc_setSetting;
+	(findDisplay 369852) closeDisplay 0;
+	[] spawn gps_menu_fnc_loadGPSMenu;
 }];
 
 _drop_data_btn ctrlAddEventHandler ["MouseButtonClick",{if((_this select 1) == 1) then {hintSilent parseText (["STR_MENU_HINT_DROP_DATA"] call misc_fnc_localize)}}];

@@ -63,7 +63,7 @@ private _color = ["markers_color"] call misc_fnc_getSetting;
 private _startRoute = [_startRoute,gps_onlyCrossRoads] call misc_fnc_nearestPos;
 private _goalRoute = [_endRoute,gps_onlyCrossRoads] call misc_fnc_nearestPos;
 
-_path = [_startRoute,_goalRoute] call gps_fnc_generateNodePath;
+_path = [_startRoute,_goalRoute,1.5] call gps_fnc_generateNodePath;
 
 _allThePath set [3,(_path apply {getPosATL _x})];
 

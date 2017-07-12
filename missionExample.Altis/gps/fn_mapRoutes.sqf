@@ -70,7 +70,7 @@ _fn_mapTheMap = {
               _segmentValue = (_segmentValue / 5); 
           };
           if(str _currRoad in gps_data_normalWays && str _crossRoad in gps_data_normalWays) then {
-              _segmentValue = (_segmentValue / 2); 
+              _segmentValue = (_segmentValue / 1.2); 
           };
           _linkedCrossRoads pushBack [_currRoad,_segmentValue];
           _linkedSegments pushBack [_currRoad,[]];
@@ -87,7 +87,7 @@ _fn_mapTheMap = {
                 _segmentValue = (_segmentValue / 5); 
             };
             if(str _currRoad in gps_data_normalWays && str _crossRoad in gps_data_normalWays) then {
-              _segmentValue = (_segmentValue / 2); 
+              _segmentValue = (_segmentValue / 1.2); 
             };
             _linkedCrossRoads pushBack [_currRoad,_segmentValue];
             _passedBy deleteAt (count _passedBy - 1);

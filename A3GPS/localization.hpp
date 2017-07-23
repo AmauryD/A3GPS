@@ -99,7 +99,7 @@ class GPS_Localization {
 	};
 	class STR_MENU_DELETE_SAVED_PATH {
 		en = "Delete";
-		fr = "Supprimer"
+		fr = "Supprimer";
 	};
 	class STR_MENU_NEW_PATH {
 		en = "New path";

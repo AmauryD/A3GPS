@@ -7,4 +7,4 @@
 
 private _road = param [0,objNull,[objNull]];
 
-missionNamespace getVariable format["gps_connected_%1",str _road]
+[gps_roadsWithConnected,parseNumber str _road] call misc_fnc_hashTable_find;

@@ -24,7 +24,7 @@ while {count _open_list != 0} do {
     private _qObject = GET_NODE(_qName);
 
     _open_list deleteAt (_open_list find _qName);
-    _connectedNodes = missionNamespace getVariable format["gps_cross_%1",_qName];
+    _connectedNodes = [gps_allCrossRoadsWithWeight,parseNumber _qName] call misc_fnc_hashTable_find;
 
     {
         _childObject = _x select 0;

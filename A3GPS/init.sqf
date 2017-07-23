@@ -7,6 +7,7 @@
 
 /** GPS FUNCTIONS  **/
 gps_fnc_mapRoutes = compileFinal preprocessFileLineNumbers "gps\fn_mapRoutes.sqf";
+gps_fnc_mapNodeValues = compileFinal preprocessFileLineNumbers "gps\fn_mapNodeValues.sqf";
 gps_fnc_roadsConnectedTo = compileFinal preprocessFileLineNumbers "gps\fn_roadsConnectedTo.sqf";
 gps_fnc_loadSavedPath = compileFinal preprocessFileLineNumbers "gps\fn_loadSavedPath.sqf";
 gps_fnc_deletePathHelpers =  compileFinal preprocessFileLineNumbers "gps\fn_deletePathHelpers.sqf";
@@ -17,12 +18,12 @@ gps_fnc_generateNodePath = compileFinal preprocessFileLineNumbers "gps\fn_genera
 gps_fnc_aStar = compileFinal preprocessFileLineNumbers "gps\algorithms\AStar\fn_AStar.sqf";
 gps_fnc_findLeast = compileFinal preprocessFileLineNumbers "gps\algorithms\AStar\fn_findLeast.sqf";
 gps_fnc_isInList = compileFinal preprocessFileLineNumbers "gps\algorithms\AStar\fn_isInList.sqf";
-
+gps_fnc_navToNearest = compileFinal preprocessFileLineNumbers "gps\fn_navToNearest.sqf";
 
 gps_fnc_main = compileFinal preprocessFileLineNumbers "gps\fn_main.sqf";
 
 gps_fnc_createMarker = compileFinal preprocessFileLineNumbers "gps\fn_createMarker.sqf";
-
+gps_fnc_getAllRoads = compileFinal preprocessFileLineNumbers "gps\fn_getAllRoads.sqf";
 /** TEST FUNCTIONS **/
 //dev_fnc_getConnectedSegments = compileFinal preprocessFileLineNumbers "fn_getConnectedSegments.sqf";
 
@@ -33,6 +34,8 @@ gps_menu_fnc_gpsHelp = compileFinal preprocessFileLineNumbers "menu\fn_gpsHelp.s
 gps_menu_fnc_updateSavedList = compileFinal preprocessFileLineNumbers "menu\fn_updateSavedList.sqf";
 gps_menu_fnc_runHud = compileFinal preprocessFileLineNumbers "menu\fn_runHud.sqf";
 gps_menu_fnc_loadHud = compileFinal preprocessFileLineNumbers "menu\fn_loadHud.sqf";
+gps_menu_fnc_loadQuickNav = compileFinal preprocessFileLineNumbers "menu\fn_loadQuickNav.sqf";
+gps_menu_fnc_handleQuickNavActions = compileFinal preprocessFileLineNumbers "menu\fn_handleQuickNavActions.sqf";
 
 /** MISCELLANEOUS FUNCTIONS **/
 misc_fnc_createMarker = compileFinal preprocessFileLineNumbers "misc\fn_createmarker.sqf";
@@ -62,8 +65,7 @@ if(isNil {profileNamespace getVariable "gps_saved"}) then {  // to store path no
 if(isNil {profileNamespace getVariable "gps_settings"}) then {
 	profileNamespace setVariable ["gps_settings",[
 		["lang","en"],
-		["markers_color","colorBlue"],
-		["objects_color","Sign_Arrow_Direction_Blue_F"]
+		["markers_color","colorBlue"]
 	]];
 };
 
@@ -75,6 +77,7 @@ gps_status_text = "Pas de status";
 gps_version = "2.0";
 
 waitUntil {!isNull findDisplay 46};
+waitUntil {!isNull player};
 
 _handle = [] spawn gps_fnc_mapRoutes; 
 
@@ -83,6 +86,7 @@ waitUntil {	//wait for the virtual mapping to be done
 };
 
 player addAction ["GPS",gps_menu_fnc_loadGPSMenu];
+(findDisplay 46) displayAddEventHandler ["KeyDown",gps_menu_fnc_handleQuickNavActions];
 /**
 player addAction ["Show all crossRoads",{
 	{deleteMarker _x}foreach allMapMarkers;

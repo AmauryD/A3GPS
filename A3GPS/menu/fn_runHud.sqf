@@ -23,7 +23,7 @@ _backGround = _hudDisplay displayCtrl 2201;
 	_x ctrlCommit 1;
 }foreach [_map,_text,_backGround,_header_dir,_header_time,_header_grid];
 
-uiSleep 0.5;
+uiSleep 1;
 
 while {!(scriptDone gps_curr_thread)} do {
 	_hour = floor daytime;
@@ -47,7 +47,7 @@ while {!(scriptDone gps_curr_thread)} do {
 	_header_grid ctrlSetStructuredText parseText format["<t valign='bottom' size='0.6'><img image='%1'/>%2</t>","A3\ui_f\data\IGUI\Cfg\simpleTasks\types\map_ca.paa",format["%1,%2",(mapGridPosition player) select [0,3],(mapGridPosition player) select [3,6]]];
 	_header_time ctrlSetStructuredText parseText format["<t valign='bottom' size='0.6'><img image='%1'/>%2</t>","A3\ui_f\data\IGUI\RscTitles\MPProgress\timer_ca.paa",_time24];
 	_text ctrlSetStructuredText parseText format["<t size='0.6'>%1</t>",gps_status_text];
-	_map ctrlMapAnimAdd [0.2, (0.001 * (speed vehicle player)) max 0.05, vehicle player];
+	_map ctrlMapAnimAdd [0.2, (0.001 * (speed vehicle player)) max 0.03, vehicle player];
 	ctrlMapAnimCommit _map;
 	waitUntil {
 	   ctrlMapAnimDone _map

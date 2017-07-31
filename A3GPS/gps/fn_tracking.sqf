@@ -49,7 +49,7 @@ private _fn_getMessage = {
 	_nextNode = _path select ((_path find _node) + 1);
 	_idx = (_path find _node) - 1;
 
-	if !(isNil "_nextNode" || isNull _nextNode) then {
+	if !(isNil "_nextNode") then {
 		_nodeIdx = _fullPathNode find _node;
 		_nextRoad = _fullPathNode select (_nodeIdx + 1);
 		_dir_next = _fullPathDir select (_nodeIdx + 1);
@@ -122,6 +122,8 @@ private _fn_getMessage = {
 	_return
 };
 
+private _color = ["markers_color"] call misc_fnc_getSetting;
+
 while {true} do { //this script thread will be destroyed when arrived 
 	scopeName "main_loop";
 
@@ -131,20 +133,19 @@ while {true} do { //this script thread will be destroyed when arrived
 
 		[] call gps_fnc_deletePathHelpers;
 
-		private _startRoute = [roadAt player,gps_onlyCrossRoads] call misc_fnc_nearestPos;
+		private _startRoute = roadAt player;
+		private _goalRoute = _fullPathNode select (count _fullPathNode - 1);
 
 		try {
-			_path = [_startRoute,_goalRoute] call gps_fnc_generateNodePath;
+			[_startRoute] call gps_fnc_insertFakeNode;
+			_path = [_startRoute,_goalRoute,1.2] call gps_fnc_generateNodePath;
 		}catch{
 			gps_status_text = _exception;
 			breakTo "main_loop";
-
 		};
 
 		[nil,getPosATL _startRoute,"Début","mil_dot",_color] call gps_fnc_createMarker;
 		[nil,getPosATL _nearestEndNodeObject,"Arrivée","mil_flag",_color] call gps_fnc_createMarker;
-
-		_allThePath set [3,(_path apply {getPosATL _x})];
 
 		_fullPath = [_path] call gps_fnc_generatePathHelpers;
 		_fullPathNode = _fullPath apply	{_x select 0};	//divide fullPath in 2 arrays [Object] and [Direction]

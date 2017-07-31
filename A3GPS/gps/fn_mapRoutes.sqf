@@ -35,7 +35,7 @@ gps_allRoadsWithInter = gps_allRoads apply {
   private _connected = roadsConnectedTo _road;
 
   {
-     if !(_x in _connected) then {
+     if (!(_x in _connected) && !(_x isEqualTo _road)) then {
         if(count roadsConnectedTo _x isEqualTo 1) then {
           _connected pushBackUnique _x;
         };
@@ -46,12 +46,27 @@ gps_allRoadsWithInter = gps_allRoads apply {
   [_road,_connected]
 };
 
-{
-  _fn_isCrossRoad = {
-  		_nbr = {_x in gps_allCrossRoads}count _this;
-  		_nbr > 0
+{ //fix for one-way connected roads , thx god , that fixed every problems
+  if(count ([_x] call gps_fnc_roadsConnectedTo) < 2) then {
+    private _route = _x;
+    private _routeConnected = [gps_roadsWithConnected,parseNumber str _route] call misc_fnc_hashTable_find;
+    private _nearRoads = _route nearRoads 25;
+
+    {
+      _road = _x;
+      _connected = [gps_roadsWithConnected,parseNumber str _road] call misc_fnc_hashTable_find;
+
+      if(_route in _connected) then {
+        _routeConnected pushBackUnique _road;
+      };
+    }foreach _nearRoads;
+    [gps_roadsWithConnected,parseNumber str _route,_routeConnected] call misc_fnc_hashTable_set;
   };
-  if(count (_x select 1) > 2 && !(_x call _fn_isCrossRoad)) then {gps_allCrossRoads pushBack _x}
+}foreach gps_allRoads;
+
+{
+  _connected = [gps_roadsWithConnected,parseNumber str (_x select 0)] call misc_fnc_hashTable_find;
+  if(count _connected > 2) then {gps_allCrossRoads pushBack _x};
 } forEach gps_allRoadsWithInter;
 
 gps_onlyCrossRoads = gps_allCrossRoads apply {_x select 0};

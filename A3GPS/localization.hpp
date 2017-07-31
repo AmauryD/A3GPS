@@ -109,4 +109,24 @@ class GPS_Localization {
 		en = "Stop";
 		fr = "Arreter";
 	};
+	class STR_QUICKNAV_OPTION_STATION {
+		en = "< Service station >";
+		fr = "< Station service >";
+	};	
+	class STR_QUICKNAV_OPTION_TOWN {
+		en = "< Nearest Town >";
+		fr = "< Ville proche >";
+	};
+	class STR_QUICKNAV_HEADER {
+		en = "Quick Nav.";
+		fr = "Nav. rapide";
+	};
+	class STR_ARRIVED {
+		en = "You have arrived at destination , thank's for using A3GPS™";
+		fr = "Vous êtes arrivé à destination , merci d'avoir utilisé A3GPS™";
+	};
+	class STR_MENU_INFO {
+		en = "<t align='center' size='1.5'>GPS v%1</t><br/>by <t align='center' underline='true'> [utopia]Amaury . </t><br/><t color='#99ffffff'> Right click on a menu element to have more informations about it. </t><br/><br/><t>";
+		fr = "<t align='center' size='1.5'>GPS v%1</t><br/>par <t align='center' underline='true'> [utopia]Amaury . </t><br/><t color='#99ffffff'> Clic droit sur un élément du menu pour obtenir une aide. </t><br/><br/><t>";
+	};
 };

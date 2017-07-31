@@ -35,10 +35,14 @@ _markerColorPicker = _display displayCtrl 2101;
 _langPicker = _display displayCtrl 2100;
 
 _color = ["markers_color"] call misc_fnc_getSetting;
+_lang = ["lang"] call misc_fnc_getSetting;
 
 {
 	_idx = _langPicker lbAdd (getText _x);
 	_langPicker	lbSetData [_idx,(configName _x)];
+	if(configName _x isEqualTo _lang) then {
+		_langPicker lbSetCurSel _idx;
+	};
 }foreach (configProperties [(missionConfigFile >> "GPS_localization" >> "STR_LANGUAGES")]);
 
 {	

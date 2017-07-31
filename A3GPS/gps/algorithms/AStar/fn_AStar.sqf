@@ -31,7 +31,7 @@ while {count _open_list != 0} do {
         _child_parent_link_weight = _x select 1;
 
         _g = (_qObject select 3) + _child_parent_link_weight;
-        _h = (_goalRoute distance _childObject) / _precision; //less impact 
+        _h = (_childObject distance2D _goalRoute) / _precision;
         _f = _g + _h;
         
         _successor = str _childObject;
@@ -52,10 +52,6 @@ while {count _open_list != 0} do {
 };
 
 [format ["Astar took %1",diag_tickTime - _start]] call gps_menu_fnc_setGPSInfo;
-
-if !(str _startRoute in _open_list) then {
-    [_open_list,str _startRoute] call misc_fnc_pushFront;
-};
 
 _open_list = _open_list apply {GET_NODE(_x)};
 

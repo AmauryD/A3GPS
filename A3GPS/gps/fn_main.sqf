@@ -10,7 +10,7 @@ scopeName "main";
 
 private "_path";
 private _saveName = "";
-private _startRoute = getpos player;
+private _startRoute = roadAt player;
 private _endRoute = roadAt _this;
 
 if(!scriptDone gps_curr_thread) exitWith {hintSilent (["STR_ALREADY_LOADING"] call misc_fnc_localize)};
@@ -24,8 +24,11 @@ _start = diag_tickTime;
 
 [] call gps_fnc_deletePathHelpers;
 
-private _nearestStartNodeObject = [_startRoute,gps_onlyCrossRoads] call misc_fnc_nearestPos;
-private _nearestEndNodeObject = [_endRoute,gps_onlyCrossRoads] call misc_fnc_nearestPos;
+private _nearestStartNodeObject = _startRoute;
+private _nearestEndNodeObject = _endRoute;
+
+[_nearestStartNodeObject] call gps_fnc_insertFakeNode;
+[_nearestEndNodeObject] call gps_fnc_insertFakeNode;
 
 gps_saveCurrent = [["STR_VALID_SAVE_PATH"] call misc_fnc_localize,["STR_VALID_SAVE_PATH_TITLE"] call misc_fnc_localize, true, true , findDisplay 369852] call BIS_fnc_guiMessage;
 if(gps_saveCurrent) then {
@@ -47,23 +50,9 @@ private _color = ["markers_color"] call misc_fnc_getSetting;
 [nil,getPosATL _nearestStartNodeObject,["STR_START"] call misc_fnc_localize,"mil_dot",_color] call gps_fnc_createMarker;
 [nil,getPosATL _nearestEndNodeObject,["STR_GOAL"] call misc_fnc_localize,"mil_flag",_color] call gps_fnc_createMarker;
 
-[_thisScript,_nearestEndNodeObject] spawn {
-	scriptName "gps_wait_arrive";
-	_handle = _this select 0;
-	_end = _this select 1;
+[_thisScript,_nearestEndNodeObject] spawn gps_fnc_waitArrive;
 
- 	waitUntil {uisleep 1;!(_handle isEqualTo gps_curr_thread) || player distance _end < 10}; // wait for new search or player arrives at destination
- 	if(player distance _end < 10) then {
- 		[] call gps_fnc_deletePathHelpers;
- 		[["CustomGPS", "arrived"],nil,nil,nil,nil,nil,true] call BIS_fnc_advHint;
- 	};
- 	terminate _handle;
-};
-
-private _startRoute = [_startRoute,gps_onlyCrossRoads] call misc_fnc_nearestPos;
-private _goalRoute = [_endRoute,gps_onlyCrossRoads] call misc_fnc_nearestPos;
-
-_path = [_startRoute,_goalRoute,1.5] call gps_fnc_generateNodePath;
+_path = [_nearestStartNodeObject,_nearestEndNodeObject,1] call gps_fnc_generateNodePath;
 
 _allThePath set [3,(_path apply {getPosATL _x})];
 

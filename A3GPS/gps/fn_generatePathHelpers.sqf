@@ -35,7 +35,7 @@ _start = diag_tickTime;
 
 		if(_theSegment isEqualTo []) then {
 			_direction = _point getDir _nextPoint;
-			[str _x,getPosATL _x,"","mil_arrow",_color,[0.25,0.25],_direction] call gps_fnc_createMarker;
+			[str _x,getPosATL _x,"","mil_arrow",_color,[0.25,0.25],_direction] spawn gps_fnc_createMarker;
 			_fullPath pushBack [_point,_direction];
 		};
 
@@ -47,7 +47,7 @@ _start = diag_tickTime;
 			};
 			_direction = [_x,_nextRoad] call BIS_fnc_DirTo;
 
-			[str _x,getPosATL _x,"","mil_arrow",_color,[0.25,0.25],_direction] call gps_fnc_createMarker;
+			[str _x,getPosATL _x,"","mil_arrow",_color,[0.25,0.25],_direction] spawn gps_fnc_createMarker;
 			_fullPath pushBack [_x,_direction];
 		}foreach _theSegment;
 	};

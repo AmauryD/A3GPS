@@ -10,6 +10,7 @@ _handled = false;
 
 _hudDisplay = uiNamespace getVariable ["gps_quickNav",displayNull];
 
+if(dialog) exitWith {_handled};
 
 if(_key == 15) then  { 
 	if !(isNull _hudDisplay) exitWith {
@@ -38,7 +39,6 @@ if(_key == 42) then { //42 !!!!!!!!!!!!!!!!
 			_idx = _hudDisplay getVariable "selOpt";
 		};
 
-		_btn buttonSetAction ((_options select _idx) select 1);
 		_btn ctrlSetText ((_options select _idx) select 0);
 		_handled = true;
 	};
@@ -49,7 +49,7 @@ if(_key	== 28) then {
 		_options = _hudDisplay getVariable ["options",[]];
 		_idx = _hudDisplay getVariable "selOpt";
 
-		[] spawn compile ((_options select _idx) select 1);
+		[] spawn ((_options select _idx) select 1);
 		_handled = true;
 	};
 };

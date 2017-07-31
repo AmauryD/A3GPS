@@ -8,8 +8,9 @@
 
 private _position = param [0,objNull,[[],objNull]];
 private _radius = param [1,1000,[0]];
+private _types = param [2,["NameCity","NameVillage","NameCityCapital","NameLocal"],[[]]];
 
-_locations = nearestLocations [_position, ["NameCity","NameVillage","NameCityCapital","NameLocal"], _radius];
+_locations = nearestLocations [_position, _types, _radius];
 
 _posArray = _locations apply {locationPosition _x};
 

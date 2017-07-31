@@ -22,8 +22,11 @@ gps_fnc_navToNearest = compileFinal preprocessFileLineNumbers "gps\fn_navToNeare
 
 gps_fnc_main = compileFinal preprocessFileLineNumbers "gps\fn_main.sqf";
 
+gps_fnc_waitArrive = compileFinal preprocessFileLineNumbers "gps\fn_waitArrive.sqf";
+gps_fnc_insertFakeNode = compileFinal preprocessFileLineNumbers "gps\fn_insertFakeNode.sqf";
 gps_fnc_createMarker = compileFinal preprocessFileLineNumbers "gps\fn_createMarker.sqf";
 gps_fnc_getAllRoads = compileFinal preprocessFileLineNumbers "gps\fn_getAllRoads.sqf";
+
 /** TEST FUNCTIONS **/
 //dev_fnc_getConnectedSegments = compileFinal preprocessFileLineNumbers "fn_getConnectedSegments.sqf";
 
@@ -70,6 +73,7 @@ if(isNil {profileNamespace getVariable "gps_settings"}) then {
 };
 
 gps_saveCurrent = false;
+gps_init_done = false;
 gps_local_markers =	[];
 gps_local_objects = [];
 gps_curr_thread = scriptNull;
@@ -85,48 +89,7 @@ waitUntil {	//wait for the virtual mapping to be done
    scriptDone _handle
 };
 
+gps_init_done = true;
+
 player addAction ["GPS",gps_menu_fnc_loadGPSMenu];
 (findDisplay 46) displayAddEventHandler ["KeyDown",gps_menu_fnc_handleQuickNavActions];
-/**
-player addAction ["Show all crossRoads",{
-	{deleteMarker _x}foreach allMapMarkers;
-	{
-		[nil,getPosATL _x,str _x,'mil_dot'] call misc_fnc_createMarker;
-	}foreach gps_onlyCrossRoads;
-}];
-
-player addAction ["Show all roads (near player)",{
-	{deleteMarker _x}foreach allMapMarkers;
-	{
-		[nil,getPosATL _x,str _x,'mil_dot'] call misc_fnc_createMarker;
-	}foreach (player nearRoads 1000);
-}];
-//gps_menu_fnc_loadGPSMenu
-
-onMapSingleClick "
-	private _nearestStartNodeObject = [_pos,gps_onlyCrossRoads] call misc_fnc_nearestPos;
-
-	if(_shift) then {
-		{deleteMarkerLocal _x;} forEach allMapMarkers;
-		[nil,getPosATL _nearestStartNodeObject,'main','mil_dot'] call misc_fnc_createMarker;
-		_connectedNodes = missionNamespace getVariable format['gps_cross_%1',str _nearestStartNodeObject];
-
-		{
-			[nil,getPosATL (_x select 0),str (_x select 1),'mil_dot'] call misc_fnc_createMarker;
-		}foreach _connectedNodes;
-	}else{
-		if(isNil 'gps_highways') then {gps_highways = [];};
-		if(_alt) then {
-			hintSilent str _pos;
-			[nil,_pos,str _pos,'mil_dot'] call misc_fnc_createMarker;
-			gps_highways pushBackUnique roadAt _pos;
-			copyToClipboard str gps_highways;
-		}else{
-			
-		};
-	};
-
-	true
-"
-
-**/

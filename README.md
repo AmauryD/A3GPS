@@ -25,7 +25,7 @@ Add this line :
 ```
 
 ### In the gps init file :
-Edit the folder path for each functions if you're not pudding the gps in the root folder.
+Edit the folder path for each functions if you're not putting the gps in the root folder.
 
   Exemple :
   ```sqf

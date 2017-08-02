@@ -52,7 +52,7 @@ private _color = ["markers_color"] call misc_fnc_getSetting;
 
 [_thisScript,_nearestEndNodeObject] spawn gps_fnc_waitArrive;
 
-_path = [_nearestStartNodeObject,_nearestEndNodeObject,1] call gps_fnc_generateNodePath;
+_path = [_nearestStartNodeObject,_nearestEndNodeObject,0.1] call gps_fnc_generateNodePath;
 
 _allThePath set [3,(_path apply {getPosATL _x})];
 

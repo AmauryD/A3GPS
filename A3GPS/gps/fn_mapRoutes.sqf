@@ -36,7 +36,7 @@ gps_allRoadsWithInter = gps_allRoads apply {
 
   {
      if (!(_x in _connected) && !(_x isEqualTo _road)) then {
-        if(count roadsConnectedTo _x isEqualTo 1) then {
+        if(count roadsConnectedTo _x < 3) then {
           _connected pushBackUnique _x;
         };
      };

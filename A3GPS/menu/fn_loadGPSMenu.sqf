@@ -102,12 +102,12 @@ _map ctrlAddEventHandler ["MouseButtonClick",{
 _newpath_btn ctrlAddEventHandler ["MouseButtonClick",{hintSilent parseText (["STR_MENU_HINT_NEW_PATH"] call misc_fnc_localize)}];
 
 _stop_path ctrlAddEventHandler ["ButtonClick",{
-	["Arrêt du processus et nettoyage de la carte."] call gps_menu_fnc_setGPSInfo;
+	[["STR_MENU_STOPPING_PROCESS"] call misc_fnc_localize] call gps_menu_fnc_setGPSInfo;
 	terminate gps_curr_thread;
 	terminate gps_track_handle;
 	[] call gps_fnc_deletePathHelpers;
 	gps_saveCurrent = false;
-	["Carte nettoyée."] call gps_menu_fnc_setGPSInfo;
+	[["STR_MENU_MAP_CLEARED"] call misc_fnc_localize] call gps_menu_fnc_setGPSInfo;
 }];
 _stop_path ctrlAddEventHandler ["MouseButtonClick",{if((_this select 1) == 1) then {hintSilent parseText (["STR_MENU_HINT_STOP_PROCESS"] call misc_fnc_localize)}}];
 
@@ -125,7 +125,7 @@ _load_saved_path_btn ctrlAddEventHandler ["MouseButtonClick",{if((_this select 1
 
 _drop_data_btn ctrlAddEventHandler ["ButtonClick",{ //reset some things , i don't know why this exists
 	[] spawn {
-		if(["Etes vous sûr ? Cela va effacer toutes vos données", "Attention", true, true , findDisplay 369852] call BIS_fnc_guiMessage) then {
+		if([["STR_MENU_CONFIRM_DROP_DATA_CONTENT"] call misc_fnc_localize, ["STR_MENU_CONFIRM_DROP_DATA_TITLE"] call misc_fnc_localize, true, true , findDisplay 369852] call BIS_fnc_guiMessage) then {
 			profileNamespace setVariable ["gps_saved",[]];
 			profileNamespace setVariable ["gps_settings",[
 				["markers_color","colorBlue"]

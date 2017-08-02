@@ -129,4 +129,20 @@ class GPS_Localization {
 		en = "<t align='center' size='1.5'>GPS v%1</t><br/>by <t align='center' underline='true'> [utopia]Amaury . </t><br/><t color='#99ffffff'> Right click on a menu element to have more informations about it. </t><br/><br/><t>";
 		fr = "<t align='center' size='1.5'>GPS v%1</t><br/>par <t align='center' underline='true'> [utopia]Amaury . </t><br/><t color='#99ffffff'> Clic droit sur un élément du menu pour obtenir une aide. </t><br/><br/><t>";
 	};
+	class STR_MENU_CONFIRM_DROP_DATA_CONTENT {
+		en = "Are you sure ? This will erase all your saved data and settings";
+		fr = "Etes vous sûr ? Cela va effacer toutes vos données";
+	};
+	class STR_MENU_CONFIRM_DROP_DATA_TITLE {
+		en = "Confirm";
+		fr = "Confirmer";
+	};
+	class STR_MENU_MAP_CLEARED {
+		en = "Map cleared and gps stopped successfully.";
+		fr = "Carte nettoyée et processus arrêté avec succès.";
+	};
+	class STR_MENU_STOPPING_PROCESS {
+		en = "Stopping GPS process and cleaning the map ...";
+		fr = "Arrêt du processus et nettoyage de la carte ...";
+	};
 };

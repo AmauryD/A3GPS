@@ -6,7 +6,4 @@
 **/
 
 {deleteMarkerLocal _x}forEach gps_local_markers;
-{deleteVehicle _x}forEach gps_local_objects;
 gps_local_markers =	[];
-gps_local_objects = [];
-

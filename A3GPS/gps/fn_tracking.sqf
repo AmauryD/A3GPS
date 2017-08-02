@@ -144,8 +144,8 @@ while {true} do { //this script thread will be destroyed when arrived
 			breakTo "main_loop";
 		};
 
-		[nil,getPosATL _startRoute,"Début","mil_dot",_color] call gps_fnc_createMarker;
-		[nil,getPosATL _nearestEndNodeObject,"Arrivée","mil_flag",_color] call gps_fnc_createMarker;
+		[nil,getPosATL _startRoute,["STR_START"] call misc_fnc_localize,"mil_dot",_color] call gps_fnc_createMarker;
+		[nil,getPosATL _goalRoute,["STR_GOAL"] call misc_fnc_localize,"mil_flag",_color] call gps_fnc_createMarker;
 
 		_fullPath = [_path] call gps_fnc_generatePathHelpers;
 		_fullPathNode = _fullPath apply	{_x select 0};	//divide fullPath in 2 arrays [Object] and [Direction]

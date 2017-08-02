@@ -18,9 +18,9 @@ terminate gps_curr_thread;
 	if(_name isEqualTo _savedName) then {
 		_theRightPath = _x;
 	};
-}foreach (profileNamespace getVariable "gps_saved");
+}foreach (profileNamespace getVariable ["gps_saved",[]]);
 
-
+gps_curr_thread = _thisScript;
 
 _startRoad = roadAt (_theRightPath select 1);
 _endRoad = roadAt (_theRightPath select 2);
@@ -31,5 +31,9 @@ _endRoad = roadAt (_theRightPath select 2);
 _nodesPath = (_theRightPath select 3) apply {[_x,gps_onlyCrossRoads] call misc_fnc_nearestPos}; //roadAt does not work properly , we need to find the nearest crossRoad
 
 [["STR_LOAD_SAVED_PATH"] call misc_fnc_localize] call gps_menu_fnc_setGPSInfo;
-[_nodesPath] call gps_fnc_generatePathHelpers;
+_fullPath = [_nodesPath] call gps_fnc_generatePathHelpers;
 [["STR_SAVED_PATH_LOADED"] call misc_fnc_localize] call gps_menu_fnc_setGPSInfo;
+[_thisScript,_endRoad] spawn gps_fnc_waitArrive;
+[] spawn gps_menu_fnc_runHud;
+
+[_nodesPath,_fullPath] call gps_fnc_tracking;

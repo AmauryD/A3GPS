@@ -1,3 +1,4 @@
+#include "..\macros.h"
 /**
   @Author : [Utopia] Amaury
   @Creation : 1/02/17
@@ -5,15 +6,15 @@
   @Description :trying to make a virtual map because arma road system ...
   				this file has changed so much ...
 **/
-
-
 scriptName "gps_virtual_mapping";
+
+_start = diag_tickTime;
+[format [["STR_LOG_VMAP_INIT_START"] call misc_fnc_localize]] call gps_fnc_log;
 
 gps_data_map_center = [worldSize / 2,worldSize / 2,0];
 
 call compile preprocessFileLineNumbers format ["gps\data\%1.sqf",worldName];
 
-_start = diag_tickTime;
 gps_allRoads = [] call gps_fnc_getAllRoads;
 
 _max_road_index = (gps_allRoads apply {parseNumber str _x});
@@ -50,7 +51,7 @@ gps_allRoadsWithInter = gps_allRoads apply {
   if(count ([_x] call gps_fnc_roadsConnectedTo) < 2) then {
     private _route = _x;
     private _routeConnected = [gps_roadsWithConnected,parseNumber str _route] call misc_fnc_hashTable_find;
-    private _nearRoads = _route nearRoads 25;
+    private _nearRoads = _route nearRoads 17;
 
     {
       _road = _x;
@@ -75,4 +76,4 @@ gps_onlyCrossRoads = gps_allCrossRoads apply {_x select 0};
     _x call gps_fnc_mapNodeValues;
 }foreach gps_allCrossRoads;
 
-systemChat format [["STR_VMAP_INIT_DONE"] call misc_fnc_localize,round (diag_tickTime - _start)];
+[format [["STR_LOG_VMAP_INIT_DONE"] call misc_fnc_localize,round (diag_tickTime - _start)]] call gps_fnc_log;

@@ -9,6 +9,7 @@ _disp = _this select 0;
 uiNamespace setVariable ['gps_quickNav', _disp];
 
 _btn = _disp displayCtrl 1600;
+_btn ctrlEnable false;
 _text = _disp displayCtrl 1100;
 
 _text ctrlSetStructuredText parseText format["<t align='center'>%1</t>",["STR_QUICKNAV_HEADER"] call misc_fnc_localize];

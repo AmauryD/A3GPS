@@ -4,7 +4,26 @@ class GPS_Localization {
 		en = "English";
 		fr = "Français";
 	};
-
+	class STR_GPS_NOT_LOADED {
+		en="The GPS is not loaded , please wait a little...";
+		fr="Votre GPS n'est pas encore chargé.";
+	};
+	class STR_NO {
+		en="No.";
+		fr="Non.";
+	};
+	class STR_YES {
+		en="Yes.";
+		fr="Oui.";
+	};
+	class STR_NO_VALID_START_ROAD {
+		en="No valid start road detected.";
+		fr="Pas de route de départ valide détectée.";
+	};
+	class STR_NO_VALID_END_ROAD {
+		en="No valid goal road detected.";
+		fr="Pas d'arrivée valide détectée.";
+	};
 	class STR_ROAD_CONTINUE {
 		en = "Follow the road during";
 		fr = "Suivez la route durant";
@@ -65,10 +84,6 @@ class GPS_Localization {
 		en = "Please enter a name";
 		fr = "Entrez un nom";
 	};
-	class STR_VMAP_INIT_DONE {
-		en = "Road network initialized in %1s";
-		fr = "Routes initialisées en %1s";
-	};
 	class STR_MENU_HINT_STOP_PROCESS {
 		en = "Stop the gps process.<br/>Clean the road and the map.<br/>";
 		fr = "Arrête le processus du GPS.<br/>Nettoie la map des marqueurs et aides sur la route.<br/>";
@@ -119,7 +134,7 @@ class GPS_Localization {
 	};
 	class STR_QUICKNAV_HEADER {
 		en = "Quick Nav.";
-		fr = "Nav. rapide";
+		fr = "Navigation rapide";
 	};
 	class STR_ARRIVED {
 		en = "You have arrived at destination , thank's for using A3GPS™";
@@ -144,5 +159,15 @@ class GPS_Localization {
 	class STR_MENU_STOPPING_PROCESS {
 		en = "Stopping GPS process and cleaning the map ...";
 		fr = "Arrêt du processus et nettoyage de la carte ...";
+	};
+
+	//log messages
+	class STR_LOG_VMAP_INIT_DONE {
+		en = "Road network initialized in %1s";
+		fr = "Routes initialisées en %1s";
+	};
+	class STR_LOG_VMAP_INIT_START {
+		en = "Road network initilization started";
+		fr = "Initialisation des routes...";
 	};
 };

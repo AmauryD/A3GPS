@@ -1,14 +1,16 @@
 private _position = _this select 0;
 
-if !(gps_curr_thread isEqualTo scriptNull) exitWith {};
+if !(gps_curr_thread isEqualTo scriptNull) exitWith {
+	hintSilent (["STR_ALREADY_LOADING"] call misc_fnc_localize);
+};
+
+gps_curr_thread = _thisScript;
 
 private _nearestStartNodeObject = [player,player nearRoads 100] call misc_fnc_nearestPos;
 private _nearestEndNodeObject = [_position,_position nearRoads 100] call misc_fnc_nearestPos;
 
 [_nearestStartNodeObject] call gps_fnc_insertFakeNode;
 [_nearestEndNodeObject] call gps_fnc_insertFakeNode;
-
-gps_curr_thread = _thisScript;
 
 try {
 	_path = [_nearestStartNodeObject,_nearestEndNodeObject] call gps_fnc_generateNodePath;

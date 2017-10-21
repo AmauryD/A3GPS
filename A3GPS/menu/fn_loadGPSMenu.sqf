@@ -126,13 +126,9 @@ _load_saved_path_btn ctrlAddEventHandler ["MouseButtonClick",{if((_this select 1
 _drop_data_btn ctrlAddEventHandler ["ButtonClick",{ //reset some things , i don't know why this exists
 	[] spawn {
 		if([["STR_MENU_CONFIRM_DROP_DATA_CONTENT"] call misc_fnc_localize, ["STR_MENU_CONFIRM_DROP_DATA_TITLE"] call misc_fnc_localize, true, true , findDisplay 369852] call BIS_fnc_guiMessage) then {
-			profileNamespace setVariable ["gps_saved",[]];
-			profileNamespace setVariable ["gps_settings",[
-				["markers_color","colorBlue"]
-			]];
-			if(["GPS","onMapSingleClick"] call misc_fnc_stackedEventHandlerExists) then {
-				["GPS","onMapSingleClick"] call bis_fnc_removeStackedEventHandler;
-			};
+			profileNamespace setVariable ["gps_saved",nil];
+			profileNamespace setVariable ["gps_settings",nil];
+			[] call gps_fnc_refreshCache;
 			gps_saveCurrent = false;
 			(findDisplay 369852) closeDisplay 0;
 		};
@@ -147,6 +143,7 @@ _markerColorPicker ctrlAddEventHandler ["LBSelChanged",{
 	_type = _control lbData _index;
 
 	["markers_color",_type] call misc_fnc_setSetting;
+	{_x setMarkerColorLocal	_type}foreach gps_local_markers;
 }];
 
 _langPicker ctrlAddEventHandler ["LBSelChanged",{

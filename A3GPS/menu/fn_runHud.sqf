@@ -18,6 +18,20 @@ _header_grid = _hudDisplay displayCtrl 1102;
 _header_time = _hudDisplay displayCtrl 1103;
 _backGround = _hudDisplay displayCtrl 2201;
 
+_map mapCenterOnCamera true;
+
+_map ctrlAddEventHandler ["Draw",{
+	_this select 0 drawIcon [
+		getText (configFile/"CfgVehicles"/typeOf vehicle player/"Icon"),
+		[1,1,1,1],
+        visiblePosition (vehicle player),
+        24,
+        24,
+        0
+	];
+}];
+
+
 {
 	_x ctrlSetPosition (_x getVariable "originalPos");
 	_x ctrlCommit 1;
@@ -43,15 +57,16 @@ while {!(scriptDone gps_curr_thread)} do {
 		case 3 : {	_dirStr };
 	};
 
-	_header_dir ctrlSetStructuredText parseText format["<t valign='bottom' size='0.6'><img image='%1'/>%2</t>","A3\ui_f\data\GUI\Rsc\RscDisplayIntel\azimuth_ca.paa",_dir];
-	_header_grid ctrlSetStructuredText parseText format["<t valign='bottom' size='0.6'><img image='%1'/>%2</t>","A3\ui_f\data\IGUI\Cfg\simpleTasks\types\map_ca.paa",format["%1,%2",(mapGridPosition player) select [0,3],(mapGridPosition player) select [3,6]]];
-	_header_time ctrlSetStructuredText parseText format["<t valign='bottom' size='0.6'><img image='%1'/>%2</t>","A3\ui_f\data\IGUI\RscTitles\MPProgress\timer_ca.paa",_time24];
-	_text ctrlSetStructuredText parseText format["<t size='0.6'>%1</t>",gps_status_text];
-	_map ctrlMapAnimAdd [0.2, (0.001 * (speed vehicle player)) max 0.01, vehicle player];
-	ctrlMapAnimCommit _map;
-	waitUntil {
-	   ctrlMapAnimDone _map
+	if(getNumber (gps_config_entry >> "hud_azimuth_enabled") == 1) then {
+			_header_dir ctrlSetStructuredText parseText format["<t valign='bottom' size='0.8'><img image='%1'/>%2</t>","A3\ui_f\data\GUI\Rsc\RscDisplayIntel\azimuth_ca.paa",_dir];
 	};
+	if(getNumber (gps_config_entry >> "hud_gridpos_enabled") == 1) then {
+			_header_grid ctrlSetStructuredText parseText format["<t valign='bottom' size='0.8'><img image='%1'/>%2</t>","A3\ui_f\data\IGUI\Cfg\simpleTasks\types\map_ca.paa",format["%1,%2",(mapGridPosition player) select [0,3],(mapGridPosition player) select [3,6]]];
+	};
+	if(getNumber (gps_config_entry >> "hud_clock_enabled") == 1) then {
+			_header_time ctrlSetStructuredText parseText format["<t valign='bottom' size='0.8'><img image='%1'/>%2</t>","A3\ui_f\data\IGUI\RscTitles\MPProgress\timer_ca.paa",_time24];
+	};
+	_text ctrlSetStructuredText parseText format["<t size='0.8'>%1</t>",gps_status_text];
 };
 
 

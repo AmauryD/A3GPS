@@ -15,15 +15,15 @@ private _fullPathDir = _fullPath apply	{_x select 1};
 private _fn_findNextNode = {
 	_currRoadIndex = _fullPathNode find ([getPosATL player,20,_fullPathNode] call misc_fnc_nearestRoadInArray); //searching nearestRoad in path to avoid road superposition problem
 	_nextPath = _fullPathNode select [_currRoadIndex,(count _fullPathNode) - 1];
-	private _return = objNull;
+	private _next = objNull;
 
 	{
 		if(_x in _path) exitWith {
-			_return = _x;
+			_next = _x;
 		};
 	}foreach _nextPath;
 
-	_return
+	_next
 };
 
 private _fn_getMessage = {
@@ -138,7 +138,7 @@ while {true} do { //this script thread will be destroyed when arrived
 
 		try {
 			[_startRoute] call gps_fnc_insertFakeNode;
-			_path = [_startRoute,_goalRoute,1.2] call gps_fnc_generateNodePath;
+			_path = [_startRoute,_goalRoute,3] call gps_fnc_generateNodePath;
 		}catch{
 			gps_status_text = _exception;
 			breakTo "main_loop";

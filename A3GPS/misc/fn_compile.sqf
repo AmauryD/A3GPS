@@ -10,5 +10,5 @@ _header = ([format["private _thisFile = '%1';",_fileName],""]) select _disableHe
 
 compileFinal format["%1%2",
 	_header,
-	preprocessFileLineNumbers format["%1\%2",_path,_fileName]
+	preprocessFileLineNumbers format["%1\%2",gps_dir + _path,_fileName]
 ];

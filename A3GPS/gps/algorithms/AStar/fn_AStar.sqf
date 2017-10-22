@@ -1,3 +1,5 @@
+#include "..\..\..\macros.h"
+
 #define CREATE_NODE(PARENT,ROAD_OBJECT,F,G,H) [_nameSpace,parseNumber str ROAD_OBJECT,[PARENT,ROAD_OBJECT,F,G,H]] call misc_fnc_hashTable_set
 #define GET_NODE(ROAD_NAME) [_nameSpace,parseNumber ROAD_NAME] call misc_fnc_hashTable_find
 
@@ -22,6 +24,10 @@ _open_list pushBack str _startRoute;
 while {count _open_list != 0} do {
     private _qName = _open_list call gps_fnc_findLeast;
     private _qObject = GET_NODE(_qName);
+
+    #ifdef GPS_DEV
+        [str _qObject,getPosATL(_qObject select 1),str (_qObject select 1)] call gps_fnc_createMarker;
+    #endif
 
     _open_list deleteAt (_open_list find _qName);
     _connectedNodes = [gps_allCrossRoadsWithWeight,parseNumber _qName] call misc_fnc_hashTable_find;
@@ -51,7 +57,9 @@ while {count _open_list != 0} do {
     _closed_list pushBack _qName;
 };
 
-[format ["Astar took %1",diag_tickTime - _start]] call gps_menu_fnc_setGPSInfo;
+#ifdef GPS_DEV
+    [format ["Astar took %1|start:%2|end:%3|distance:%4",diag_tickTime - _start,_startRoute,_goalRoute,_startRoute distance2D _goalRoute]] call gps_fnc_log;
+#endif
 
 _open_list = _open_list apply {GET_NODE(_x)};
 

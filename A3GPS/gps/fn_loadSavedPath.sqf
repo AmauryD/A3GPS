@@ -6,10 +6,8 @@
 **/
 
 private _name = param [0,"",[""]];
-
-_theRightPath = [];
-
-["Initialisation du chemin préfait"] call gps_menu_fnc_setGPSInfo;
+private _theRightPath = [];
+private _color = ["markers_color"] call misc_fnc_getSetting;
 
 terminate gps_curr_thread;
 [] call gps_fnc_deletePathHelpers;
@@ -20,21 +18,22 @@ terminate gps_curr_thread;
 	if(_name isEqualTo _savedName) then {
 		_theRightPath = _x;
 	};
-}foreach (profileNamespace getVariable "gps_saved");
+}foreach (profileNamespace getVariable ["gps_saved",[]]);
 
-_color = [profileNamespace getVariable "gps_settings","markers_color"] call bis_fnc_getFromPairs;
-_class = [profileNamespace getVariable "gps_settings","objects_color"] call bis_fnc_getFromPairs;
+gps_curr_thread = _thisScript;
 
 _startRoad = roadAt (_theRightPath select 1);
 _endRoad = roadAt (_theRightPath select 2);
 
-_marker = [nil,getPosATL _startRoad,"Début","mil_dot",_color] call misc_fnc_createMarker;
-gps_local_markers pushBack _marker;
-_marker = [nil,getPosATL _endRoad,"Arrivée","mil_flag",_color] call misc_fnc_createMarker;
-gps_local_markers pushBack _marker;
+[nil,getPosATL _startRoad,["STR_START"] call misc_fnc_localize,"mil_dot",_color] call gps_fnc_createMarker;
+[nil,getPosATL _endRoad,["STR_GOAL"] call misc_fnc_localize,"mil_flag",_color] call gps_fnc_createMarker;
 
 _nodesPath = (_theRightPath select 3) apply {[_x,gps_onlyCrossRoads] call misc_fnc_nearestPos}; //roadAt does not work properly , we need to find the nearest crossRoad
 
-["Chargement du chemin préchargé"] call gps_menu_fnc_setGPSInfo;
-[_nodesPath] call gps_fnc_generatePathHelpers;
-["Chemin préchargé chargé"] call gps_menu_fnc_setGPSInfo;
+[["STR_LOAD_SAVED_PATH"] call misc_fnc_localize] call gps_menu_fnc_setGPSInfo;
+_fullPath = [_nodesPath] call gps_fnc_generatePathHelpers;
+[["STR_SAVED_PATH_LOADED"] call misc_fnc_localize] call gps_menu_fnc_setGPSInfo;
+[_thisScript,_endRoad] spawn gps_fnc_waitArrive;
+[] spawn gps_menu_fnc_runHud;
+
+[_nodesPath,_fullPath] call gps_fnc_tracking;

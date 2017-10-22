@@ -1,24 +1,16 @@
-# A3GPS
-
-working on new algorithm , 10-100 times faster depending on the situation
+# A3GPS v2
 
 ## Description
 
 A3GPS provides a real GPS for Arma 3.
 
-Only available in french for now , will be translated later.
-
-Developpement in progress.
+Translation available for english and french languages.
 
 ### Informations
 
-The path calculating may be slow for now , it'll be improved later.
+The path is not always the shortest , this script is subject to new updates , stay tuned ! 
 
-The path is not real time calculated : if you're not following the path , the GPS will not generate a new path automatically.
-
-The path is not always the shortest , I need to improve the virtual mapping.
-
-## Installation
+## Installation 
 
 ### In your description.ext file 
 Add this line : 
@@ -33,7 +25,7 @@ Add this line :
 ```
 
 ### In the gps init file :
-Edit the folder path for each functions.
+Edit the folder path for each functions if you're not putting the gps in the root folder.
 
   Exemple :
   ```sqf
@@ -52,11 +44,9 @@ Now it should work , have fun !
 
 ## Known Issues
 
-- If you already have a 'CfgHints' class defined , juste copy the content of the cfgHints in config.hpp into it.
-
 - If you have already a mission with defined controls class , the mission will throw you an error "class XXX already defined ..." . to fix this , just remove the file common.hpp and the '#include "common.hpp"' in the menu.hpp in the menu folder.
 
-## Video (v1.0)
+## Video (v1.0) (outdated)
 
 [![A3GPS Youtube video](https://i.ytimg.com/vi/G4bNZoDUtVk/hqdefault.jpg?custom=true&w=196&h=110&stc=true&jpg444=true&jpgq=90&sp=68&sigh=PGfe5MiNc2FG8V9djI-XizrkGc0)](https://www.youtube.com/watch?v=G4bNZoDUtVk)
 

@@ -1,111 +1,81 @@
+#include "..\macros.h"
 /**
   @Author : [Utopia] Amaury
   @Creation : 1/02/17
   @Modified : 5/02/17
   @Description :trying to make a virtual map because arma road system ...
-  				some arrays are useless now , i store the routes data in missionNameSpace in order to have a faster access but i generates +- 37000 vars
+  				this file has changed so much ...
 **/
-
-
 scriptName "gps_virtual_mapping";
 
 _start = diag_tickTime;
+[format [["STR_LOG_VMAP_INIT_START"] call misc_fnc_localize]] call gps_fnc_log;
 
-#include "data\Altis.sqf"
+gps_data_map_center = [worldSize / 2,worldSize / 2,0];
 
-gps_allRoads = [16085,16997,0] nearRoads 25000; // almost the center of the map
+call compile preprocessFileLineNumbers format [gps_dir + "gps\data\%1.sqf",worldName];
+
+gps_allRoads = [] call gps_fnc_getAllRoads;
+
+_max_road_index = (gps_allRoads apply {parseNumber str _x});
+_max_road_index sort false;
+gps_max_road_index = _max_road_index select 0;
+
 gps_allRoadsWithInter = [];
 gps_allCrossRoads = [];
-gps_allCrossRoadsWithWeight = [];
+gps_allCrossRoadsWithWeight = [gps_max_road_index] call misc_fnc_hashTable_create;
 gps_onlyCrossRoads = [];
-gps_roadSegments = [];
+gps_roadSegments = [gps_max_road_index] call misc_fnc_hashTable_create;
+gps_roadsWithConnected =  [gps_max_road_index] call misc_fnc_hashTable_create;
+
+gps_alreadyLinked = []; // is this used ?
 
 gps_allRoadsWithInter = gps_allRoads apply {
   private _road = _x;
-  private _near = getPosATL _road nearRoads 15;
+  private _near = getPosATL _road nearRoads 17;
   private _connected = roadsConnectedTo _road;
-
+  /**	=> generates way too much nodes , algorithm is dying with that
   {
-     if !(_x in _connected) then {
-        if(count roadsConnectedTo _x isEqualTo 1) then {
-          _connected pushBack _x;
+     if (!(_x in _connected) && !(_x isEqualTo _road)) then {
+        if(count roadsConnectedTo _x < 3) then {
+          _connected pushBackUnique _x;
         };
      };
   }foreach _near;
-  
-  missionNamespace setVariable [format["gps_connected_%1",str _road],_connected];
+  **/
+  [gps_roadsWithConnected,parseNumber str _road,_connected] call misc_fnc_hashTable_set;
   [_road,_connected]
 };
 
+{ //fix for one-way connected roads , thx god , that fixed every problems
+  if(count ([_x] call gps_fnc_roadsConnectedTo) < 2) then {
+    private _route = _x;
+    private _routeConnected = [gps_roadsWithConnected,parseNumber str _route] call misc_fnc_hashTable_find;
+    private _nearRoads = _route nearRoads 17;
+
+    {
+      _road = _x;
+      _connected = [gps_roadsWithConnected,parseNumber str _road] call misc_fnc_hashTable_find;
+
+      if(_route in _connected) then {
+        _routeConnected pushBackUnique _road;
+      };
+    }foreach _nearRoads;
+    [gps_roadsWithConnected,parseNumber str _route,_routeConnected] call misc_fnc_hashTable_set;
+  };
+}foreach gps_allRoads;
+
 {
-  if(count (_x select 1) > 2) then {gps_allCrossRoads pushBack _x}
+  _connected = [gps_roadsWithConnected,parseNumber str (_x select 0)] call misc_fnc_hashTable_find;
+  if(count _connected > 2) then {gps_allCrossRoads pushBack _x};
 } forEach gps_allRoadsWithInter;
 
 gps_onlyCrossRoads = gps_allCrossRoads apply {_x select 0};
 
-_fn_mapTheMap = {
-  private _crossRoad = _this select 0;
-  private _linkedTo = _this select 1;
-  private _linkedCrossRoads = [];
-  private _linkedSegments = [];
+{
+    _x call gps_fnc_mapNodeValues;
+}foreach gps_allCrossRoads;
 
-  {
-      private _currRoad = _x;
-      private _connected = [_currRoad] call gps_fnc_roadsConnectedTo;
-      private _segmentValue = 0;
-      private _passedBy = [];
-      _passedBy pushBack _crossRoad;
+[format["Loaded : %1 roads|%2 crossroads|%3 road segments",count gps_allRoads,count gps_onlyCrossRoads,count gps_roadSegments]] call gps_fnc_log;
 
-      if(count _connected > 2) then {  
-          if(str _currRoad in _gps_highWays && str _crossRoad in _gps_highWays) then {
-              _segmentValue = round (_segmentValue / 2); 
-          };
-          if(str _currRoad in _gps_normalWays && str _crossRoad in _gps_normalWays) then {
-              _segmentValue = round (_segmentValue / 1.5); 
-          };
-          _linkedCrossRoads pushBack [_currRoad,_segmentValue];
-          _linkedSegments pushBack [_currRoad,[]];
-      }else{
-
-        while{count _connected <= 2} do {
-          _connected = [_currRoad] call gps_fnc_roadsConnectedTo;
-          _passedBy pushBack _currRoad;
-          _segmentValue = _segmentValue + 1;
-
-          if(count _connected isEqualTo 0) exitWith {};
-          if(count _connected isEqualTo 1) exitWith {};
-          if(count _connected > 2) exitWith {  
-            if(str _currRoad in _gps_highWays && str _crossRoad in _gps_highWays) then {
-                _segmentValue = round (_segmentValue / 2); 
-            };
-            if(str _currRoad in _gps_normalWays && str _crossRoad in _gps_normalWays) then {
-              _segmentValue = round (_segmentValue / 1.5); 
-            };
-            _linkedCrossRoads pushBack [_currRoad,_segmentValue];
-            _passedBy deleteAt (count _passedBy - 1);
-            _linkedSegments pushBack [_currRoad,_passedBy];
-          };
-           
-          _oldRoad = _currRoad;
-          {
-            if(!(_x in _passedBy)) then {
-              _currRoad = _x;
-            };
-          } forEach _connected;
-
-           if(_currRoad isEqualTo _oldRoad) exitWith {};
-        };
-      };
-  } forEach _linkedTo;
-  gps_roadSegments pushBack _linkedSegments;
-  _linkedCrossRoads
-};
-
-
-gps_allCrossRoadsWithWeight = gps_allCrossRoads apply {
-    _res = _x call _fn_mapTheMap;
-    missionNamespace setVariable [format["gps_cross_%1",str (_x select 0)],_res];
-    _res
-};
-
-systemChat format ["GPS : Le mapping virtuel s'est terminé en %1 secondes sans problèmes",round (diag_tickTime - _start)];
+[format [["STR_LOG_VMAP_INIT_DONE"] call misc_fnc_localize,round (diag_tickTime - _start)]] call gps_fnc_log;

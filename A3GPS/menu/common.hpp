@@ -1039,9 +1039,9 @@
 	style = 2;	// BIS DEFAULT, undocumented
 	text = "";
 	colorText[] = {1,1,1,1};
-	colorDisabled[] = {1,1,1,0.25};
+	colorDisabled[] = {1,1,1,1};
 	colorBackground[] = {0,0,0,0.5};
-	colorBackgroundDisabled[] = {0,0,0,0.5};
+	colorBackgroundDisabled[] = {0,0,0,1};
 	colorBackgroundActive[] = {0,0,0,1};
 	colorFocused[] = {0,0,0,1};
 	colorShadow[] = {0,0,0,0};

@@ -13,7 +13,7 @@ _start = diag_tickTime;
 
 gps_data_map_center = [worldSize / 2,worldSize / 2,0];
 
-call compile preprocessFileLineNumbers format ["gps\data\%1.sqf",worldName];
+call compile preprocessFileLineNumbers format [gps_dir + "gps\data\%1.sqf",worldName];
 
 gps_allRoads = [] call gps_fnc_getAllRoads;
 

@@ -7,7 +7,7 @@
 **/
 
 gps_config_entry = missionConfigFile >> "CfgGPS";
-gps_dir = getText (gps_config_entry >> "dir");
+gps_dir = getText (gps_config_entry >> "gps_dir");
 
 gps_fnc_compile = compileFinal	preprocessFileLineNumbers (gps_dir + "misc\fn_compile.sqf");
 gps_fnc_log = ["misc","fn_log",true] call gps_fnc_compile;

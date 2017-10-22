@@ -24,17 +24,8 @@ Add this line :
   [] execVM "path_to_gps_folder\init.sqf"
 ```
 
-### In the gps init file :
-Edit the folder path for each functions if you're not putting the gps in the root folder.
-
-  Exemple :
-  ```sqf
-  gps_fnc_generatePathHelpers = compileFinal preprocessFileLineNumbers "gps\fn_generatePathHelpers.sqf";
-  ```
-  to
-  ```sqf
-  gps_fnc_generatePathHelpers = compileFinal preprocessFileLineNumbers "client\addons\gps\fn_generatePathHelpers.sqf";
-  ```
+### In the config.hpp file :
+If your gps installation is not in the root directory then change the **gps_dir** value to your directory with a **\** at the end of the path.
 
 ### To call the Menu
 

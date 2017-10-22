@@ -2,8 +2,8 @@
 /**
 	@Author : [Utopia] Amaury
 	@Creation : 1/02/17
-	@Modified : 4/02/17
-	@Description : Initialisation
+	@Modified : 22/10/17
+	@Description : Initialization
 **/
 
 gps_config_entry = missionConfigFile >> "CfgGPS";
@@ -13,7 +13,7 @@ gps_fnc_compile = compileFinal	preprocessFileLineNumbers (gps_dir + "misc\fn_com
 gps_fnc_log = ["misc","fn_log",true] call gps_fnc_compile;
 
 if(!canSuspend) exitWith {
-	diag_log "Please execute the init in a suspension allowed context";
+	["Please execute the init in a suspension allowed context"] call gps_fnc_log;
 };
 
 ["Compiling functions..."] call gps_fnc_log;
@@ -40,6 +40,7 @@ gps_fnc_insertFakeNode = ["gps","fn_insertFakeNode"] call gps_fnc_compile;
 gps_fnc_createMarker = ["gps","fn_createMarker"] call gps_fnc_compile;
 gps_fnc_getAllRoads = ["gps","fn_getAllRoads"] call gps_fnc_compile;
 
+gps_fnc_loadWorldData = ["gps","fn_loadWorldData"] call gps_fnc_compile;
 gps_fnc_refreshCache = ["misc","fn_refreshCache"] call gps_fnc_compile;
 
 /** TEST FUNCTIONS **/
@@ -93,7 +94,7 @@ gps_local_markers =	[];
 gps_curr_thread = scriptNull;
 gps_status_text = "Pas de status";
 
-gps_version = "2.0";
+gps_version = "1.0";
 
 waitUntil {!isNull findDisplay 46};
 waitUntil {!isNull player};

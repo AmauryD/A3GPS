@@ -2,7 +2,7 @@
 /**
   @Author : [Utopia] Amaury
   @Creation : 1/02/17
-  @Modified : 5/02/17
+  @Modified : 22/10/17
   @Description :trying to make a virtual map because arma road system ...
   				this file has changed so much ...
 **/
@@ -13,7 +13,7 @@ _start = diag_tickTime;
 
 gps_data_map_center = [worldSize / 2,worldSize / 2,0];
 
-call compile preprocessFileLineNumbers format [gps_dir + "gps\data\%1.sqf",worldName];
+[] call gps_fnc_loadWorldData;
 
 gps_allRoads = [] call gps_fnc_getAllRoads;
 
@@ -32,17 +32,17 @@ gps_alreadyLinked = []; // is this used ?
 
 gps_allRoadsWithInter = gps_allRoads apply {
   private _road = _x;
-  private _near = getPosATL _road nearRoads 17;
+  private _near = getPosATL _road nearRoads 17; //17 is a good radius and this comment is useless
   private _connected = roadsConnectedTo _road;
-  /**	=> generates way too much nodes , algorithm is dying with that
+  	
   {
      if (!(_x in _connected) && !(_x isEqualTo _road)) then {
-        if(count roadsConnectedTo _x < 3) then {
+        if(count roadsConnectedTo _x == 1) then {
           _connected pushBackUnique _x;
         };
      };
   }foreach _near;
-  **/
+
   [gps_roadsWithConnected,parseNumber str _road,_connected] call misc_fnc_hashTable_set;
   [_road,_connected]
 };

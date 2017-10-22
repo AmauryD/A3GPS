@@ -25,7 +25,7 @@ Add this line :
 ```
 
 ### In the config.hpp file :
-If your gps installation is not in the root directory then change the **gps_dir** value to your directory with a **\** at the end of the path.
+If your gps installation is not in the root directory then change the **gps_dir** value to your directory with a **\\** at the end of the path.
 
 ### To call the Menu
 

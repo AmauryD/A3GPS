@@ -28,13 +28,13 @@ gps_onlyCrossRoads = [];
 gps_roadSegments = [gps_max_road_index] call misc_fnc_hashTable_create;
 gps_roadsWithConnected =  [gps_max_road_index] call misc_fnc_hashTable_create;
 
-gps_alreadyLinked = [];
+gps_alreadyLinked = []; // is this used ?
 
 gps_allRoadsWithInter = gps_allRoads apply {
   private _road = _x;
   private _near = getPosATL _road nearRoads 17;
   private _connected = roadsConnectedTo _road;
-
+  /**	=> generates way too much nodes , algorithm is dying with that
   {
      if (!(_x in _connected) && !(_x isEqualTo _road)) then {
         if(count roadsConnectedTo _x < 3) then {
@@ -42,7 +42,7 @@ gps_allRoadsWithInter = gps_allRoads apply {
         };
      };
   }foreach _near;
-  
+  **/
   [gps_roadsWithConnected,parseNumber str _road,_connected] call misc_fnc_hashTable_set;
   [_road,_connected]
 };
@@ -75,5 +75,7 @@ gps_onlyCrossRoads = gps_allCrossRoads apply {_x select 0};
 {
     _x call gps_fnc_mapNodeValues;
 }foreach gps_allCrossRoads;
+
+[format["Loaded : %1 roads|%2 crossroads|%3 road segments",count gps_allRoads,count gps_onlyCrossRoads,count gps_roadSegments]] call gps_fnc_log;
 
 [format [["STR_LOG_VMAP_INIT_DONE"] call misc_fnc_localize,round (diag_tickTime - _start)]] call gps_fnc_log;

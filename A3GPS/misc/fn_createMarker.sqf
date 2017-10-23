@@ -1,18 +1,20 @@
+#include "..\macros.h"
 /**
 	@Author : [Utopia] Amaury
 	@Creation : 1/02/17
-	@Modified : 4/02/17
-	@Description : creates a local marker , really simple
+	@Modified : 23/10/17
+	@Description : creates a local marker , really simple .
 **/
 
-
-private _name = param [0,str (random 100 + random 200),[""]];
-private _pos = param [1,[0,0,0],[[]]];
-private _text = param [2,"",[""]];
-private _type = param [3,"mil_dot",[""]];
-private _color = param [4,"ColorBlack",[""]];
-private _size = param [5,[1,1],[[]]];
-private _dir = param [6,0,[0]];
+params [
+	["_name",str (random 100 + random 200),[""]],
+	["_pos",[0,0,0],[[]]],
+	["_text","",[""]],
+	["_type","mil_dot",[""]],
+	["_color","ColorBlack",[""]],
+	["_size",[1,1],[[]]],
+	["_dir",0,[0]]
+];
 
 _mark = createMarkerLocal [_name,_pos];
 _mark setMarkerTextLocal _text;

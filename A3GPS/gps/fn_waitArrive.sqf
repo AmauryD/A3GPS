@@ -1,3 +1,10 @@
+#include "..\macros.h"
+/**
+	@Author : [Utopia] Amaury
+	@Creation : ??
+	@Modified : 23/10/17
+	@Description : 
+**/
 scriptName "gps_wait_arrive";
 
 private _handle = param [0,scriptNull,[scriptNull]];

@@ -32,7 +32,7 @@ gps_alreadyLinked = []; // is this used ?
 
 gps_allRoadsWithInter = gps_allRoads apply {
   private _road = _x;
-  private _near = getPosATL _road nearRoads 17; //17 is a good radius and this comment is useless
+  private _near = getPosATL _road nearRoads 15;//15 a good radius and this comment is useless
   private _connected = roadsConnectedTo _road;
   	
   {

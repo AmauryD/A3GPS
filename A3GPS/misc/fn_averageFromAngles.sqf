@@ -1,11 +1,13 @@
+#include "..\macros.h"
 /**
 	@Author : [Utopia] Amaury
 	@Creation : 12/05/17
-	@Modified : 15/05/17
+	@Modified : 23/10/17
 	@Description : 
 **/
-
-private	_angles = param [0,[],[[]]];
+params [
+	["_angles",[],[[]]]
+];
 
 if(count _angles == 0) exitWith	{0};
 if(count _angles == 1) exitWith	{_angles select 0};

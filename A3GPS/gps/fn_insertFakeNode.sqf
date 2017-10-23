@@ -1,4 +1,14 @@
-private _road = param [0,objNull,[objNull]];
+#include "..\macros.h"
+/**
+  @Author : [Utopia] Amaury
+  @Creation : ??
+  @Modified : 23/10/17
+  @Description : insert fake node on the path
+  TODO : delete fake nodes later
+**/
+params [
+	["_road",objNull,[objNull]]
+];
 
 gps_onlyCrossRoads pushBackUnique _road;
 

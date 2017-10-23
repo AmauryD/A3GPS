@@ -1,10 +1,10 @@
+#include "..\macros.h"
 /**
-  @Author : [Utopia] Amaury
-  @Creation : 10/05/17
-  @Modified : 18/06/17
-  @Description : main 
+	@Author : [Utopia] Amaury
+	@Creation : 1/02/17
+	@Modified : 23/10/17
+	@Description : main
 **/
-
 scriptName "gps_main_thread";
 scopeName "main";
 
@@ -54,7 +54,7 @@ private _color = ["markers_color"] call misc_fnc_getSetting;
 
 [_thisScript,_nearestEndNodeObject] spawn gps_fnc_waitArrive;
 
-_path = [_nearestStartNodeObject,_nearestEndNodeObject,0.1] call gps_fnc_generateNodePath;
+_path = [_nearestStartNodeObject,_nearestEndNodeObject] call gps_fnc_generateNodePath;
 
 _allThePath set [3,(_path apply {getPosATL _x})];
 

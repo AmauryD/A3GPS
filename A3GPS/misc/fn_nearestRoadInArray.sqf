@@ -1,13 +1,15 @@
+#include "..\macros.h"
 /**
 	@Author : [Utopia] Amaury
 	@Creation : 8/05/17
 	@Modified : --
 	@Description : nothing to say
 **/
-
-private _pos = param[0,[0,0,0],[[]]];
-private _radius = param [1,10,[0]];
-private _array = param [2,[],[[]]];
+params [
+	["_pos",[],[[]]],
+	["_radius",10,[0]],
+	["_array",[],[[]]]
+];
 
 private _nearest = _radius;
 private _return = objNull;

@@ -1,3 +1,4 @@
+// not used and not from me , will be removed later
 private ["_number","_mod","_digots","_digitsCount","_modBase","_numberText"];
 
 _number = param [0,0,[0]];

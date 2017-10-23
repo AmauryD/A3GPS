@@ -1,3 +1,4 @@
+#include "..\macros.h"
 /**
 	@Author : [Utopia] Amaury
 	@Creation : 1/02/17
@@ -5,17 +6,15 @@
 	@Description : finds the nearest location near point/object.
 **/
 
-
-private _position = param [0,objNull,[[],objNull]];
-private _radius = param [1,1000,[0]];
-private _types = param [2,["NameCity","NameVillage","NameCityCapital","NameLocal"],[[]]];
+params [
+	["_position",objNull,[[],objNull]],
+	["_radius",1000,[0]],
+	["_types",["NameCity","NameVillage","NameCityCapital","NameLocal"],[[]]]
+];
 
 _locations = nearestLocations [_position, _types, _radius];
-
 _posArray = _locations apply {locationPosition _x};
-
 _nearest = [_position,_posArray] call misc_fnc_nearestPos;
-
 _result = _locations select (_posArray find _nearest);
 
 if(isNil "_result") then {

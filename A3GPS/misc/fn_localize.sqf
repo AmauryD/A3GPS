@@ -1,6 +1,16 @@
-private _key = param [0,"",[""]];
-private _default = param [1,"",[""]];
-private _lang = param [2,["lang"] call misc_fnc_getSetting,[""]];
+#include "..\macros.h"
+/**
+	@Author : [Utopia] Amaury
+	@Creation : ??
+	@Modified : 23/10/17
+	@Description : 
+**/
+params [
+	["_key","",[""]],
+	["_default","",[""]],
+	["_lang",["lang"] call misc_fnc_getSetting,[""]]
+];
+
 private _return = _default;
 
 _cfgEntry = missionConfigFile >> "GPS_Localization" >> _key;

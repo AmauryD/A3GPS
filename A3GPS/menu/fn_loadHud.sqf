@@ -1,11 +1,12 @@
+#include "..\macros.h"
 /**
 	@Author : [Utopia] Amaury
 	@Creation : 17/05/17
-	@Modified : 17/06/17
+	@Modified : 23/10/17
 	@Description : nothing to say
 **/
+params ["_disp"];
 
-_disp = _this select 0;
 uiNamespace setVariable ['gps_hud', _disp];
 
 {	//hide the elements

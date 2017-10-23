@@ -1,3 +1,4 @@
+#include "..\macros.h"
 /**
   @Author : [Utopia] Amaury
   @Creation : 18/06/17

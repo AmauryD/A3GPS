@@ -1,3 +1,4 @@
+#include "..\macros.h"
 /**
   @Author : [Utopia] Amaury
   @Creation : 10/05/17
@@ -138,7 +139,7 @@ while {true} do { //this script thread will be destroyed when arrived
 
 		try {
 			[_startRoute] call gps_fnc_insertFakeNode;
-			_path = [_startRoute,_goalRoute,3] call gps_fnc_generateNodePath;
+			_path = [_startRoute,_goalRoute] call gps_fnc_generateNodePath;
 		}catch{
 			gps_status_text = _exception;
 			breakTo "main_loop";

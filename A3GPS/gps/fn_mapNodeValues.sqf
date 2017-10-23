@@ -1,6 +1,15 @@
-private _crossRoad = _this select 0;
-private _linkedTo = _this select 1;
-private _exceptions = param [2,[],[[]]];
+#include "..\macros.h"
+/**
+	@Author : [Utopia] Amaury
+	@Creation : 1/02/17
+	@Modified : 23/10/17
+	@Description : 
+**/
+params [
+   "_crossRoad",
+   "_linkedTo",
+   ["_exceptions",[],[[]]]
+];
 
 private _linkedCrossRoads = [];
 private _linkedSegments = [];

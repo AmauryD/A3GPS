@@ -1,3 +1,11 @@
+#include "..\macros.h"
+/**
+  @Author : [Utopia] Amaury
+  @Creation : ??
+  @Modified : 23/10/17
+  @Description : get all roads on the map , need to improve 
+**/
+
 private _startPos = [500,500,0];
 _allRoads = [];
 _divisor = (worldSize / 1000);

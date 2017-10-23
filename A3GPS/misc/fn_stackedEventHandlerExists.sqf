@@ -1,12 +1,15 @@
+#include "..\macros.h"
 /**
 	@Author : [Utopia] Amaury
 	@Creation : 1/02/17
-	@Modified : 4/02/17
+	@Modified : 23/10/17
 	@Description : check if stacked EH exists , not used now in GPS but can be usefull
 **/
+params [
+	["_name","",[""]],
+	["_type","",[""]]
+];
 
-private _name = param [0,"",[""]];
-private _type = param [1,"",[""]];
 private _exists = false;
 
 if !(tolower _type in ["oneachframe","onplayerconnected","onplayerdisconnected","onmapsingleclick","onpreloadstarted","onpreloadfinished"]) exitWith {_exists};

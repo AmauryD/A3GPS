@@ -1,3 +1,4 @@
+#include "..\macros.h"
 /**
   @Author : [Utopia] Amaury
   @Creation : 5/02/17
@@ -5,13 +6,15 @@
   @Description : functions to create the markers and the arrows on the map with a node path
 **/
 
-private _path = param [0,[],[[]]];
+params [
+	["_path",[],[[]]]
+];
+
 private _color = ["markers_color"] call misc_fnc_getSetting;
 private	_fullPath = [];
 
 private _fn_findInSegment = {
-	private _segment = _this select 0;
-	private _road = _this select 1;
+	params ["_segment","_road"];
 	private _return = [];
 	{
 		if(_x select 0 isEqualTo _road) exitWith {

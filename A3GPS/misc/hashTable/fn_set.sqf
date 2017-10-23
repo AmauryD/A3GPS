@@ -1,14 +1,11 @@
+#include "..\..\macros.h"
 /**
 	@Author : [Utopia] Amaury
 	@Creation : 12/05/17
-	@Modified : 12/05/17
+	@Modified : 23/10/17
 	@Description : --
 **/
-
-
-private _array = _this select 0;
-private _key = _this select 1;
-private _val = _this select 2;
+params ["_array","_key","_val"];
 
 _id = (_key % count _array);
 

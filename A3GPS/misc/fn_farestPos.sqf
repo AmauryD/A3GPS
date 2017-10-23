@@ -1,3 +1,4 @@
+#include "..\macros.h"
 /**
 	@Author : [Utopia] Amaury
 	@Creation : 12/05/17
@@ -5,8 +6,11 @@
 	@Description : 
 **/
 
-private _point = param [0,[0,0,0],[objNull,[]]]; // can input pos or objects
-private _searchArray = param [1,[],[[]]];
+params [
+	["_point",objNull,[objNull,[]]],
+	["_searchArray",[],[[]]]
+];
+
 private _nearest = _point;
 
 {

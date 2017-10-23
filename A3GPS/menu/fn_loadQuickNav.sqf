@@ -1,11 +1,12 @@
+#include "..\macros.h"
 /**
 	@Author : [Utopia] Amaury
 	@Creation : 20/07/17
-	@Modified : 20/07/17
+	@Modified : 23/10/17
 	@Description : nothing to say
 **/
+params ["_disp"];
 
-_disp = _this select 0;
 uiNamespace setVariable ['gps_quickNav', _disp];
 
 _btn = _disp displayCtrl 1600;

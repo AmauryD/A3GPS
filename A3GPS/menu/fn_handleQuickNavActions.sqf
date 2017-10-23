@@ -1,10 +1,13 @@
+#include "..\macros.h"
+/**
+	@Author : [Utopia] Amaury
+	@Creation : 20/10/17
+	@Modified : 23/10/17
+	@Description : nothing to say
+**/
 disableSerialization;
 
-
-private _key = _this select 1;
-private _shift = _this select 2;
-private _ctrl = _this select 3;
-private _alt = _this select 4;
+params ["","_key","_shift","_ctrl","_alt"];
 
 _handled = false;
 

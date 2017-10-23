@@ -1,3 +1,4 @@
+#include "..\macros.h"
 /**
   @Author : [Utopia] Amaury
   @Creation : 8/06/17
@@ -5,8 +6,10 @@
   @Description : 
 **/
 
-private _startRoute = param [0,objNull,[objNull]];
-private _goalRoute = param [1,objNull,[objNull]];
+params [
+	["_startRoute",objNull,[objNull]],
+	["_goalRoute",objNull,[objNull]]
+];
 
 private _gps_namespace = [count gps_allRoads] call misc_fnc_hashTable_create;
 

@@ -1,3 +1,11 @@
+#include "..\..\macros.h"
+/**
+	@Author : [Utopia] Amaury
+	@Creation : 20/10/17
+	@Modified : 23/10/17
+	@Description : nothing to say
+**/
+
 _hudDisplay = uiNamespace getVariable ["gps_quickNav",displayNull];
 
 if !(isNull _hudDisplay) exitWith {

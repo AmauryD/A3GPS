@@ -1,4 +1,12 @@
-private _position = _this select 0;
+#include "..\macros.h"
+/**
+	@Author : [Utopia] Amaury
+	@Creation : 1/02/17
+	@Modified : 23/10/17
+	@Description : 
+**/
+
+params ["_position"];
 
 if !(gps_curr_thread isEqualTo scriptNull) exitWith {
 	hintSilent (["STR_ALREADY_LOADING"] call misc_fnc_localize);

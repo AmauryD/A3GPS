@@ -14,9 +14,10 @@ private _startRoute = [getPosATL player,1000] call misc_fnc_nearestRoad;
 private _endRoute = [_this,1000] call misc_fnc_nearestRoad;
 
 if(!gps_init_done) exitWith	{hintSilent	(["STR_GPS_NOT_LOADED"] call misc_fnc_localize)};
-if(!scriptDone gps_curr_thread) exitWith {hintSilent (["STR_ALREADY_LOADING"] call misc_fnc_localize)};
 if(isNull _endRoute) exitWith {hintSilent (["STR_NO_VALID_END_ROAD"] call misc_fnc_localize)};
 if(isNull _startRoute) exitWith {hintSilent (["STR_NO_VALID_START_ROAD"] call misc_fnc_localize)};
+
+[] call gps_fnc_killGPS;
 
 gps_curr_thread = _thisScript;
 
@@ -32,13 +33,15 @@ private _nearestEndNodeObject = _endRoute;
 [_nearestStartNodeObject] call gps_fnc_insertFakeNode;
 [_nearestEndNodeObject] call gps_fnc_insertFakeNode;
 
-gps_saveCurrent = [["STR_VALID_SAVE_PATH"] call misc_fnc_localize,["STR_VALID_SAVE_PATH_TITLE"] call misc_fnc_localize,["STR_YES"] call misc_fnc_localize,["STR_NO"] call misc_fnc_localize, findDisplay 369852] call BIS_fnc_guiMessage;
+uiNamespace setVariable ["BIS_fnc_guiMessage_status", false];
+gps_saveCurrent = [["STR_VALID_SAVE_PATH"] call misc_fnc_localize,["STR_VALID_SAVE_PATH_TITLE"] call misc_fnc_localize,["STR_YES"] call misc_fnc_localize,["STR_NO"] call misc_fnc_localize, findDisplay 369852,true] call BIS_fnc_guiMessage;
 if(gps_saveCurrent) then {
 	_saveName = [["STR_SELECT_SAVED_PATH_NAME"] call misc_fnc_localize,findDisplay 369852] call misc_fnc_editDialog;
 	if(_saveName isEqualTo "") then {
 		_saveName = format["%1-%2",text ([_nearestStartNodeObject] call misc_fnc_nearestLocation),text ([_nearestEndNodeObject] call misc_fnc_nearestLocation)];
 	};
 };
+
 
 private _allThePath = [
     _saveName,

@@ -16,6 +16,10 @@ class GPS_Localization {
 		en="Yes.";
 		fr="Oui.";
 	};
+	class STR_GPS_LOST {
+		en="The GPS is lost.";
+		fr="Le GPS est hors route.";
+	};
 	class STR_NO_VALID_START_ROAD {
 		en="No valid start road detected.";
 		fr="Pas de route de départ valide détectée.";

@@ -102,14 +102,7 @@ _map ctrlAddEventHandler ["MouseButtonClick",{
 
 _newpath_btn ctrlAddEventHandler ["MouseButtonClick",{hintSilent parseText (["STR_MENU_HINT_NEW_PATH"] call misc_fnc_localize)}];
 
-_stop_path ctrlAddEventHandler ["ButtonClick",{
-	[["STR_MENU_STOPPING_PROCESS"] call misc_fnc_localize] call gps_menu_fnc_setGPSInfo;
-	terminate gps_curr_thread;
-	terminate gps_track_handle;
-	[] call gps_fnc_deletePathHelpers;
-	gps_saveCurrent = false;
-	[["STR_MENU_MAP_CLEARED"] call misc_fnc_localize] call gps_menu_fnc_setGPSInfo;
-}];
+_stop_path ctrlAddEventHandler ["ButtonClick",gps_fnc_killGPS];
 _stop_path ctrlAddEventHandler ["MouseButtonClick",{if((_this select 1) == 1) then {hintSilent parseText (["STR_MENU_HINT_STOP_PROCESS"] call misc_fnc_localize)}}];
 
 _load_saved_path_btn ctrlAddEventHandler ["ButtonClick",{

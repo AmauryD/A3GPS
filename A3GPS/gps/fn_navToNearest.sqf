@@ -8,9 +8,7 @@
 
 params ["_position"];
 
-if !(gps_curr_thread isEqualTo scriptNull) exitWith {
-	hintSilent (["STR_ALREADY_LOADING"] call misc_fnc_localize);
-};
+[] call gps_fnc_killGPS;
 
 gps_curr_thread = _thisScript;
 

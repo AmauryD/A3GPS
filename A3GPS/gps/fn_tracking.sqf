@@ -14,7 +14,7 @@ private _fullPathNode = _fullPath apply	{_x select 0};	//divide fullPath in 2 ar
 private _fullPathDir = _fullPath apply	{_x select 1};
 
 private _fn_findNextNode = {
-	_currRoadIndex = _fullPathNode find ([getPosATL player,20,_fullPathNode] call misc_fnc_nearestRoadInArray); //searching nearestRoad in path to avoid road superposition problem
+	_currRoadIndex = _fullPathNode find ([getPosATL player,50,_fullPathNode] call misc_fnc_nearestRoadInArray); //searching nearestRoad in path to avoid road superposition problem
 	_nextPath = _fullPathNode select [_currRoadIndex,(count _fullPathNode) - 1];
 	private _next = objNull;
 
@@ -44,7 +44,7 @@ private _fn_getMessage = {
 
 	if(isNull _node) exitWith {
 		if(isOnRoad vehicle player) exitWith {0};
-		"lost"
+		["STR_GPS_LOST"] call misc_fnc_localize
 	};
 
 	_nextNode = _path select ((_path find _node) + 1);

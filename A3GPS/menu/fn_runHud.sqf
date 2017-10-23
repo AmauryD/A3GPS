@@ -8,6 +8,7 @@
 
 disableSerialization;
 
+
 ("gps_hud" call BIS_fnc_rscLayer) cutRsc ["gps_hud","PLAIN", 1 , false]; //show
 
 _hudDisplay = uiNamespace getVariable ["gps_hud",displayNull];
@@ -22,14 +23,19 @@ _backGround = _hudDisplay displayCtrl 2201;
 _map mapCenterOnCamera true;
 
 _map ctrlAddEventHandler ["Draw",{
-	_this select 0 drawIcon [
-		getText (configFile/"CfgVehicles"/typeOf vehicle player/"Icon"),
+	_map = _this select 0;
+	_vehPlayer = vehicle player;
+	_speed = speed _vehPlayer;
+	_map drawIcon [
+		getText (configFile/"CfgVehicles"/typeOf _vehPlayer/"Icon"),
 		[1,1,1,1],
-        visiblePosition (vehicle player),
+        visiblePosition _vehPlayer,
         24,
         24,
         0
 	];
+	_map ctrlMapAnimAdd [0,(0.02 max (_speed / 1000)) min 0.5,visiblePosition _vehPlayer];
+	ctrlMapAnimCommit _map;
 }];
 
 

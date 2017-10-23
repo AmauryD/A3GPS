@@ -42,6 +42,7 @@ gps_fnc_getAllRoads = ["gps","fn_getAllRoads"] call gps_fnc_compile;
 
 gps_fnc_loadWorldData = ["gps","fn_loadWorldData"] call gps_fnc_compile;
 gps_fnc_refreshCache = ["misc","fn_refreshCache"] call gps_fnc_compile;
+gps_fnc_killGPS = ["menu","fn_killGPS"] call gps_fnc_compile;
 
 /** TEST FUNCTIONS **/
 //dev_fnc_getConnectedSegments = "fn_getConnectedSegments" call gps_fnc_compile;
@@ -92,6 +93,7 @@ gps_saveCurrent = false;
 gps_init_done = false;
 gps_local_markers =	[];
 gps_curr_thread = scriptNull;
+gps_track_handle = scriptNull;
 gps_status_text = "Pas de status";
 
 gps_version = "1.0";

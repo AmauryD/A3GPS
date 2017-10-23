@@ -18,8 +18,7 @@ gps_data_map_center = [worldSize / 2,worldSize / 2,0];
 gps_allRoads = [] call gps_fnc_getAllRoads;
 
 _max_road_index = (gps_allRoads apply {parseNumber str _x});
-_max_road_index sort false;
-gps_max_road_index = _max_road_index select 0;
+gps_max_road_index = selectMax _max_road_index;
 
 gps_allRoadsWithInter = [];
 gps_allCrossRoads = [];

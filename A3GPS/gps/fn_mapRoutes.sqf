@@ -36,9 +36,9 @@ gps_allRoadsWithInter = gps_allRoads apply {
   	
   {
      if (!(_x in _connected) && !(_x isEqualTo _road)) then {
-        if(count roadsConnectedTo _x == 1) then {
-          _connected pushBackUnique _x;
-        };
+      if(count roadsConnectedTo _x == 1) then {
+        _connected pushBackUnique _x;
+      };
      };
   }foreach _near;
 
@@ -48,7 +48,7 @@ gps_allRoadsWithInter = gps_allRoads apply {
 
 { //fix for one-way connected roads , thx god , that fixed every problems
   if(count ([_x] call gps_fnc_roadsConnectedTo) < 2) then {
-    private _route = _x;
+    private _route = _x; 
     private _routeConnected = [gps_roadsWithConnected,parseNumber str _route] call misc_fnc_hashTable_find;
     private _nearRoads = _route nearRoads 17;
 

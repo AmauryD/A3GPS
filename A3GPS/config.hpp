@@ -19,7 +19,7 @@ class CfgGPS {
 	hud_gridpos_enabled = true;
 
 	//quicknav
-	default_keyHandling_enable = false; //usefull when you want to implement in your own keyHandling file
+	default_keyHandling_enable = true; //usefull when you want to implement in your own keyHandling file
 };
 
 

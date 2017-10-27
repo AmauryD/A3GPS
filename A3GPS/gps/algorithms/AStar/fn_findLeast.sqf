@@ -1,3 +1,6 @@
+#include "..\..\..\macros.h"
+
+
 #define GET_NODE(ROAD_NAME) [_nameSpace,parseNumber ROAD_NAME] call misc_fnc_hashTable_find
 
 private "_return";

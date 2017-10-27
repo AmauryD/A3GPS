@@ -81,6 +81,7 @@ misc_fnc_setSetting = ["misc","fn_setSetting"] call gps_fnc_compile;
 misc_fnc_hashTable_find = ["misc\hashTable","fn_find"] call gps_fnc_compile;
 misc_fnc_hashTable_set = ["misc\hashTable","fn_set"] call gps_fnc_compile;
 misc_fnc_hashTable_create = ["misc\hashTable","fn_create"] call gps_fnc_compile;
+misc_fnc_hashTable_exists = ["misc\hashTable","fn_exists"] call gps_fnc_compile;
 
 misc_fnc_relDirTo =  ["misc","fn_relDirTo"] call gps_fnc_compile;
 misc_fnc_averageFromAngles = ["misc","fn_averageFromAngles"] call gps_fnc_compile;
@@ -155,3 +156,12 @@ gps_init_done = true;
 if(getNumber (gps_config_entry >> "default_keyHandling_enable") == 1) then {
 	(findDisplay 46) displayAddEventHandler ["KeyDown",gps_menu_fnc_handleQuickNavActions];
 };
+
+/**
+[] spawn {
+	gps_highwayss = [];
+	while {true} do {
+		gps_highwayss pushBackUnique roadAt player;
+	};
+};
+**/

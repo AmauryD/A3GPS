@@ -12,7 +12,11 @@ if(isNil {profileNamespace getVariable "gps_saved"}) then {  // to store path no
 };
 if(isNil {profileNamespace getVariable "gps_settings"}) then {
 	profileNamespace setVariable ["gps_settings",[
-		["lang",getText	(gps_config_entry >> "default_language")],
-		["markers_color",getText (gps_config_entry >> "default_marker_color")]
+		["lang",
+			["default_language"] call gps_fnc_getConfigSetting
+		],
+		["markers_color",
+			["default_marker_color"] call gps_fnc_getConfigSetting
+		]
 	]];
 };

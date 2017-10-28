@@ -16,3 +16,4 @@ if(player distance _end < 10) then {
 	hintSilent (["STR_ARRIVED"] call misc_fnc_localize);
 };
 terminate _handle;
+[] call gps_menu_fnc_closeHud;

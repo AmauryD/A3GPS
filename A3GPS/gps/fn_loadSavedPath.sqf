@@ -37,6 +37,6 @@ _nodesPath = (_theRightPath select 3) apply {[_x,gps_onlyCrossRoads] call misc_f
 _fullPath = [_nodesPath] call gps_fnc_generatePathHelpers;
 [["STR_SAVED_PATH_LOADED"] call misc_fnc_localize] call gps_menu_fnc_setGPSInfo;
 [_thisScript,_endRoad] spawn gps_fnc_waitArrive;
-[] spawn gps_menu_fnc_runHud;
+[] spawn gps_menu_fnc_openHud;
 
 [_nodesPath,_fullPath] call gps_fnc_tracking;

@@ -3,7 +3,7 @@
   @Author : [Utopia] Amaury
   @Creation : 10/05/17
   @Modified : 18/06/17
-  @Description : main 
+  @Description : worst function ever
 **/
 
 #define CORRECT_ANGLE(DIR) if (DIR < 0) then {DIR = DIR + 360};if (DIR > 360) then {DIR = DIR - 360}
@@ -26,6 +26,19 @@ private _fn_findNextNode = {
 
 	_next
 };
+private _fn_getMessageFromDir = {
+	_cardinal = switch (true) do
+	{	
+		case (_dir >= 330): { [["STR_ROAD_CONTINUE"] call misc_fnc_localize,"icons\arrow_up.paa"] };
+		case (_dir >= 300): { [["STR_ROAD_TURN_SLOW_LEFT"] call misc_fnc_localize,"icons\arrow_up.paa"] };
+		case (_dir >= 180): { [["STR_ROAD_TURN_LEFT"] call misc_fnc_localize,"icons\arrow_left.paa"] };
+		case (_dir >= 60):  { [["STR_ROAD_TURN_RIGHT"] call misc_fnc_localize,"icons\arrow_right.paa"] };
+		case (_dir >= 30): { [["STR_ROAD_TURN_SLOW_RIGHT"] call misc_fnc_localize,"icons\arrow_up.paa"] };
+		default               { [["STR_ROAD_CONTINUE"] call misc_fnc_localize,"icons\arrow_up.paa"] };
+	};
+	_cardinal set [0,format[_cardinal select 0,round(vehicle player distance _node)]];
+	_cardinal
+};
 
 private _fn_getMessage = {
 	scopeName "main_fn";
@@ -44,7 +57,7 @@ private _fn_getMessage = {
 
 	if(isNull _node) exitWith {
 		if(isOnRoad vehicle player) exitWith {0};
-		["STR_GPS_LOST"] call misc_fnc_localize
+		[["STR_GPS_LOST"] call misc_fnc_localize]
 	};
 
 	_nextNode = _path select ((_path find _node) + 1);
@@ -56,7 +69,7 @@ private _fn_getMessage = {
 		_dir_next = _fullPathDir select (_nodeIdx + 1);
 
 		if(isNil "_nextRoad") then {
-			_return = format["<img image='A3\ui_f\data\Map\Markers\Military\flag_CA.paa'/> Arrivée dans %1m",floor (vehicle player distance _node)];
+			_return = [format["Arrivée dans %1m",floor (vehicle player distance _node)]];
 			breakTo "main_fn";
 		};
 
@@ -94,31 +107,10 @@ private _fn_getMessage = {
 			_dir = _dir_node - _dir_previous; //subtract direction of unit
 
 			CORRECT_ANGLE(_dir);
-
-			_cardinal = switch (true) do
-			{	
-				case (_dir >= 330): { "<img image='icons\arrow_up.paa'/>" + (["STR_ROAD_CONTINUE"] call misc_fnc_localize) };
-				case (_dir >= 300): { "<img image='icons\arrow_up.paa'/>" + (["STR_ROAD_TURN_SLOW_LEFT"] call misc_fnc_localize) };
-				case (_dir >= 180): { "<img image='icons\arrow_left.paa'/>" + (["STR_ROAD_TURN_LEFT"] call misc_fnc_localize) };
-				case (_dir >= 60):  { "<img image='icons\arrow_right.paa'/>" + (["STR_ROAD_TURN_RIGHT"] call misc_fnc_localize) };
-				case (_dir >= 30): { "<img image='icons\arrow_up.paa'/>" + (["STR_ROAD_TURN_SLOW_RIGHT"] call misc_fnc_localize) };
-				default               { "<img image='icons\arrow_up.paa'/>" + (["STR_ROAD_CONTINUE"] call misc_fnc_localize) };
-			};
-
-			_return = format["%1 %2m",_cardinal,floor (vehicle player distance _node)];
+			_return = [] call _fn_getMessageFromDir;
 			breakTo "main_fn";
 		};
-
-		_cardinal = switch (true) do
-			{	
-				case (_dir >= 330): { "<img image='icons\arrow_up.paa'/>" + (["STR_ROAD_CONTINUE"] call misc_fnc_localize) };
-				case (_dir >= 300): { "<img image='icons\arrow_up.paa'/>" + (["STR_ROAD_TURN_SLOW_LEFT"] call misc_fnc_localize) };
-				case (_dir >= 180): { "<img image='icons\arrow_left.paa'/>" + (["STR_ROAD_TURN_LEFT"] call misc_fnc_localize) };
-				case (_dir >= 60):  { "<img image='icons\arrow_right.paa'/>" + (["STR_ROAD_TURN_RIGHT"] call misc_fnc_localize) };
-				case (_dir >= 30): { "<img image='icons\arrow_up.paa'/>" + (["STR_ROAD_TURN_SLOW_RIGHT"] call misc_fnc_localize) };
-				default               { "<img image='icons\arrow_up.paa'/>" + (["STR_ROAD_CONTINUE"] call misc_fnc_localize) };
-			};
-		_return = format["%1 %2m",_cardinal,floor (vehicle player distance _node)];
+		_return = [] call _fn_getMessageFromDir;
 	};
 	_return
 };
@@ -129,13 +121,13 @@ while {true} do { //this script thread will be destroyed when arrived
 	scopeName "main_loop";
 
 	_message = [_path,_fullPath,_fullPathNode,_fullPathDir] call _fn_getMessage;
+	private _goalRoute = _fullPathNode select (count _fullPathNode - 1);
 	if(_message isEqualTo 0) then {
 		private "_path";
 
 		[] call gps_fnc_deletePathHelpers;
 
 		private _startRoute = roadAt player;
-		private _goalRoute = _fullPathNode select (count _fullPathNode - 1);
 
 		try {
 			[_startRoute] call gps_fnc_insertFakeNode;
@@ -152,7 +144,7 @@ while {true} do { //this script thread will be destroyed when arrived
 		_fullPathNode = _fullPath apply	{_x select 0};	//divide fullPath in 2 arrays [Object] and [Direction]
 		_fullPathDir = _fullPath apply	{_x select 1};
 	}else{
-		gps_status_text = _message;
+		[_message param [0],_message param [1],format["%1m",round (vehicle player distance _goalRoute)]] call gps_menu_fnc_setGPSInfo;
 	};
 	uiSleep 0.2;
 };

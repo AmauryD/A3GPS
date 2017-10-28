@@ -41,9 +41,7 @@ while {count _open_list != 0} do {
         [format["F : %1",_qObject select 2]] call gps_fnc_log;
         [format["G : %1",_qObject select 3]] call gps_fnc_log;
         [format["H : %1",_qObject select 4]] call gps_fnc_log;
-    #endif
-
-    #ifdef GPS_DEV
+        
         [str _qObject,getPosATL(_qObject select 1),str (_qObject select 1)] call gps_fnc_createMarker;
     #endif
 
@@ -90,7 +88,10 @@ while {count _open_list != 0} do {
     }foreach _connectedNodes;
 
     [_closed_list,parseNumber _qName,true] call misc_fnc_hashTable_set;
-    ["============== END WHILE =============="] call gps_fnc_log;
+
+    #ifdef GPS_DEV
+    	["============== END WHILE =============="] call gps_fnc_log;
+    #endif
 };
 
 #ifdef GPS_DEV

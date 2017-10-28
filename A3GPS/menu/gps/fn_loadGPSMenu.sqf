@@ -1,4 +1,4 @@
-#include "..\macros.h"
+#include "..\..\macros.h"
 /**
 	@Author : [Utopia] Amaury
 	@Creation : 1/02/17
@@ -80,11 +80,7 @@ _delete_saved_path_btn ctrlAddEventHandler ["ButtonClick",{
 _delete_saved_path_btn ctrlAddEventHandler ["MouseButtonClick",{if((_this select 1) == 1) then {hintSilent parseText (["STR_MENU_HINT_DELETE_SAVED_PATH"] call misc_fnc_localize)}}];
 
 _map ctrlAddEventHandler ["MouseButtonClick",{
-	_control = _this select 0;
-	_btn = _this select 1;
-	_xCoord = _this select 2;
-	_yCoord = _this select 3; 
-	_shift = _this select 4;
+	params ["_control","_btn","_xCoord","_yCoord","_shift"];
 
 	_pos = _control ctrlMapScreenToWorld [_xCoord, _yCoord];
 
@@ -102,7 +98,10 @@ _map ctrlAddEventHandler ["MouseButtonClick",{
 
 _newpath_btn ctrlAddEventHandler ["MouseButtonClick",{hintSilent parseText (["STR_MENU_HINT_NEW_PATH"] call misc_fnc_localize)}];
 
-_stop_path ctrlAddEventHandler ["ButtonClick",gps_fnc_killGPS];
+_stop_path ctrlAddEventHandler ["ButtonClick",{
+	[] call gps_fnc_killGPS;
+	[] call gps_menu_fnc_closeHud;
+}];
 _stop_path ctrlAddEventHandler ["MouseButtonClick",{if((_this select 1) == 1) then {hintSilent parseText (["STR_MENU_HINT_STOP_PROCESS"] call misc_fnc_localize)}}];
 
 _load_saved_path_btn ctrlAddEventHandler ["ButtonClick",{
@@ -131,8 +130,7 @@ _drop_data_btn ctrlAddEventHandler ["ButtonClick",{ //reset some things , i don'
 
 
 _markerColorPicker ctrlAddEventHandler ["LBSelChanged",{
-	_control = _this select 0;
-	_index = _this select 1;
+	params ["_control","_index"];
 
 	_type = _control lbData _index;
 
@@ -141,8 +139,7 @@ _markerColorPicker ctrlAddEventHandler ["LBSelChanged",{
 }];
 
 _langPicker ctrlAddEventHandler ["LBSelChanged",{
-	_control = _this select 0;
-	_index = _this select 1;
+	params ["_control","_index"];
 
 	_type = _control lbData _index;
 

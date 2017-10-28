@@ -34,6 +34,7 @@ private _nearestEndNodeObject = _endRoute;
 [_nearestEndNodeObject] call gps_fnc_insertFakeNode;
 
 uiNamespace setVariable ["BIS_fnc_guiMessage_status", false];
+
 gps_saveCurrent = [["STR_VALID_SAVE_PATH"] call misc_fnc_localize,["STR_VALID_SAVE_PATH_TITLE"] call misc_fnc_localize,["STR_YES"] call misc_fnc_localize,["STR_NO"] call misc_fnc_localize, findDisplay 369852,true] call BIS_fnc_guiMessage;
 if(gps_saveCurrent) then {
 	_saveName = [["STR_SELECT_SAVED_PATH_NAME"] call misc_fnc_localize,findDisplay 369852] call misc_fnc_editDialog;
@@ -70,6 +71,6 @@ if(gps_saveCurrent) then {
 	};
 }; 
 
-[] spawn gps_menu_fnc_runHud;
+[] spawn gps_menu_fnc_openHud;
 
 [_path,_fullPath] call gps_fnc_tracking;

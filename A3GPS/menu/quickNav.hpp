@@ -8,7 +8,7 @@ class GPS_quickNav {
 			idc = 1600;
 			x = -0.00603843 * safezoneW + safezoneX;
 			y = 0.279091 * safezoneH + safezoneY;
-			w = 0.166182 * safezoneW;
+			w = 0.183286 * safezoneW;
 			h = 0.034 * safezoneH;
 		};
 		class RscStructuredText_1100: RscStructuredText
@@ -17,7 +17,7 @@ class GPS_quickNav {
 			text = "<t align='center'>Quick nav</t>"; //--- ToDo: Localize;
 			x = -0.00610069 * safezoneW + safezoneX;
 			y = 0.245 * safezoneH + safezoneY;
-			w = 0.166182 * safezoneW;
+			w = 0.183286 * safezoneW;
 			h = 0.034 * safezoneH;
 			colorBackground[] = {-1,-1,-1,0.8};
 		};

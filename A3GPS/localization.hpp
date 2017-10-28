@@ -29,24 +29,24 @@ class GPS_Localization {
 		fr="Pas d'arrivée valide détectée.";
 	};
 	class STR_ROAD_CONTINUE {
-		en = "Follow the road during";
-		fr = "Suivez la route durant";
+		en = "Follow the road during %1m";
+		fr = "Suivez la route durant %1m";
 	};
 	class STR_ROAD_TURN_SLOW_LEFT {
-		en = "Turn slight left in";
-		fr = "Tournez légèrement à gauche dans";
+		en = "Turn slight left in %1m";
+		fr = "Tournez légèrement à gauche dans %1m";
 	};
 	class STR_ROAD_TURN_LEFT {
-		en = "Turn left in";
-		fr = "Tournez à gauche dans";
+		en = "Turn left in %1m";
+		fr = "Tournez à gauche dans %1m";
 	};
 	class STR_ROAD_TURN_RIGHT {
-		en = "Turn right in";
-		fr = "Tournez à droite dans";
+		en = "Turn right in %1m";
+		fr = "Tournez à droite dans %1m";
 	};
 	class STR_ROAD_TURN_SLOW_RIGHT {
-		en = "Turn slight right in";
-		fr = "Tournez légèrement à droite dans";
+		en = "Turn slight right in %1m";
+		fr = "Tournez légèrement à droite dans %1m";
 	};
 	class STR_START {
 		en = "Start";
@@ -165,7 +165,7 @@ class GPS_Localization {
 		fr = "Arrêt du processus et nettoyage de la carte ...";
 	};
 
-	//log messages
+	//log messages , optionnal 
 	class STR_LOG_VMAP_INIT_DONE {
 		en = "Road network initialized in %1s";
 		fr = "Routes initialisées en %1s";

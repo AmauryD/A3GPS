@@ -15,13 +15,16 @@ gps_curr_thread = _thisScript;
 private _nearestStartNodeObject = [player,player nearRoads 100] call misc_fnc_nearestPos;
 private _nearestEndNodeObject = [_position,_position nearRoads 100] call misc_fnc_nearestPos;
 
+if(isNull _nearestEndNodeObject) exitWith {hintSilent (["STR_NO_VALID_END_ROAD"] call misc_fnc_localize)};
+if(isNull _nearestStartNodeObject) exitWith {hintSilent (["STR_NO_VALID_START_ROAD"] call misc_fnc_localize)};
+
 [_nearestStartNodeObject] call gps_fnc_insertFakeNode;
 [_nearestEndNodeObject] call gps_fnc_insertFakeNode;
 
 try {
 	_path = [_nearestStartNodeObject,_nearestEndNodeObject] call gps_fnc_generateNodePath;
 	_fullPath = [_path] call gps_fnc_generatePathHelpers;
-	[] spawn gps_menu_fnc_runHud;
+	[] spawn gps_menu_fnc_openHud;
 	[_thisScript,_nearestEndNodeObject] spawn gps_fnc_waitArrive;
 	[_path,_fullPath] call gps_fnc_tracking;
 }catch{

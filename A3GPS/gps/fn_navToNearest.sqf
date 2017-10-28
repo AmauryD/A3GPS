@@ -15,7 +15,7 @@ gps_curr_thread = _thisScript;
 private _nearestStartNodeObject = [player,player nearRoads 100] call misc_fnc_nearestPos;
 private _nearestEndNodeObject = [_position,_position nearRoads 100] call misc_fnc_nearestPos;
 
-if(isNull _nearestEndNodeObject) exitWith {hintSilent (["STR_NO_VALID_END_ROAD"] call misc_fnc_localize)};
+if(_nearestEndNodeObject isEqualType []) exitWith {hintSilent (["STR_NO_VALID_END_ROAD"] call misc_fnc_localize)};
 if(isNull _nearestStartNodeObject) exitWith {hintSilent (["STR_NO_VALID_START_ROAD"] call misc_fnc_localize)};
 
 [_nearestStartNodeObject] call gps_fnc_insertFakeNode;

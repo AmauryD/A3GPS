@@ -9,12 +9,12 @@ params [
 	["_point",objNull,[objNull,[]]],
 	["_searchArray",[],[[]]]
 ];
-private _nearest = [999999,99999999,9999999];
+private _return = [[0,0,0],objNull] select (_point isEqualType objNull);
 
 {
-	if(_x distance _point < _nearest distance _point) then {
-		_nearest = _x;
+	if(_x distance _point < _return distance _point) then {
+		_return = _x;
 	};
 }forEach _searchArray;
 
-_nearest
+_return

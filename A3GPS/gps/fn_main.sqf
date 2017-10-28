@@ -35,6 +35,7 @@ private _nearestEndNodeObject = _endRoute;
 
 uiNamespace setVariable ["BIS_fnc_guiMessage_status", false];
 
+/** Will be reimplemented with the next menu
 gps_saveCurrent = [["STR_VALID_SAVE_PATH"] call misc_fnc_localize,["STR_VALID_SAVE_PATH_TITLE"] call misc_fnc_localize,["STR_YES"] call misc_fnc_localize,["STR_NO"] call misc_fnc_localize, findDisplay 369852,true] call BIS_fnc_guiMessage;
 if(gps_saveCurrent) then {
 	_saveName = [["STR_SELECT_SAVED_PATH_NAME"] call misc_fnc_localize,findDisplay 369852] call misc_fnc_editDialog;
@@ -42,7 +43,7 @@ if(gps_saveCurrent) then {
 		_saveName = format["%1-%2",text ([_nearestStartNodeObject] call misc_fnc_nearestLocation),text ([_nearestEndNodeObject] call misc_fnc_nearestLocation)];
 	};
 };
-
+**/
 
 private _allThePath = [
     _saveName,

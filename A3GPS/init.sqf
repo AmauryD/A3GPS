@@ -80,6 +80,7 @@ misc_fnc_editDialog = ["misc","fn_editDialog"] call gps_fnc_compile;
 misc_fnc_pushFront = ["misc","fn_pushFront"] call gps_fnc_compile;
 misc_fnc_nearestRoadInArray = ["misc","fn_nearestRoadInArray"] call gps_fnc_compile;
 misc_fnc_nearestRoad = ["misc","fn_nearestRoad"] call gps_fnc_compile;
+misc_fnc_safeSelect = ["misc","fn_safeSelect"] call gps_fnc_compile;
 
 misc_fnc_localize = ["misc","fn_localize"] call gps_fnc_compile;
 misc_fnc_getSetting = ["misc","fn_getSetting"] call gps_fnc_compile;

@@ -37,6 +37,7 @@ while {count _open_list != 0} do {
     private _qObject = GET_NODE(_qName);
 
     #ifdef GPS_DEV
+    	[format["Open List size : %1",count _open_list]] call gps_fnc_log;
         [format["==== Found lightest road : %1 ====",_qName]] call gps_fnc_log;
         [format["F : %1",_qObject select 2]] call gps_fnc_log;
         [format["G : %1",_qObject select 3]] call gps_fnc_log;

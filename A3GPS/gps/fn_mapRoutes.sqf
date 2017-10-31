@@ -31,14 +31,16 @@ gps_alreadyLinked = []; // is this used ?
 
 gps_allRoadsWithInter = gps_allRoads apply {
   private _road = _x;
-  private _near = getPosATL _road nearRoads 15;//15 a good radius and this comment is useless
+  private _near = getPosATL _road nearRoads 15;//20 getting roads in the area
   private _connected = roadsConnectedTo _road;
-  	
+
+  _near = (_near - _connected) - [_road];
+
+  _roadRect = [_road] call misc_fnc_getROadBoundingBoxWorld;
   {
-     if (!(_x in _connected) && !(_x isEqualTo _road)) then {
-      if(count roadsConnectedTo _x == 1) then {
-        _connected pushBackUnique _x;
-      };
+    _rect = [_x] call misc_fnc_getROadBoundingBoxWorld;
+     if([_rect,_roadRect] call misc_fnc_arepolygonsoverlapping) then {
+        _connected pushBack _x;
      };
   }foreach _near;
 
@@ -50,7 +52,7 @@ gps_allRoadsWithInter = gps_allRoads apply {
   if(count ([_x] call gps_fnc_roadsConnectedTo) < 2) then {
     private _route = _x; 
     private _routeConnected = [gps_roadsWithConnected,parseNumber str _route] call misc_fnc_hashTable_find;
-    private _nearRoads = _route nearRoads 17;
+    private _nearRoads = _route nearRoads 15;
 
     {
       _road = _x;

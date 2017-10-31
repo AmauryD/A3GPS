@@ -14,6 +14,7 @@ params [
 private _linkedCrossRoads = [];
 private _linkedSegments = [];
 private _previous = _crossRoad;
+private _crossRoad_isHighWay = [_crossRoad] call gps_fnc_isHighWay;
 
 {
   private _currRoad = _x;
@@ -29,10 +30,12 @@ private _previous = _crossRoad;
       _passedBy pushBack _currRoad;
       _segmentValue = _segmentValue + (_previous distance2D _currRoad);
 
+      _currRoad_isHighWay = [_currRoad] call gps_fnc_isHighWay;
+      
       if(count _connected isEqualTo 0) exitWith {};
       if(count _connected isEqualTo 1) exitWith {};
       if(count _connected > 2 || _currRoad in _exceptions) exitWith {  
-        if(str _currRoad in gps_data_highWays && str _crossRoad in gps_data_highWays) then {
+        if(_currRoad_isHighWay && _crossRoad_isHighWay) then {
             _segmentValue = (_segmentValue / 5); 
         };
         if(str _currRoad in gps_data_normalWays && str _crossRoad in gps_data_normalWays) then {

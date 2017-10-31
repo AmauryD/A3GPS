@@ -6,6 +6,8 @@
 	@Description : Initialization
 **/
 
+
+
 gps_dir = getText (missionConfigFile >> "CfgGPS" >> "gps_dir");
 
 gps_fnc_compile = compileFinal	preprocessFileLineNumbers (gps_dir + "misc\fn_compile.sqf");
@@ -42,6 +44,7 @@ gps_fnc_getAllRoads = ["gps","fn_getAllRoads"] call gps_fnc_compile;
 gps_fnc_loadWorldData = ["gps","fn_loadWorldData"] call gps_fnc_compile;
 gps_fnc_refreshCache = ["misc","fn_refreshCache"] call gps_fnc_compile;
 gps_fnc_killGPS = ["gps","fn_killGPS"] call gps_fnc_compile;
+gps_fnc_isHighway = ["gps","fn_isHighWay"] call gps_fnc_compile;
 
 /** TEST FUNCTIONS **/
 //dev_fnc_getConnectedSegments = "fn_getConnectedSegments" call gps_fnc_compile;
@@ -81,6 +84,9 @@ misc_fnc_pushFront = ["misc","fn_pushFront"] call gps_fnc_compile;
 misc_fnc_nearestRoadInArray = ["misc","fn_nearestRoadInArray"] call gps_fnc_compile;
 misc_fnc_nearestRoad = ["misc","fn_nearestRoad"] call gps_fnc_compile;
 misc_fnc_safeSelect = ["misc","fn_safeSelect"] call gps_fnc_compile;
+misc_fnc_getRoadBoundingBoxWorld = ["misc","fn_getRoadBoundingBoxWorld"] call gps_fnc_compile;
+misc_fnc_getRoadDir = ["misc","fn_getRoadDir"] call gps_fnc_compile;
+misc_fnc_arePolygonsOverlapping = ["misc","fn_arePolygonsOverlapping"] call gps_fnc_compile;
 
 misc_fnc_localize = ["misc","fn_localize"] call gps_fnc_compile;
 misc_fnc_getSetting = ["misc","fn_getSetting"] call gps_fnc_compile;
@@ -110,6 +116,8 @@ gps_version = "1.0";
 
 waitUntil {!isNull findDisplay 46};
 waitUntil {!isNull player};
+
+sleep 0.2;
 
 _handle = [] spawn gps_fnc_mapRoutes; 
 
@@ -143,21 +151,9 @@ waitUntil {	//wait for the virtual mapping to be done
 			{
 				[nil,getPosATL (_x select 0),str (_x select 1),'mil_dot'] call misc_fnc_createMarker;
 			}foreach _connectedNodes;
-		}else{
-			if(isNil 'gps_highways') then {gps_highways = [];};
-			if(_alt) then {
-				hintSilent str _pos;
-				[nil,_pos,str _pos,'mil_dot'] call misc_fnc_createMarker;
-				gps_highways pushBackUnique _pos;
-				copyToClipboard str gps_highways;
-			}else{
-				
-			};
 		};
-
 		true
 	";
-	player addAction ["GPS",gps_menu_fnc_loadGPSMenu];
 #endif	
 
 gps_init_done = true;

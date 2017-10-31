@@ -65,16 +65,33 @@ private _fn_getMessage = {
 
 	if !(isNil "_nextNode") then {
 		_nodeIdx = _fullPathNode find _node;
-		_nextRoad = _fullPathNode select (_nodeIdx + 1);
-		_dir_next = _fullPathDir select (_nodeIdx + 1);
+
+		private ["_nextRoad","_dir_next"];
+		try {
+			_nextRoad = [_fullPathNode,_nodeIdx + 1] call misc_fnc_safeSelect;
+			_dir_next = [_fullPathDir,_nodeIdx + 1] call misc_fnc_safeSelect;
+		}catch{
+			[format["Error : %1",_exception]] call gps_fnc_log;
+			_return = [""];
+			breakTo "main_fn";
+		};
 
 		if(isNil "_nextRoad") then {
 			_return = [format["Arrivée dans %1m",floor (vehicle player distance _node)]];
 			breakTo "main_fn";
 		};
 
-		_next_nextRoad = _fullPathNode select (_nodeIdx + 2);
-		_dir_next_next = _fullPathDir select (_nodeIdx + 2);
+		private ["_next_nextRoad","_dir_next_next"];
+
+		try {
+			_next_nextRoad = [_fullPathNode,_nodeIdx + 2] call misc_fnc_safeSelect;
+			_dir_next_next = [_fullPathDir,_nodeIdx + 2] call misc_fnc_safeSelect;
+		}catch{
+			[format["Error : %1",_exception]] call gps_fnc_log;
+			_return = [""];
+			breakTo "main_fn";
+		};
+
 		_dir_node = _fullPathDir select _nodeIdx;
 			
 		if(_nodeIdx - 2 < 0) then {

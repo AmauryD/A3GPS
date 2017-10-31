@@ -7,7 +7,7 @@ if (!_valid) then {
 	throw "INVALID_PARAMETERS";
 };
 
-if((count _array - 1) > _index) then {
+if(_index > (count _array - 1)) then {
 	throw "OUT_OF_BOUNDS";
 };
 

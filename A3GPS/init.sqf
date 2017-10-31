@@ -117,8 +117,6 @@ gps_version = "1.0";
 waitUntil {!isNull findDisplay 46};
 waitUntil {!isNull player};
 
-sleep 0.2;
-
 _handle = [] spawn gps_fnc_mapRoutes; 
 
 waitUntil {	//wait for the virtual mapping to be done
@@ -140,17 +138,40 @@ waitUntil {	//wait for the virtual mapping to be done
 		}foreach (player nearRoads 1000);
 	}];
 
+	player addAction ["Node mode",{
+		map_mode = "Node";
+	}];
+	player addAction ["Road mode",{
+		map_mode = "Road";
+	}];
+
 	onMapSingleClick "
 		private _nearestStartNodeObject = [_pos,gps_onlyCrossRoads] call misc_fnc_nearestPos;
+		private _mode = missionNameSpace getVariable ['map_mode','Node'];
 
 		if(_shift) then {
-			{deleteMarkerLocal _x;} forEach allMapMarkers;
-			[nil,getPosATL _nearestStartNodeObject,'main','mil_dot'] call misc_fnc_createMarker;
-			_connectedNodes = [gps_allCrossRoadsWithWeight,parseNumber str _nearestStartNodeObject] call misc_fnc_hashTable_find;
+			switch(_mode) do {
+				case 'Node': {
+					{deleteMarkerLocal _x;} forEach allMapMarkers;
+					[nil,getPosATL _nearestStartNodeObject,'main','mil_dot'] call misc_fnc_createMarker;
+					_connectedNodes = [gps_allCrossRoadsWithWeight,parseNumber str _nearestStartNodeObject] call misc_fnc_hashTable_find;
 
-			{
-				[nil,getPosATL (_x select 0),str (_x select 1),'mil_dot'] call misc_fnc_createMarker;
-			}foreach _connectedNodes;
+					{
+						[nil,getPosATL (_x select 0),str (_x select 1),'mil_dot'] call gps_fnc_createMarker;
+					}foreach _connectedNodes;
+				};
+				case 'Road': {
+					_road = roadAt _pos;
+					if(isNull _road) exitWith {};
+					{deleteMarkerLocal _x;} forEach allMapMarkers;
+					[nil,getPosATL _road,'main','mil_dot'] call misc_fnc_createMarker;
+					_connected = [_road] call gps_fnc_roadsConnectedTo;
+
+					{
+						[nil,getPosATL _x,str _x,'mil_dot'] call gps_fnc_createMarker;
+					}foreach _connected;
+				};
+			};
 		};
 		true
 	";

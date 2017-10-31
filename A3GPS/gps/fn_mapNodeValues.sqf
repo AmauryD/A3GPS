@@ -36,10 +36,7 @@ private _crossRoad_isHighWay = [_crossRoad] call gps_fnc_isHighWay;
       if(count _connected isEqualTo 1) exitWith {};
       if(count _connected > 2 || _currRoad in _exceptions) exitWith {  
         if(_currRoad_isHighWay && _crossRoad_isHighWay) then {
-            _segmentValue = (_segmentValue / 5); 
-        };
-        if(str _currRoad in gps_data_normalWays && str _crossRoad in gps_data_normalWays) then {
-          _segmentValue = (_segmentValue / 1.2); 
+          _segmentValue = (_segmentValue / 4); 
         };
         _linkedCrossRoads pushBack [_currRoad,_segmentValue];
         _passedBy deleteAt (count _passedBy - 1);

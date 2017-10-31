@@ -29,30 +29,51 @@ gps_roadsWithConnected =  [gps_max_road_index] call misc_fnc_hashTable_create;
 
 gps_alreadyLinked = []; // is this used ?
 
-gps_allRoadsWithInter = gps_allRoads apply {
+gps_allRoadsWithInter = gps_allRoads apply { //FINALLY FIXED THIS 
   private _road = _x;
-  private _near = getPosATL _road nearRoads 15;//20 getting roads in the area
+  private _near = getPosATL _road nearRoads 14;//20 getting roads in the area
   private _connected = roadsConnectedTo _road;
 
   _near = (_near - _connected) - [_road];
 
   _roadRect = [_road] call misc_fnc_getROadBoundingBoxWorld;
+  _roadDir = [_road] call misc_Fnc_getROadDir;
+
   {
     _rect = [_x] call misc_fnc_getROadBoundingBoxWorld;
+    _dir = [_x] call misc_Fnc_getROadDir;
+    _dirDiff = _dir - _roadDir;
+    while {_dirDiff < -180} do { _dirDiff =  _dirDiff + 360};
+    while {_dirDiff > 180} do { _dirDiff =  _dirDiff - 360};
+
+    if(_dirDiff > 25) then {
      if([_rect,_roadRect] call misc_fnc_arepolygonsoverlapping) then {
         _connected pushBack _x;
+        if([gps_roadsWithConnected,parseNumber str _x] call misc_fnc_hashTable_exists) then {
+          private _connected = [gps_roadsWithConnected,parseNumber str _x] call misc_fnc_hashTable_find;
+          _connected pushBack _road;
+        }else{
+          [gps_roadsWithConnected,parseNumber str _x,[_road]] call misc_fnc_hashTable_set;
+        };
      };
+    };
   }foreach _near;
 
-  [gps_roadsWithConnected,parseNumber str _road,_connected] call misc_fnc_hashTable_set;
+  _currentConnected = [gps_roadsWithConnected,parseNumber str _road] call misc_fnc_hashTable_find;
+  if(isNil "_currentConnected") then {
+      [gps_roadsWithConnected,parseNumber str _road,_connected] call misc_fnc_hashTable_set;
+  }else{
+      _currentConnected append _connected;
+  };
   [_road,_connected]
 };
 
+/* old fix
 { //fix for one-way connected roads , thx god , that fixed every problems
   if(count ([_x] call gps_fnc_roadsConnectedTo) < 2) then {
     private _route = _x; 
     private _routeConnected = [gps_roadsWithConnected,parseNumber str _route] call misc_fnc_hashTable_find;
-    private _nearRoads = _route nearRoads 15;
+    private _nearRoads = _route nearRoads 20;
 
     {
       _road = _x;
@@ -65,6 +86,7 @@ gps_allRoadsWithInter = gps_allRoads apply {
     [gps_roadsWithConnected,parseNumber str _route,_routeConnected] call misc_fnc_hashTable_set;
   };
 }foreach gps_allRoads;
+*/
 
 {
   _connected = [gps_roadsWithConnected,parseNumber str (_x select 0)] call misc_fnc_hashTable_find;

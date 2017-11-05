@@ -3,7 +3,8 @@
 	@Author : [Utopia] Amaury
 	@Creation : 22/10/17
 	@Modified : 23/10/17
-	@Description : 
+	@Description : Log function of GPS , diag_log anything to RPT with file name and diag_tickTime
+		Return : Nothing
 **/
 params ["_anything"];
 

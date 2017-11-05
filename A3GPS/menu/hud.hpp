@@ -16,6 +16,21 @@ $[
 
 #define GUI_GRID_H (safezoneH / 25)
 
+/* #Mysowo
+$[
+	1.063,
+	["gps_hud",[[0,0,1,1],0.025,0.04,"GUI_GRID"],0,0,0],
+	[2200,"IGUIBack_2202",[1,"",["-0.00204339 * safezoneW + safezoneX","0.568003 * safezoneH + safezoneY","0.183286 * safezoneW","0.0340016 * safezoneH"],[-1,-1,-1,-1],[-1,-1,-1,-1],[-1,-1,-1,-1],"","-1"],["idc = 2202;"]],
+	[2201,"IGUIBack_2203",[1,"",["-0.00204339 * safezoneW + safezoneX","0.619005 * safezoneH + safezoneY","0.183286 * safezoneW","0.0340016 * safezoneH"],[-1,-1,-1,-1],[-1,-1,-1,-1],[-1,-1,-1,-1],"","-1"],["idc = 2203;"]],
+	[1000,"gps_map: RscMapControl",[1,"",["-0.00204341 * safezoneW + safezoneX","0.312991 * safezoneH + safezoneY","0.183286 * safezoneW","0.238011 * safezoneH"],[-1,-1,-1,-1],[-1,-1,-1,1],[-1,-1,-1,-1],"","-1"],["idc = 2201;","mapOrientation = 1;","moveOnEdges = 1;","showCountourInterval = 1;"]],
+	[1001,"status_text",[1,"",["0.0218634 * safezoneW + safezoneX","0.568003 * safezoneH + safezoneY","0.159379 * safezoneW","0.0340016 * safezoneH"],[-1,-1,-1,-1],[-1,-1,-1,0],[-1,-1,-1,-1],"","0.5 * (safezoneH / 25)"],["idc = 1000;"]],
+	[1200,"status_picture",[1,"#(argb,8,8,3)color(1,1,1,1)",["0.00592555 * safezoneW + safezoneX","0.568003 * safezoneH + safezoneY","0.0159379 * safezoneW","0.0340016 * safezoneH"],[-1,-1,-1,-1],[0,0,0,0.6],[-1,-1,-1,-1],"","-1"],["idc = 1200;"]],
+	[1201,"goal_image",[1,"A3\ui_f\data\Map\Markers\Military\flag_CA.paa",["0.00592555 * safezoneW + safezoneX","0.619005 * safezoneH + safezoneY","0.0159379 * safezoneW","0.0340016 * safezoneH"],[-1,-1,-1,-1],[-1,-1,-1,-1],[-1,-1,-1,-1],"","-1"],["idc = 1201;"]],
+	[1002,"goal_distance",[1,"",["0.0218634 * safezoneW + safezoneX","0.619005 * safezoneH + safezoneY","0.159379 * safezoneW","0.0340016 * safezoneH"],[-1,-1,-1,-1],[-1,-1,-1,-1],[-1,-1,-1,-1],"","-1"],["idc = 1002;"]],
+	[1003,"zoomMap : RscMapControl",[1,"",["0.189211 * safezoneW + safezoneX","0.551002 * safezoneH + safezoneY","0.0557826 * safezoneW","0.102005 * safezoneH"],[-1,-1,-1,-1],[-1,-1,-1,1],[-1,-1,-1,-1],"","-1"],["idc = 2201;","mapOrientation = 1;","moveOnEdges = 1;","showCountourInterval = 1;"]]
+]
+*/
+
 class gps_hud
 {
 	idd =987654;
@@ -39,21 +54,21 @@ class gps_hud
 			w = 0.183286 * safezoneW;
 			h = 0.0340016 * safezoneH;
 		};
-		class main_background: IGUIBack
-		{
-			idc = 2200;
-			x = -0.0013608 * safezoneW + safezoneX;
-			y = 0.314293 * safezoneH + safezoneY;
-			w = 0.183286 * safezoneW;
-			h = 0.238011 * safezoneH;
-			colorBackground[] = {0,0,0,0.6};
-		};
 	};
 
 	class controls {
 		////////////////////////////////////////////////////////
 		// GUI EDITOR OUTPUT START (by AmauryD, v1.063, #Gonoja)
 		////////////////////////////////////////////////////////
+		class zoomMap : RscMapControl
+		{
+			idc = 2204;
+			x = 0.189211 * safezoneW + safezoneX;
+			y = 0.551002 * safezoneH + safezoneY;
+			w = 0.0557826 * safezoneW;
+			h = 0.102005 * safezoneH;
+			colorBackground[] = {-1,-1,-1,1};
+		};
 
 		class gps_map: RscMapControl
 		{
@@ -103,6 +118,7 @@ class gps_hud
 			y = 0.619005 * safezoneH + safezoneY;
 			w = 0.159379 * safezoneW;
 			h = 0.0340016 * safezoneH;
+			sizeEx = 0.9 * GUI_GRID_H;
 		};
 		////////////////////////////////////////////////////////
 		// GUI EDITOR OUTPUT END

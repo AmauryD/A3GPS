@@ -3,7 +3,8 @@
 	@Author : [Utopia] Amaury
 	@Creation : 1/02/17
 	@Modified : 23/10/17
-	@Description : check if stacked EH exists , not used now in GPS but can be usefull
+	@Description : check if stacked EH exists , not used now in GPS but can be usefull 
+		Return : Boolean
 **/
 params [
 	["_name","",[""]],

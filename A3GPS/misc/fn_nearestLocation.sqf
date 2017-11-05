@@ -4,6 +4,7 @@
 	@Creation : 1/02/17
 	@Modified : 4/02/17
 	@Description : finds the nearest location near point/object.
+		Return : Location 
 **/
 
 params [

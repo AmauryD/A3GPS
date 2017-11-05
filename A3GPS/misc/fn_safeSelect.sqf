@@ -1,3 +1,13 @@
+#include "..\macros.h"
+/**
+	@Author : [Utopia] Amaury
+	@Creation : ??/11/17
+	@Modified : --
+	@Description : select an element of an array , throwing an error that can be handled if the index is not correct
+		Return : Anything
+**/
+
+
 _valid = params [
 	["_array",[],[[]]],
 	["_index",-1,[0]]

@@ -2,8 +2,13 @@
 /**
 	@Author : [Utopia] Amaury
 	@Creation : 1/02/17
-	@Modified : 23/10/17
-	@Description : 
+	@Modified : 05/11/17
+	@Description : is this usefull ? , delete markers locally from an array
+		Return : Nothing
 **/
 
-{deleteMarkerLocal _x}foreach (param[0,[],[[]]]);
+params [
+	["_markers",[],[[]]]
+];
+
+{deleteMarkerLocal _x}foreach _markers;

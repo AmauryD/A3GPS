@@ -3,7 +3,7 @@
 	@Author : [Utopia] Amaury
 	@Creation : 12/05/17
 	@Modified : 12/05/17
-	@Description : 
+	@Description : remove later ? 
 **/
 params ["_pos1","_dir2","_pos2"];
 

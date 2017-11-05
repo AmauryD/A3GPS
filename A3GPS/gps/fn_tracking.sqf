@@ -14,6 +14,7 @@ private _fullPathNode = _fullPath apply	{_x select 0};	//divide fullPath in 2 ar
 private _fullPathDir = _fullPath apply	{_x select 1};
 
 private _fn_findNextNode = {
+	params ["_path","_fullPath","_fullPathNode"];
 	_currRoadIndex = _fullPathNode find ([getPosATL player,50,_fullPathNode] call misc_fnc_nearestRoadInArray); //searching nearestRoad in path to avoid road superposition problem
 	_nextPath = _fullPathNode select [_currRoadIndex,(count _fullPathNode) - 1];
 	private _next = objNull;
@@ -66,23 +67,29 @@ private _fn_getMessage = {
 	if !(isNil "_nextNode") then {
 		_nodeIdx = _fullPathNode find _node;
 
-		private ["_nextRoad","_dir_next"];
+		private ["_nextRoad","_dir_next"]; //temporary fix
 		try {
 			_nextRoad = [_fullPathNode,_nodeIdx + 1] call misc_fnc_safeSelect;
 			_dir_next = [_fullPathDir,_nodeIdx + 1] call misc_fnc_safeSelect;
 		}catch{
-			[format["Error : %1",_exception]] call gps_fnc_log;
-			_return = [""];
-			breakTo "main_fn";
+			#ifdef GPS_DEV
+				[format["Error : %1",_exception]] call gps_fnc_log;
+			#endif
 		};
+
 
 		if(isNil "_nextRoad") then {
 			_return = [format["Arrivée dans %1m",floor (vehicle player distance _node)]];
 			breakTo "main_fn";
 		};
 
-		private ["_next_nextRoad","_dir_next_next"];
+		if(vehicle player distance _nextRoad < 100) then {
+			[getPosATL _node,true] call gps_menu_fnc_HudZoomOnPos;
+		}else{
+			[] call gps_menu_fnc_HudHideZoomOnPos;
+		};
 
+		private ["_next_nextRoad","_dir_next_next"]; //temporary fix
 		try {
 			_next_nextRoad = [_fullPathNode,_nodeIdx + 2] call misc_fnc_safeSelect;
 			_dir_next_next = [_fullPathDir,_nodeIdx + 2] call misc_fnc_safeSelect;
@@ -142,17 +149,17 @@ while {true} do { //this script thread will be destroyed when arrived
 	if(_message isEqualTo 0) then {
 		private "_path";
 
-		[] call gps_fnc_deletePathHelpers;
-
-		private _startRoute = roadAt player;
+		private _startRoute = [getPosATL player,1000] call misc_fnc_nearestRoad;
 
 		try {
 			[_startRoute] call gps_fnc_insertFakeNode;
 			_path = [_startRoute,_goalRoute] call gps_fnc_generateNodePath;
 		}catch{
-			gps_status_text = _exception;
+			[format["Error : %1",_exception]] call gps_fnc_log;
 			breakTo "main_loop";
 		};
+
+		[] call gps_fnc_deletePathHelpers;
 
 		[nil,getPosATL _startRoute,["STR_START"] call misc_fnc_localize,"mil_dot",_color] call gps_fnc_createMarker;
 		[nil,getPosATL _goalRoute,["STR_GOAL"] call misc_fnc_localize,"mil_flag",_color] call gps_fnc_createMarker;

@@ -3,7 +3,8 @@
 	@Author : [Utopia] Amaury
 	@Creation : ??
 	@Modified : 23/10/17
-	@Description : 
+	@Description : Get Setting from gps config array 
+		Return : Anything
 **/
 
 params [

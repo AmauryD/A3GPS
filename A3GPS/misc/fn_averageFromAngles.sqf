@@ -3,7 +3,8 @@
 	@Author : [Utopia] Amaury
 	@Creation : 12/05/17
 	@Modified : 23/10/17
-	@Description : 
+	@Description : Make the average angle from multiple angles (maybe a better method exists ?)
+		Return : Number
 **/
 params [
 	["_angles",[],[[]]]

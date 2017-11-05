@@ -57,6 +57,9 @@ gps_menu_fnc_setGPSInfo = [_hudFolder,"fn_setGPSInfo"] call gps_fnc_compile; // 
 gps_menu_fnc_loadHud = [_hudFolder,"fn_loadHud"] call gps_fnc_compile;
 gps_menu_fnc_openHud = [_hudFolder,"fn_openHud"] call gps_fnc_compile;
 gps_menu_fnc_closeHud = [_hudFolder,"fn_closeHud"] call gps_fnc_compile;
+gps_menu_fnc_HudZoomOnPos = [_hudFolder,"fn_hudZoomOnPos"] call gps_fnc_compile;
+gps_menu_fnc_HudHideZoomOnPos = [_hudFolder,"fn_HudHideZoomOnPos"] call gps_fnc_compile;
+
 
 //main menu
 _gpsMenuFolder = "menu\gps";
@@ -71,6 +74,7 @@ gps_menu_fnc_quickNavExecuteCurrentOption = [_quickNavFolder,"fn_quickNavExecute
 gps_menu_fnc_quickNavNextOption =  [_quickNavFolder,"fn_quickNavNextOption"] call gps_fnc_compile;
 gps_menu_fnc_loadQuickNav = [_quickNavFolder,"fn_loadQuickNav"] call gps_fnc_compile;
 gps_menu_fnc_handleQuickNavActions = [_quickNavFolder,"fn_handleQuickNavActions"] call gps_fnc_compile;
+gps_menu_fnc_addQuickNavOption = [_quickNavFolder,"fn_addQuickNavOption"] call gps_fnc_compile;
 
 /** MISCELLANEOUS FUNCTIONS **/
 misc_fnc_createMarker = ["misc","fn_createmarker"] call gps_fnc_compile;
@@ -87,6 +91,8 @@ misc_fnc_safeSelect = ["misc","fn_safeSelect"] call gps_fnc_compile;
 misc_fnc_getRoadBoundingBoxWorld = ["misc","fn_getRoadBoundingBoxWorld"] call gps_fnc_compile;
 misc_fnc_getRoadDir = ["misc","fn_getRoadDir"] call gps_fnc_compile;
 misc_fnc_arePolygonsOverlapping = ["misc","fn_arePolygonsOverlapping"] call gps_fnc_compile;
+misc_fnc_arrayInsert = ["misc","fn_arrayInsert"] call gps_fnc_compile;
+misc_fnc_metersToKilometers = ["misc","fn_metersToKilometers"] call gps_fnc_compile;
 
 misc_fnc_localize = ["misc","fn_localize"] call gps_fnc_compile;
 misc_fnc_getSetting = ["misc","fn_getSetting"] call gps_fnc_compile;
@@ -122,6 +128,25 @@ _handle = [] spawn gps_fnc_mapRoutes;
 waitUntil {	//wait for the virtual mapping to be done
    scriptDone _handle
 };
+
+[
+	["STR_QUICKNAV_OPTION_STATION"] call misc_fnc_localize,
+	{
+		[
+			[player,nearestObjects [player,["Land_fs_feed_F"],5000]] call misc_fnc_nearestPos
+		] spawn gps_fnc_navToNearest;
+	}
+] call gps_menu_fnc_addQuickNavOption;
+
+[
+	["STR_QUICKNAV_OPTION_TOWN"] call misc_fnc_localize,
+	{
+		[
+			locationPosition ([getPosATL player,4000,["NameCity","NameVillage","NameCityCapital","NameLocal"]] call misc_fnc_nearestLocation)
+		] spawn gps_fnc_navToNearest;
+	}
+] call gps_menu_fnc_addQuickNavOption;
+
 
 #ifdef GPS_DEV
 	player addAction ["Show all crossRoads",{
@@ -166,7 +191,7 @@ waitUntil {	//wait for the virtual mapping to be done
 					{deleteMarkerLocal _x;} forEach allMapMarkers;
 					[nil,getPosATL _road,'main','mil_dot'] call misc_fnc_createMarker;
 					_connected = [_road] call gps_fnc_roadsConnectedTo;
-
+					systemChat str _connected;
 					{
 						[nil,getPosATL _x,str _x,'mil_dot'] call gps_fnc_createMarker;
 					}foreach _connected;

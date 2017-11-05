@@ -6,6 +6,10 @@
   @Description : get all roads on the map , need to improve 
 **/
 
+// i was trying to do things smoothly but finaly it does not freeze the screen
+[worldSize / 2,worldSize / 2,0] nearRoads worldSize;
+
+/**
 private _startPos = [500,500,0];
 _allRoads = [];
 _divisor = (worldSize / 1000);
@@ -31,3 +35,5 @@ _delete = [];
 }forEach _return;
 
 _delete
+
+**/

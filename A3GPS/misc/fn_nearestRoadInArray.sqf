@@ -4,6 +4,7 @@
 	@Creation : 8/05/17
 	@Modified : --
 	@Description : nothing to say
+		Return : Array,Object 
 **/
 params [
 	["_pos",[],[[]]],

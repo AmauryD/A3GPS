@@ -29,25 +29,22 @@ gps_roadsWithConnected =  [gps_max_road_index] call misc_fnc_hashTable_create;
 
 gps_alreadyLinked = []; // is this used ?
 
+
+// vérifier que la route connectée n'est pas déjà connectée au voisin de cette route
 gps_allRoadsWithInter = gps_allRoads apply { //FINALLY FIXED THIS 
   private _road = _x;
-  private _near = getPosATL _road nearRoads 14;//20 getting roads in the area
+  private _near = getPosATL _road nearRoads 14;
   private _connected = roadsConnectedTo _road;
 
   _near = (_near - _connected) - [_road];
 
-  _roadRect = [_road] call misc_fnc_getROadBoundingBoxWorld;
-  _roadDir = [_road] call misc_Fnc_getROadDir;
+  _BB_road = [_road] call misc_fnc_getRoadBoundingBoxWorld;
 
   {
-    _rect = [_x] call misc_fnc_getROadBoundingBoxWorld;
-    _dir = [_x] call misc_Fnc_getROadDir;
-    _dirDiff = _dir - _roadDir;
-    while {_dirDiff < -180} do { _dirDiff =  _dirDiff + 360};
-    while {_dirDiff > 180} do { _dirDiff =  _dirDiff - 360};
-
-    if(_dirDiff > 25) then {
-     if([_rect,_roadRect] call misc_fnc_arepolygonsoverlapping) then {
+    _BB_x = [_x] call misc_fnc_getRoadBoundingBoxWorld;
+     if(count (roadsConnectedTo _x) == 1 
+      //|| [_BB_road,_BB_x] call misc_fnc_arePolygonsOverlapping
+      ) then {
         _connected pushBack _x;
         if([gps_roadsWithConnected,parseNumber str _x] call misc_fnc_hashTable_exists) then {
           private _connected = [gps_roadsWithConnected,parseNumber str _x] call misc_fnc_hashTable_find;
@@ -56,7 +53,6 @@ gps_allRoadsWithInter = gps_allRoads apply { //FINALLY FIXED THIS
           [gps_roadsWithConnected,parseNumber str _x,[_road]] call misc_fnc_hashTable_set;
         };
      };
-    };
   }foreach _near;
 
   _currentConnected = [gps_roadsWithConnected,parseNumber str _road] call misc_fnc_hashTable_find;
@@ -95,9 +91,11 @@ gps_allRoadsWithInter = gps_allRoads apply { //FINALLY FIXED THIS
 
 gps_onlyCrossRoads = gps_allCrossRoads apply {_x select 0};
 
+["start"] call gps_fnc_log;
 {
     _x call gps_fnc_mapNodeValues;
 }foreach gps_allCrossRoads;
+["stop"] call gps_fnc_log;
 
 [format["Loaded : %1 roads|%2 crossroads|%3 road segments",count gps_allRoads,count gps_onlyCrossRoads,count gps_roadSegments]] call gps_fnc_log;
 

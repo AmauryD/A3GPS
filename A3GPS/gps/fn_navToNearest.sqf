@@ -22,10 +22,10 @@ if(isNull _nearestStartNodeObject) exitWith {hintSilent (["STR_NO_VALID_START_RO
 [_nearestEndNodeObject] call gps_fnc_insertFakeNode;
 
 try {
+	[_thisScript,_nearestEndNodeObject] spawn gps_fnc_waitArrive;
 	_path = [_nearestStartNodeObject,_nearestEndNodeObject] call gps_fnc_generateNodePath;
 	_fullPath = [_path] call gps_fnc_generatePathHelpers;
 	[] spawn gps_menu_fnc_openHud;
-	[_thisScript,_nearestEndNodeObject] spawn gps_fnc_waitArrive;
 	[_path,_fullPath] call gps_fnc_tracking;
 }catch{
 	systemChat str _exception;

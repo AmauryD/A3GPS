@@ -3,8 +3,10 @@
 	@Author : [Utopia] Amaury
 	@Creation : 12/05/17
 	@Modified : 23/10/17
-	@Description : 
+	@Description : Set a gps setting value to the gps_settings global array
+		Return : Nothing ?
 **/
+
 params [
 	["_key","",[""]],
 	"_val"

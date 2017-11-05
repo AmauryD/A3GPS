@@ -3,7 +3,8 @@
 	@Author : [Utopia] Amaury
 	@Creation : 12/05/17
 	@Modified : 18/06/17
-	@Description : 
+	@Description : Extract farest pos from array of objects and/or positions
+		Return : Object,Array
 **/
 
 params [

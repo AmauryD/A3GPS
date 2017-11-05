@@ -2,9 +2,11 @@
 /**
 	@Author : [Utopia] Amaury
 	@Creation : 22/10/17
-	@Modified : 23/10/17
-	@Description : --
+	@Modified : 05/11/17
+	@Description : CompileFinal a file , adding a specific header
+		Return : Code 
 **/
+
 params [
 	["_path","",[""]],
 	["_fileName","",[""]],
@@ -13,7 +15,7 @@ params [
 
 _fileName = format["%1.sqf",_fileName];
 
-_header = ([format["private _thisFile = '%1';",_fileName],""]) select _disableHeader;
+private _header = ([format["private _thisFile = '%1';",_fileName],""]) select _disableHeader;
 
 compileFinal format["%1%2",
 	_header,

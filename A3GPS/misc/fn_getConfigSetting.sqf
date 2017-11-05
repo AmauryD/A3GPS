@@ -1,3 +1,12 @@
+#include "..\macros.h"
+/**
+	@Author : [Utopia] Amaury
+	@Creation : ??/10/17
+	@Modified : --
+	@Description : Get a config entry in gps (move to gps folder ?) , returning the value dynamically
+		Return : Anything - Config entry type
+**/
+
 params [
 	["_key","",["",configNull]]
 ];

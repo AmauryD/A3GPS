@@ -8,10 +8,11 @@
 
 
 if(isNil {profileNamespace getVariable "gps_saved"}) then {  // to store path nodes position
-	profileNamespace setVariable ["gps_saved",[]];
+	profileNameSpace setVariable ["gps_saved",[]];
 };
 if(isNil {profileNamespace getVariable "gps_settings"}) then {
-	profileNamespace setVariable ["gps_settings",[
+	profileNameSpace setVariable ["gps_settings",
+	[
 		["lang",
 			["default_language"] call gps_fnc_getConfigSetting
 		],

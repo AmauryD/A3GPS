@@ -7,17 +7,17 @@
 **/
 
 // i was trying to do things smoothly but finaly it does not freeze the screen
-[worldSize / 2,worldSize / 2,0] nearRoads worldSize;
+//[worldSize / 2,worldSize / 2,0] nearRoads worldSize;
 
-/**
-private _startPos = [500,500,0];
+
 _allRoads = [];
-_divisor = (worldSize / 1000);
+_divisor = 10;
+_multiplicator = (worldSize / _divisor);
 
 for "_yA" from 0 to _divisor do {
 	for "_xA" from 0 to _divisor do {
-		_pos = [_xA * 1000,_yA * 1000,0];
-		_allRoads append (_pos nearRoads 750);
+		_pos = [_xA * _multiplicator,_yA * _multiplicator,0];
+		_allRoads append (_pos nearRoads (_multiplicator * 1.5));
 	};
 };
 
@@ -35,5 +35,3 @@ _delete = [];
 }forEach _return;
 
 _delete
-
-**/

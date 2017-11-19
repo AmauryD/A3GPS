@@ -9,5 +9,5 @@
 terminate gps_curr_thread;
 terminate gps_track_handle;
 [] call gps_fnc_deletePathHelpers;
-gps_saveCurrent = false;
+gps_current_goal = nil;
 [["STR_MENU_MAP_CLEARED"] call misc_fnc_localize] call gps_menu_fnc_setGPSInfo;

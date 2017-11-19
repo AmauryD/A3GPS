@@ -9,6 +9,18 @@
 
 if(isNil {profileNamespace getVariable "gps_saved"}) then {  // to store path nodes position
 	profileNameSpace setVariable ["gps_saved",[]];
+}else{
+	private _saved = profileNamespace getVariable "gps_saved";
+	if !(_saved isEqualType []) exitWith {
+		profileNameSpace setVariable ["gps_saved",[]];
+		systemChat "GPS : Corrupted data were erased";
+	};
+	{
+		if !(_x isEqualTypeArray ["",[]]) then {
+			_saved deleteAt _forEachIndex;
+			systemChat "GPS : Corrupted data were erased";
+		};
+	}foreach _saved;
 };
 if(isNil {profileNamespace getVariable "gps_settings"}) then {
 	profileNameSpace setVariable ["gps_settings",

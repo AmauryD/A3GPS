@@ -13,8 +13,8 @@ class CfgGPS {
 	default_marker_color = "ColorGreen";
 	default_language = "fr";
 
-	heuristic_modifier = 1.6;
-
+	heuristic_modifier = 1;
+	save_enabled = true;
 	//quicknav
 	default_keyHandling_enable = true; //usefull when you want to implement in your own keyHandling file
 };

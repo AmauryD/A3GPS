@@ -33,25 +33,6 @@ private _nearestEndNodeObject = _endRoute;
 [_nearestStartNodeObject] call gps_fnc_insertFakeNode;
 [_nearestEndNodeObject] call gps_fnc_insertFakeNode;
 
-uiNamespace setVariable ["BIS_fnc_guiMessage_status", false];
-
-/** Will be reimplemented with the next menu
-gps_saveCurrent = [["STR_VALID_SAVE_PATH"] call misc_fnc_localize,["STR_VALID_SAVE_PATH_TITLE"] call misc_fnc_localize,["STR_YES"] call misc_fnc_localize,["STR_NO"] call misc_fnc_localize, findDisplay 369852,true] call BIS_fnc_guiMessage;
-if(gps_saveCurrent) then {
-	_saveName = [["STR_SELECT_SAVED_PATH_NAME"] call misc_fnc_localize,findDisplay 369852] call misc_fnc_editDialog;
-	if(_saveName isEqualTo "") then {
-		_saveName = format["%1-%2",text ([_nearestStartNodeObject] call misc_fnc_nearestLocation),text ([_nearestEndNodeObject] call misc_fnc_nearestLocation)];
-	};
-};
-**/
-
-private _allThePath = [
-    _saveName,
-	getPosATL _nearestStartNodeObject,
-	getPosATL _nearestEndNodeObject,
-	[]
-];
-
 private _color = ["markers_color"] call misc_fnc_getSetting;
 
 [nil,getPosATL _nearestStartNodeObject,["STR_START"] call misc_fnc_localize,"mil_dot",_color] call gps_fnc_createMarker;
@@ -61,17 +42,12 @@ private _color = ["markers_color"] call misc_fnc_getSetting;
 
 _path = [_nearestStartNodeObject,_nearestEndNodeObject] call gps_fnc_generateNodePath;
 
-_allThePath set [3,(_path apply {getPosATL _x})];
+gps_current_goal = getPosATL _nearestEndNodeObject;
 
 _fullPath = [_path] call gps_fnc_generatePathHelpers;
-
-if(gps_saveCurrent) then {
-	(profileNamespace getVariable "gps_saved") pushBack _allThePath;
-	if(!isNull findDisplay 369852) then {
-		[] call gps_menu_fnc_updateSavedList;
-	};
-}; 
 
 [] spawn gps_menu_fnc_openHud;
 
 [_path,_fullPath] call gps_fnc_tracking;
+
+gps_current_goal = nil;

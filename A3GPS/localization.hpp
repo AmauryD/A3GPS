@@ -16,6 +16,42 @@ class GPS_Localization {
 		en="Yes.";
 		fr="Oui.";
 	};
+	class STR_MENU_TT_NAV {
+		en="Open navigation map";
+		fr="Ouvrir la naviguation";
+	};
+	class STR_MENU_TT_KILL {
+		en="Kill current GPS process";
+		fr="Arrêter la recherche actuelle";
+	};
+	class STR_MENU_TT_HELP {
+		en="Help hint";
+		fr="Quelques infos";
+	};	
+	class STR_MENU_TT_OPTIONS {
+		en="Options menu";
+		fr="Menu des options";
+	};
+	class STR_MENU_TT_SAVE {
+		en="Save current path";
+		fr="Sauvegarder le trajet actuel";
+	};
+	class STR_MENU_TT_QUIT {
+		en="Close window.";
+		fr="Fermer la fenêtre.";
+	};
+	class STR_MENU_OPTIONS_MARKERS {
+		en="Markers color :";
+		fr="Couleur des markers :";
+	};
+	class STR_MENU_OPTIONS_LANG {
+		en="Language : ";
+		fr="Langue :";
+	};
+	class STR_MENU_OPTIONS_SAVE_PATH {
+		en="Save Path";
+		fr="Sauvegarder le chemin";
+	};
 	class STR_GPS_LOST {
 		en="The GPS is lost.";
 		fr="Le GPS est hors route.";
@@ -145,8 +181,8 @@ class GPS_Localization {
 		fr = "Vous êtes arrivé à destination , merci d'avoir utilisé A3GPS™";
 	};
 	class STR_MENU_INFO {
-		en = "<t align='center' size='1.5'>GPS v%1</t><br/>by <t align='center' underline='true'> [utopia]Amaury . </t><br/><t color='#99ffffff'> Right click on a menu element to have more informations about it. </t><br/><br/><t>";
-		fr = "<t align='center' size='1.5'>GPS v%1</t><br/>par <t align='center' underline='true'> [utopia]Amaury . </t><br/><t color='#99ffffff'> Clic droit sur un élément du menu pour obtenir une aide. </t><br/><br/><t>";
+		en = "<t align='center' size='1.5'>GPS v%1</t><br/>by <t align='center' underline='true'> [utopia]Amaury . </t>";
+		fr = "<t align='center' size='1.5'>GPS v%1</t><br/>par <t align='center' underline='true'> [utopia]Amaury . </t>";
 	};
 	class STR_MENU_CONFIRM_DROP_DATA_CONTENT {
 		en = "Are you sure ? This will erase all your saved data and settings";

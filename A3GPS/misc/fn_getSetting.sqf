@@ -8,7 +8,7 @@
 **/
 
 params [
-	["_key","",[""]]
+	["_key","",[""]],
+	["_default",""]
 ];
-
-[profileNamespace getVariable "gps_settings",_key] call bis_fnc_getFromPairs;
+[profileNamespace getVariable "gps_settings",_key,_default] call bis_fnc_getFromPairs;

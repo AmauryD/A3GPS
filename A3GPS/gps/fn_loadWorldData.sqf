@@ -17,4 +17,4 @@ if(isNil "_normalRoads") then {
 	_normalRoads = [];
 };
 
-gps_data_normalWays = [];
+gps_data_normalWays = _normalRoads;

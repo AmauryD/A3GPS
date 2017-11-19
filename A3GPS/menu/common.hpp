@@ -1480,3 +1480,38 @@ class RscControlsGroup
 	{
 	};
 };
+
+class gps_rscbuttonMain : RscButtonMenu  {
+	default = 0;
+	style = 2;
+	type = 16;
+	colorBackground[] = {-1,-1,-1,0.6};
+	colorBackgroundFocused[] = {-1,-1,-1,0.6};
+	colorBackground2[] = {1,1,1,1};
+	class HitZone
+	{
+		left = 0;
+		top = 0;
+		right = 0;
+		bottom = 0;
+	};
+	class ShortcutPos
+	{
+		left = 0;
+		top = "(((((safezoneW / safezoneH) min 1.2) / 1.2) / 20) - (((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 1)) / 2";
+		w = "(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 1) * (3/4)";
+		h = "(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 1)";
+	};
+	class TextPos
+	{
+		left = 0;
+		top = 0;
+		right = 0;
+		bottom = 0;
+	};
+	shortcuts[] = 
+	{
+	};
+	textureNoShortcut = "#(argb,8,8,3)color(0,0,0,0)";
+};
+

@@ -3,290 +3,557 @@
 class GPS_menu {
 	idd = 369852;
 	class controlsBackground {
-		class background: IGUIBack
+		////////////////////////////////////////////////////////
+		// GUI EDITOR OUTPUT START (by AmauryD, v1.063, #Kehusi)
+		////////////////////////////////////////////////////////
+		class main_background: IGUIBack
 		{
-			idc = 2200;
-			x = 0.257656 * safezoneW + safezoneX;
-			y = 0.39 * safezoneH + safezoneY;
-			w = 0.232031 * safezoneW;
-			h = 0.297 * safezoneH;
-			colorBackground[] = {0,0,0,0.4};
+			idc = 2201;
+			x = 0.332676 * safezoneW + safezoneX;
+			y = 0.296 * safezoneH + safezoneY;
+			w = 0.334647 * safezoneW;
+			h = 0.357 * safezoneH;
+			colorBackground[] = {-1,-1,-1,0.6};
 		};
+		////////////////////////////////////////////////////////
+		// GUI EDITOR OUTPUT END
+		////////////////////////////////////////////////////////
+	};
+	class controls {
+		////////////////////////////////////////////////////////
+		// GUI EDITOR OUTPUT START (by AmauryD, v1.063, #Nuriso)
+		////////////////////////////////////////////////////////
 		class gps_bottom: RscPicture
 		{
 			idc = 1201;
+
 			text = "\A3\ui_f\data\GUI\Rsc\RscMiniMapSmall\gps_B_ca.paa";
-			x = 0.267969 * safezoneW + safezoneX;
-			y = 0.665 * safezoneH + safezoneY;
-			w = 0.211406 * safezoneW;
-			h = 0.044 * safezoneH;
-		};
-		class gps_corner_down_right: RscPicture
-		{
-			idc = 1202;
-			text = "\A3\ui_f\data\GUI\Rsc\RscMiniMapSmall\gps_BR_ca.paa";
-			x = 0.474219 * safezoneW + safezoneX;
-			y = 0.665 * safezoneH + safezoneY;
-			w = 0.0257812 * safezoneW;
-			h = 0.044 * safezoneH;
-		};
-		class gps_right: RscPicture
-		{
-			idc = 1203;
-			text = "\A3\ui_f\data\GUI\Rsc\RscMiniMapSmall\gps_R_ca.paa";
-			x = 0.474219 * safezoneW + safezoneX;
-			y = 0.412 * safezoneH + safezoneY;
-			w = 0.0257812 * safezoneW;
-			h = 0.257444 * safezoneH;
-		};
-		class gps_top: RscPicture
-		{
-			idc = 1204;
-			text = "\A3\ui_f\data\GUI\Rsc\RscMiniMapSmall\gps_T_ca.paa";
-			x = 0.267969 * safezoneW + safezoneX;
-			y = 0.357 * safezoneH + safezoneY;
-			w = 0.20625 * safezoneW;
-			h = 0.055 * safezoneH;
+			x = 0.340644 * safezoneW + safezoneX;
+			y = 0.619 * safezoneH + safezoneY;
+			w = 0.318712 * safezoneW;
+			h = 0.051 * safezoneH;
 		};
 		class gps_corner_up_left: RscPicture
 		{
 			idc = 1206;
+
 			text = "\A3\ui_f\data\GUI\Rsc\RscMiniMapSmall\gps_TL_ca.paa";
-			x = 0.237031 * safezoneW + safezoneX;
-			y = 0.357 * safezoneH + safezoneY;
-			w = 0.0309375 * safezoneW;
-			h = 0.055 * safezoneH;
-		};
-		class gps_corner_up_right: RscPicture
-		{
-			idc = 1207;
-			text = "\A3\ui_f\data\GUI\Rsc\RscMiniMapSmall\gps_TR_ca.paa";
-			x = 0.474219 * safezoneW + safezoneX;
-			y = 0.357 * safezoneH + safezoneY;
-			w = 0.0257812 * safezoneW;
-			h = 0.055 * safezoneH;
+			x = 0.324709 * safezoneW + safezoneX;
+			y = 0.279 * safezoneH + safezoneY;
+			w = 0.0239034 * safezoneW;
+			h = 0.051 * safezoneH;
 		};
 		class gps_left: RscPicture
 		{
 			idc = 1205;
+
 			text = "\A3\ui_f\data\GUI\Rsc\RscMiniMapSmall\gps_L_ca.paa";
-			x = 0.237031 * safezoneW + safezoneX;
-			y = 0.412 * safezoneH + safezoneY;
-			w = 0.0309375 * safezoneW;
-			h = 0.258556 * safezoneH;
+			x = 0.324709 * safezoneW + safezoneX;
+			y = 0.33 * safezoneH + safezoneY;
+			w = 0.0239034 * safezoneW;
+			h = 0.306 * safezoneH;
 		};
 		class gps_corner_down_left: RscPicture
 		{
 			idc = 1208;
-			text = "\A3\ui_f\data\GUI\Rsc\RscMiniMapSmall\gps_BL_ca.paa";
-			x = 0.237031 * safezoneW + safezoneX;
-			y = 0.665 * safezoneH + safezoneY;
-			w = 0.0309375 * safezoneW;
-			h = 0.044 * safezoneH;
-		};
-		class map: RscMapControl
-		{
-			idc = 2201;
-			x = 0.520625 * safezoneW + safezoneX;
-			y = 0.379 * safezoneH + safezoneY;
-			w = 0.252656 * safezoneW;
-			h = 0.308 * safezoneH;
-		};
-	};
 
-	class controls {
-		////////////////////////////////////////////////////////
-		// GUI EDITOR OUTPUT START (by Rasta Populos, v1.063, #Nacypy)
-		///////////////////////////////////////////////////////
-		class map_left: RscPicture
-		{
-			idc = 1200;
-			text = "\A3\ui_f\data\GUI\Rsc\RscMiniMapSmall\gps_L_ca.paa";
-			x = 0.515469 * safezoneW + safezoneX;
-			y = 0.412 * safezoneH + safezoneY;
-			w = 0.0309375 * safezoneW;
-			h = 0.259667 * safezoneH;
-		};
-		class map_top_left: RscPicture
-		{
-			idc = 1209;
-			text = "\A3\ui_f\data\GUI\Rsc\RscMiniMapSmall\gps_TL_ca.paa";
-			x = 0.515469 * safezoneW + safezoneX;
-			y = 0.357 * safezoneH + safezoneY;
-			w = 0.0309375 * safezoneW;
-			h = 0.055 * safezoneH;
-		};
-		class map_bottom_left: RscPicture
-		{
-			idc = 1210;
 			text = "\A3\ui_f\data\GUI\Rsc\RscMiniMapSmall\gps_BL_ca.paa";
-			x = 0.515469 * safezoneW + safezoneX;
-			y = 0.665 * safezoneH + safezoneY;
-			w = 0.0309375 * safezoneW;
-			h = 0.044 * safezoneH;
+			x = 0.324709 * safezoneW + safezoneX;
+			y = 0.619 * safezoneH + safezoneY;
+			w = 0.0239034 * safezoneW;
+			h = 0.051 * safezoneH;
 		};
-		class map_bottom: RscPicture
-		{
-			idc = 1211;
-			text = "\A3\ui_f\data\GUI\Rsc\RscMiniMapSmall\gps_B_ca.paa";
-			x = 0.546406 * safezoneW + safezoneX;
-			y = 0.665 * safezoneH + safezoneY;
-			w = 0.216563 * safezoneW;
-			h = 0.044 * safezoneH;
-		};
-		class map_bottom_right: RscPicture
+		class gps_bottom_right: RscPicture
 		{
 			idc = 1212;
+
 			text = "\A3\ui_f\data\GUI\Rsc\RscMiniMapSmall\gps_BR_ca.paa";
-			x = 0.757813 * safezoneW + safezoneX;
-			y = 0.665 * safezoneH + safezoneY;
-			w = 0.0257812 * safezoneW;
-			h = 0.044 * safezoneH;
+			x = 0.651388 * safezoneW + safezoneX;
+			y = 0.619 * safezoneH + safezoneY;
+			w = 0.0239034 * safezoneW;
+			h = 0.051 * safezoneH;
 		};
-		class map_right: RscPicture
+		class gps_right: RscPicture
 		{
 			idc = 1213;
+
 			text = "\A3\ui_f\data\GUI\Rsc\RscMiniMapSmall\gps_R_ca.paa";
-			x = 0.757813 * safezoneW + safezoneX;
-			y = 0.412 * safezoneH + safezoneY;
-			w = 0.0257812 * safezoneW;
-			h = 0.257444 * safezoneH;
+			x = 0.651388 * safezoneW + safezoneX;
+			y = 0.313 * safezoneH + safezoneY;
+			w = 0.0239034 * safezoneW;
+			h = 0.306 * safezoneH;
 		};
-		class map_top_right: RscPicture
+		class gps_top_right: RscPicture
 		{
 			idc = 1214;
+
 			text = "\A3\ui_f\data\GUI\Rsc\RscMiniMapSmall\gps_TR_ca.paa";
-			x = 0.757813 * safezoneW + safezoneX;
-			y = 0.357 * safezoneH + safezoneY;
-			w = 0.0257812 * safezoneW;
-			h = 0.055 * safezoneH;
+			x = 0.651388 * safezoneW + safezoneX;
+			y = 0.279 * safezoneH + safezoneY;
+			w = 0.0239034 * safezoneW;
+			h = 0.051 * safezoneH;
 		};
-		class map_top: RscPicture
+		class gps_top: RscPicture
 		{
 			idc = 1215;
+
 			text = "\A3\ui_f\data\GUI\Rsc\RscMiniMapSmall\gps_T_ca.paa";
-			x = 0.546406 * safezoneW + safezoneX;
-			y = 0.357 * safezoneH + safezoneY;
-			w = 0.216563 * safezoneW;
-			h = 0.055 * safezoneH;
+			x = 0.340644 * safezoneW + safezoneX;
+			y = 0.279 * safezoneH + safezoneY;
+			w = 0.318712 * safezoneW;
+			h = 0.051 * safezoneH;
 		};
-		class saved_path: RscListbox
+		class btn_nav: gps_rscbuttonMain
 		{
-			idc = 1500;
-			x = 0.262813 * safezoneW + safezoneX;
-			y = 0.533 * safezoneH + safezoneY;
-			w = 0.216563 * safezoneW;
-			h = 0.099 * safezoneH;
-			sizeEx = 1 * GUI_GRID_H;
+			idc = 2400;
+
+			text = "<img size='2.2' image='A3\ui_f\data\GUI\Rsc\RscDisplayArsenal\map_ca.paa' align='center'/>"; //--- ToDo: Localize;
+			x = 0.364548 * safezoneW + safezoneX;
+			y = 0.432 * safezoneH + safezoneY;
+			w = 0.0557745 * safezoneW;
+			h = 0.085 * safezoneH;
+			colorBackground[] = {-1,-1,-1,0.6};
 		};
-		class load_saved_path: RscButton
+		class btn_options: gps_rscbuttonMain
 		{
-			idc = 1600;
-			text = "Charger"; //--- ToDo: Localize;
-			x = 0.335 * safezoneW + safezoneX;
-			y = 0.643 * safezoneH + safezoneY;
-			w = 0.0670312 * safezoneW;
-			h = 0.033 * safezoneH;
-			sizeEx = 1 * GUI_GRID_H;
+			idc = 2401;
+
+			text = "<img size='2.2' image='A3\ui_f\data\GUI\Rsc\RscDisplayMain\menu_options_ca.paa' align='center'/>"; //--- ToDo: Localize;
+			x = 0.436258 * safezoneW + safezoneX;
+			y = 0.432 * safezoneH + safezoneY;
+			w = 0.0557745 * safezoneW;
+			h = 0.085 * safezoneH;
+			colorBackground[] = {-1,-1,-1,0.6};
 		};
-		class new_path: RscButton
+		class btn_help: gps_rscbuttonMain
 		{
-			idc = 1601;
-			text = "Nouveau trajet"; //--- ToDo: Localize;
-			x = 0.262812 * safezoneW + safezoneX;
-			y = 0.489 * safezoneH + safezoneY;
-			w = 0.103125 * safezoneW;
-			h = 0.033 * safezoneH;
-			sizeEx = 1 * GUI_GRID_H;
+			idc = 2402;
+
+			text = "<t size='2.2' align='center'>?</t>"; //--- ToDo: Localize;
+			x = 0.507968 * safezoneW + safezoneX;
+			y = 0.432 * safezoneH + safezoneY;
+			w = 0.0557745 * safezoneW;
+			h = 0.085 * safezoneH;
+			colorBackground[] = {-1,-1,-1,0.6};
 		};
-		class delete_saved_path: RscButton
+		class header: RscText
 		{
-			idc = 1602;
-			text = "Supprimer"; //--- ToDo: Localize;
-			x = 0.262812 * safezoneW + safezoneX;
-			y = 0.643 * safezoneH + safezoneY;
-			w = 0.0670312 * safezoneW;
-			h = 0.033 * safezoneH;
-			sizeEx = 1 * GUI_GRID_H;
-		};
-		class stop_path: RscButton
-		{
-			idc = 1603;
-			text = "Arreter"; //--- ToDo: Localize;
-			x = 0.37625 * safezoneW + safezoneX;
-			y = 0.489 * safezoneH + safezoneY;
-			w = 0.103125 * safezoneW;
-			h = 0.033 * safezoneH;
-			sizeEx = 1 * GUI_GRID_H;
-		};
-		class drop_data: RscButton
-		{
-			idc = 1604;
-			text = "Vider le cache"; //--- ToDo: Localize;
-			x = 0.407187 * safezoneW + safezoneX;
-			y = 0.643 * safezoneH + safezoneY;
-			w = 0.0721875 * safezoneW;
-			h = 0.033 * safezoneH;
-			sizeEx = 1 * GUI_GRID_H;
-		};
-		class close_btn: RscButton
-		{
-			idc = 1605;
-			text = "X"; //--- ToDo: Localize;
-			x = 0.463906 * safezoneW + safezoneX;
-			y = 0.401 * safezoneH + safezoneY;
-			w = 0.0103125 * safezoneW;
-			h = 0.022 * safezoneH;
-			sizeEx = 1 * GUI_GRID_H;
-		};
-		class help_btn: RscButton
-		{
-			idc = 1606;
-			text = "?"; //--- ToDo: Localize;
-			x = 0.448438 * safezoneW + safezoneX;
-			y = 0.401 * safezoneH + safezoneY;
-			w = 0.0103125 * safezoneW;
-			h = 0.022 * safezoneH;
-			sizeEx = 1 * GUI_GRID_H;
-		};
-		class RscText_1000: RscText
-		{
-			idc = 1000;
+			idc = 1004;
+
 			text = "GPS MENU"; //--- ToDo: Localize;
-			x = 0.262812 * safezoneW + safezoneX;
-			y = 0.401 * safezoneH + safezoneY;
-			w = 0.0825 * safezoneW;
-			h = 0.022 * safezoneH;
-			sizeEx = 1 * GUI_GRID_H;
+			x = 0.35658 * safezoneW + safezoneX;
+			y = 0.33 * safezoneH + safezoneY;
+			w = 0.278873 * safezoneW;
+			h = 0.068 * safezoneH;
+			sizeEx = 2 * GUI_GRID_H;
 		};
-		/*
-		class color_markers: RscCombo
+		class btn_quit: gps_rscbuttonMain
 		{
-			idc = 2100;
-			x = 0.407187 * safezoneW + safezoneX;
-			y = 0.401 * safezoneH + safezoneY;
-			w = 0.0309375 * safezoneW;
-			h = 0.022 * safezoneH;
+			idc = 2403;
+
+			text = "<img size='2' image='A3\ui_f\data\GUI\Rsc\RscDisplayArcadeMap\icon_exit_ca.paa' align='center'/>"; //--- ToDo: Localize;
+			x = 0.579678 * safezoneW + safezoneX;
+			y = 0.432 * safezoneH + safezoneY;
+			w = 0.0557745 * safezoneW;
+			h = 0.085 * safezoneH;
+			colorBackground[] = {-1,-1,-1,0.6};
 		};
-		*/
-		class language: RscCombo
+		class save_current : gps_rscbuttonMain
 		{
-			idc = 2100;
-			x = 0.407187 * safezoneW + safezoneX;
-			y = 0.401 * safezoneH + safezoneY;
-			w = 0.0309375 * safezoneW;
-			h = 0.022 * safezoneH;
+			idc = 2405;
+
+			text = "<img size='2.2' image='A3\ui_f\data\GUI\Rsc\RscDisplayArcadeMap\icon_save_ca.paa' align='center'/>"; //--- ToDo: Localize;
+			x = 0.404386 * safezoneW + safezoneX;
+			y = 0.534 * safezoneH + safezoneY;
+			w = 0.0557745 * safezoneW;
+			h = 0.085 * safezoneH;
+			colorBackground[] = {-1,-1,-1,0.6};
 		};
-		class color_markers: RscCombo
+		class kill_gps : gps_rscbuttonMain
 		{
-			idc = 2101;
-			x = 0.371094 * safezoneW + safezoneX;
-			y = 0.401 * safezoneH + safezoneY;
-			w = 0.0309375 * safezoneW;
-			h = 0.022 * safezoneH;
+			idc = 2404;
+
+			text = "<img size='2.2' image='A3\ui_f\data\IGUI\Cfg\MPTable\killed_ca.paa' align='center'/>"; //--- ToDo: Localize;
+			x = 0.539839 * safezoneW + safezoneX;
+			y = 0.534 * safezoneH + safezoneY;
+			w = 0.0557745 * safezoneW;
+			h = 0.085 * safezoneH;
+			colorBackground[] = {-1,-1,-1,0.6};
 		};
 		////////////////////////////////////////////////////////
 		// GUI EDITOR OUTPUT END
 		////////////////////////////////////////////////////////
 	};
 };
+
+
+class gps_menu_map {
+	idd = 369853;
+	////////////////////////////////////////////////////////
+	// GUI EDITOR OUTPUT START (by AmauryD, v1.063, #Vegygo)
+	////////////////////////////////////////////////////////
+	class controlsBackground {
+		class map: RscMapControl {
+			idc = 2201;
+
+			x = 0.332676 * safezoneW + safezoneX;
+			y = 0.296 * safezoneH + safezoneY;
+			w = 0.334647 * safezoneW;
+			h = 0.357 * safezoneH;
+		};
+		class background_saved: IGUIBack
+		{
+			idc = 2200;
+			x = 0.691227 * safezoneW + safezoneX;
+			y = 0.296 * safezoneH + safezoneY;
+			w = 0.135452 * safezoneW;
+			h = 0.357 * safezoneH;
+			colorBackground[] = {-1,-1,-1,0.6};
+		};
+	};
+	class controls {
+		////////////////////////////////////////////////////////
+		// GUI EDITOR OUTPUT START (by AmauryD, v1.063, #Dimemo)
+		////////////////////////////////////////////////////////
+		class gps_bottom: RscPicture
+		{
+			idc = 1201;
+
+			text = "\A3\ui_f\data\GUI\Rsc\RscMiniMapSmall\gps_B_ca.paa";
+			x = 0.340644 * safezoneW + safezoneX;
+			y = 0.619 * safezoneH + safezoneY;
+			w = 0.318712 * safezoneW;
+			h = 0.051 * safezoneH;
+		};
+		class gps_corner_up_left: RscPicture
+		{
+			idc = 1206;
+
+			text = "\A3\ui_f\data\GUI\Rsc\RscMiniMapSmall\gps_TL_ca.paa";
+			x = 0.324709 * safezoneW + safezoneX;
+			y = 0.279 * safezoneH + safezoneY;
+			w = 0.0239034 * safezoneW;
+			h = 0.051 * safezoneH;
+		};
+		class gps_left: RscPicture
+		{
+			idc = 1205;
+
+			text = "\A3\ui_f\data\GUI\Rsc\RscMiniMapSmall\gps_L_ca.paa";
+			x = 0.324709 * safezoneW + safezoneX;
+			y = 0.33 * safezoneH + safezoneY;
+			w = 0.0239034 * safezoneW;
+			h = 0.306 * safezoneH;
+		};
+		class gps_corner_down_left: RscPicture
+		{
+			idc = 1208;
+
+			text = "\A3\ui_f\data\GUI\Rsc\RscMiniMapSmall\gps_BL_ca.paa";
+			x = 0.324709 * safezoneW + safezoneX;
+			y = 0.619 * safezoneH + safezoneY;
+			w = 0.0239034 * safezoneW;
+			h = 0.051 * safezoneH;
+		};
+		class gps_bottom_right: RscPicture
+		{
+			idc = 1212;
+
+			text = "\A3\ui_f\data\GUI\Rsc\RscMiniMapSmall\gps_BR_ca.paa";
+			x = 0.651388 * safezoneW + safezoneX;
+			y = 0.619 * safezoneH + safezoneY;
+			w = 0.0239034 * safezoneW;
+			h = 0.051 * safezoneH;
+		};
+		class gps_right: RscPicture
+		{
+			idc = 1213;
+
+			text = "\A3\ui_f\data\GUI\Rsc\RscMiniMapSmall\gps_R_ca.paa";
+			x = 0.651388 * safezoneW + safezoneX;
+			y = 0.313 * safezoneH + safezoneY;
+			w = 0.0239034 * safezoneW;
+			h = 0.306 * safezoneH;
+		};
+		class gps_top_right: RscPicture
+		{
+			idc = 1214;
+
+			text = "\A3\ui_f\data\GUI\Rsc\RscMiniMapSmall\gps_TR_ca.paa";
+			x = 0.651388 * safezoneW + safezoneX;
+			y = 0.279 * safezoneH + safezoneY;
+			w = 0.0239034 * safezoneW;
+			h = 0.051 * safezoneH;
+		};
+		class gps_top: RscPicture
+		{
+			idc = 1215;
+
+			text = "\A3\ui_f\data\GUI\Rsc\RscMiniMapSmall\gps_T_ca.paa";
+			x = 0.340644 * safezoneW + safezoneX;
+			y = 0.279 * safezoneH + safezoneY;
+			w = 0.318712 * safezoneW;
+			h = 0.051 * safezoneH;
+		};
+		class RscPicture_1208: RscPicture
+		{
+			idc = 1205;
+
+			text = "\A3\ui_f\data\GUI\Rsc\RscMiniMapSmall\gps_L_ca.paa";
+			x = 0.683259 * safezoneW + safezoneX;
+			y = 0.313 * safezoneH + safezoneY;
+			w = 0.0239034 * safezoneW;
+			h = 0.306 * safezoneH;
+		};
+		class RscPicture_1209: RscPicture
+		{
+			idc = 1213;
+
+			text = "\A3\ui_f\data\GUI\Rsc\RscMiniMapSmall\gps_R_ca.paa";
+			x = 0.810744 * safezoneW + safezoneX;
+			y = 0.313 * safezoneH + safezoneY;
+			w = 0.0239034 * safezoneW;
+			h = 0.306 * safezoneH;
+		};
+		class RscPicture_1210: RscPicture
+		{
+			idc = 1201;
+
+			text = "\A3\ui_f\data\GUI\Rsc\RscMiniMapSmall\gps_B_ca.paa";
+			x = 0.699195 * safezoneW + safezoneX;
+			y = 0.619 * safezoneH + safezoneY;
+			w = 0.119517 * safezoneW;
+			h = 0.051 * safezoneH;
+		};
+		class RscPicture_1211: RscPicture
+		{
+			idc = 1208;
+
+			text = "\A3\ui_f\data\GUI\Rsc\RscMiniMapSmall\gps_BL_ca.paa";
+			x = 0.683259 * safezoneW + safezoneX;
+			y = 0.619 * safezoneH + safezoneY;
+			w = 0.0239034 * safezoneW;
+			h = 0.051 * safezoneH;
+		};
+		class RscPicture_1212: RscPicture
+		{
+			idc = 1212;
+
+			text = "\A3\ui_f\data\GUI\Rsc\RscMiniMapSmall\gps_BR_ca.paa";
+			x = 0.810744 * safezoneW + safezoneX;
+			y = 0.619 * safezoneH + safezoneY;
+			w = 0.0239034 * safezoneW;
+			h = 0.051 * safezoneH;
+		};
+		class RscPicture_1213: RscPicture
+		{
+			idc = 1206;
+
+			text = "\A3\ui_f\data\GUI\Rsc\RscMiniMapSmall\gps_TL_ca.paa";
+			x = 0.683259 * safezoneW + safezoneX;
+			y = 0.279 * safezoneH + safezoneY;
+			w = 0.0239034 * safezoneW;
+			h = 0.051 * safezoneH;
+		};
+		class RscPicture_1214: RscPicture
+		{
+			idc = 1214;
+
+			text = "\A3\ui_f\data\GUI\Rsc\RscMiniMapSmall\gps_TR_ca.paa";
+			x = 0.810744 * safezoneW + safezoneX;
+			y = 0.279 * safezoneH + safezoneY;
+			w = 0.0239034 * safezoneW;
+			h = 0.051 * safezoneH;
+		};
+		class RscPicture_1215: RscPicture
+		{
+			idc = 1215;
+
+			text = "\A3\ui_f\data\GUI\Rsc\RscMiniMapSmall\gps_T_ca.paa";
+			x = 0.699195 * safezoneW + safezoneX;
+			y = 0.279 * safezoneH + safezoneY;
+			w = 0.119517 * safezoneW;
+			h = 0.051 * safezoneH;
+		};
+		class saved_paths: RscListbox
+		{
+			idc = 1500;
+			x = 0.699195 * safezoneW + safezoneX;
+			y = 0.313 * safezoneH + safezoneY;
+			w = 0.119517 * safezoneW;
+			h = 0.200 * safezoneH;
+			sizeEx = 0.9 * GUI_GRID_H;
+		};
+		class exec_saved: RscButton
+		{
+			idc = 1600;
+			x = 0.707162 * safezoneW + safezoneX;
+			y = 0.520 * safezoneH + safezoneY;
+			w = 0.103581 * safezoneW;
+			h = 0.035 * safezoneH;
+		};
+		class delete_saved: RscButton
+		{
+			idc = 1601;
+			x = 0.707162 * safezoneW + safezoneX;
+			y = 0.578 * safezoneH + safezoneY;
+			w = 0.103581 * safezoneW;
+			h = 0.035 * safezoneH;
+		};
+		////////////////////////////////////////////////////////
+		// GUI EDITOR OUTPUT END
+		////////////////////////////////////////////////////////
+	};
+};
+
+class gps_menu_options {
+	idd = 369854;
+	////////////////////////////////////////////////////////
+	// GUI EDITOR OUTPUT START (by AmauryD, v1.063, #Vegygo)
+	////////////////////////////////////////////////////////
+	class controlsBackground {
+		class main_background: IGUIBack
+		{
+			idc = 2201;
+
+			x = 0.332676 * safezoneW + safezoneX;
+			y = 0.296 * safezoneH + safezoneY;
+			w = 0.334647 * safezoneW;
+			h = 0.357 * safezoneH;
+			colorBackground[] = {-1,-1,-1,0.6};
+		};
+	};
+	class controls {
+		////////////////////////////////////////////////////////
+		// GUI EDITOR OUTPUT START (by AmauryD, v1.063, #Bohuwe)
+		////////////////////////////////////////////////////////
+		class gps_bottom: RscPicture
+		{
+			idc = 1201;
+
+			text = "\A3\ui_f\data\GUI\Rsc\RscMiniMapSmall\gps_B_ca.paa";
+			x = 0.340644 * safezoneW + safezoneX;
+			y = 0.619 * safezoneH + safezoneY;
+			w = 0.318712 * safezoneW;
+			h = 0.051 * safezoneH;
+		};
+		class gps_corner_up_left: RscPicture
+		{
+			idc = 1206;
+
+			text = "\A3\ui_f\data\GUI\Rsc\RscMiniMapSmall\gps_TL_ca.paa";
+			x = 0.324709 * safezoneW + safezoneX;
+			y = 0.279 * safezoneH + safezoneY;
+			w = 0.0239034 * safezoneW;
+			h = 0.051 * safezoneH;
+		};
+		class gps_left: RscPicture
+		{
+			idc = 1205;
+
+			text = "\A3\ui_f\data\GUI\Rsc\RscMiniMapSmall\gps_L_ca.paa";
+			x = 0.324709 * safezoneW + safezoneX;
+			y = 0.33 * safezoneH + safezoneY;
+			w = 0.0239034 * safezoneW;
+			h = 0.306 * safezoneH;
+		};
+		class gps_corner_down_left: RscPicture
+		{
+			idc = 1208;
+
+			text = "\A3\ui_f\data\GUI\Rsc\RscMiniMapSmall\gps_BL_ca.paa";
+			x = 0.324709 * safezoneW + safezoneX;
+			y = 0.619 * safezoneH + safezoneY;
+			w = 0.0239034 * safezoneW;
+			h = 0.051 * safezoneH;
+		};
+		class gps_bottom_right: RscPicture
+		{
+			idc = 1212;
+
+			text = "\A3\ui_f\data\GUI\Rsc\RscMiniMapSmall\gps_BR_ca.paa";
+			x = 0.651388 * safezoneW + safezoneX;
+			y = 0.619 * safezoneH + safezoneY;
+			w = 0.0239034 * safezoneW;
+			h = 0.051 * safezoneH;
+		};
+		class gps_right: RscPicture
+		{
+			idc = 1213;
+
+			text = "\A3\ui_f\data\GUI\Rsc\RscMiniMapSmall\gps_R_ca.paa";
+			x = 0.651388 * safezoneW + safezoneX;
+			y = 0.313 * safezoneH + safezoneY;
+			w = 0.0239034 * safezoneW;
+			h = 0.306 * safezoneH;
+		};
+		class gps_top_right: RscPicture
+		{
+			idc = 1214;
+
+			text = "\A3\ui_f\data\GUI\Rsc\RscMiniMapSmall\gps_TR_ca.paa";
+			x = 0.651388 * safezoneW + safezoneX;
+			y = 0.279 * safezoneH + safezoneY;
+			w = 0.0239034 * safezoneW;
+			h = 0.051 * safezoneH;
+		};
+		class gps_top: RscPicture
+		{
+			idc = 1215;
+
+			text = "\A3\ui_f\data\GUI\Rsc\RscMiniMapSmall\gps_T_ca.paa";
+			x = 0.340644 * safezoneW + safezoneX;
+			y = 0.279 * safezoneH + safezoneY;
+			w = 0.318712 * safezoneW;
+			h = 0.051 * safezoneH;
+		};
+		class lang_list: RscCombo
+		{
+			idc = 2100;
+			x = 0.5 * safezoneW + safezoneX;
+			y = 0.347 * safezoneH + safezoneY;
+			w = 0.111549 * safezoneW;
+			h = 0.034 * safezoneH;
+		};
+		class language_txt: RscText
+		{
+			idc = 1001;
+			text = "Lang"; //--- ToDo: Localize;
+			x = 0.35658 * safezoneW + safezoneX;
+			y = 0.347 * safezoneH + safezoneY;
+			w = 0.135452 * safezoneW;
+			h = 0.034 * safezoneH;
+		};
+		class markers_colors_txt: RscText
+		{
+			idc = 1000;
+			text = "Mark colors"; //--- ToDo: Localize;
+			x = 0.35658 * safezoneW + safezoneX;
+			y = 0.398 * safezoneH + safezoneY;
+			w = 0.135452 * safezoneW;
+			h = 0.034 * safezoneH;
+		};
+		class colors_list: RscCombo
+		{
+			idc = 2101;
+			x = 0.5 * safezoneW + safezoneX;
+			y = 0.398 * safezoneH + safezoneY;
+			w = 0.111549 * safezoneW;
+			h = 0.034 * safezoneH;
+		};
+		class drop_data_btn: RscButton
+		{
+			idc = 1600;
+			text = "DROP DATA"; //--- ToDo: Localize;
+			x = 0.35658 * safezoneW + safezoneX;
+			y = 0.585 * safezoneH + safezoneY;
+			w = 0.0956135 * safezoneW;
+			h = 0.034 * safezoneH;
+			colorText[] = {0.8,0,0,1};
+		};
+		////////////////////////////////////////////////////////
+		// GUI EDITOR OUTPUT END
+		////////////////////////////////////////////////////////
+	};
+};
+

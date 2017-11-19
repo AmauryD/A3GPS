@@ -15,35 +15,37 @@ gps_data_map_center = [worldSize / 2,worldSize / 2,0];
 
 [] call gps_fnc_loadWorldData;
 
+["getting roads"] call gps_fnc_log;
+
 gps_allRoads = [] call gps_fnc_getAllRoads;
+
+["done"] call gps_fnc_log;
 
 _max_road_index = (gps_allRoads apply {parseNumber str _x});
 gps_max_road_index = selectMax _max_road_index;
 
-gps_allRoadsWithInter = [];
-gps_allCrossRoads = [];
+private _gps_allRoadsWithInter = [];
+private _gps_allCrossRoads = [];
 gps_allCrossRoadsWithWeight = [gps_max_road_index] call misc_fnc_hashTable_create;
 gps_onlyCrossRoads = [];
 gps_roadSegments = [gps_max_road_index] call misc_fnc_hashTable_create;
 gps_roadsWithConnected =  [gps_max_road_index] call misc_fnc_hashTable_create;
 
-gps_alreadyLinked = []; // is this used ?
+["mapping road intersect"] call gps_fnc_log;
 
-
-// vérifier que la route connectée n'est pas déjà connectée au voisin de cette route
-gps_allRoadsWithInter = gps_allRoads apply { //FINALLY FIXED THIS 
+_gps_allRoadsWithInter = gps_allRoads apply { //FINALLY FIXED THIS 
   private _road = _x;
-  private _near = getPosATL _road nearRoads 14;
+  private _near = getPosATL _road nearRoads 15;
   private _connected = roadsConnectedTo _road;
 
   _near = (_near - _connected) - [_road];
 
-  _BB_road = [_road] call misc_fnc_getRoadBoundingBoxWorld;
+  _BB_road = [_road,nil,0.25] call misc_fnc_getRoadBoundingBoxWorld;
 
   {
-    _BB_x = [_x] call misc_fnc_getRoadBoundingBoxWorld;
+    _BB_x = [_x,nil,0.25] call misc_fnc_getRoadBoundingBoxWorld;
      if(count (roadsConnectedTo _x) == 1 
-      //|| [_BB_road,_BB_x] call misc_fnc_arePolygonsOverlapping
+        || [_BB_road,_BB_x] call misc_fnc_arePolygonsOverlapping
       ) then {
         _connected pushBack _x;
         if([gps_roadsWithConnected,parseNumber str _x] call misc_fnc_hashTable_exists) then {
@@ -61,41 +63,35 @@ gps_allRoadsWithInter = gps_allRoads apply { //FINALLY FIXED THIS
   }else{
       _currentConnected append _connected;
   };
+
   [_road,_connected]
 };
 
-/* old fix
-{ //fix for one-way connected roads , thx god , that fixed every problems
-  if(count ([_x] call gps_fnc_roadsConnectedTo) < 2) then {
-    private _route = _x; 
-    private _routeConnected = [gps_roadsWithConnected,parseNumber str _route] call misc_fnc_hashTable_find;
-    private _nearRoads = _route nearRoads 20;
-
-    {
-      _road = _x;
-      _connected = [gps_roadsWithConnected,parseNumber str _road] call misc_fnc_hashTable_find;
-
-      if(_route in _connected) then {
-        _routeConnected pushBackUnique _road;
-      };
-    }foreach _nearRoads;
-    [gps_roadsWithConnected,parseNumber str _route,_routeConnected] call misc_fnc_hashTable_set;
-  };
-}foreach gps_allRoads;
-*/
+["done"] call gps_fnc_log;
 
 {
   _connected = [gps_roadsWithConnected,parseNumber str (_x select 0)] call misc_fnc_hashTable_find;
-  if(count _connected > 2) then {gps_allCrossRoads pushBack _x};
-} forEach gps_allRoadsWithInter;
+  if(count _connected > 2) then {_gps_allCrossRoads pushBack _x};
+} forEach _gps_allRoadsWithInter;
 
-gps_onlyCrossRoads = gps_allCrossRoads apply {_x select 0};
+gps_onlyCrossRoads = _gps_allCrossRoads apply {_x select 0};
 
-["start"] call gps_fnc_log;
+private _gps_mapping_threads = [];
+private _max_running_threads = 40;
+
 {
-    _x call gps_fnc_mapNodeValues;
-}foreach gps_allCrossRoads;
-["stop"] call gps_fnc_log;
+  _gps_mapping_threads pushBack (_x spawn gps_fnc_mapNodeValues);
+  if(count _gps_mapping_threads >= _max_running_threads) then {
+     waitUntil {
+       _gps_mapping_threads = _gps_mapping_threads - [scriptNull];
+       count _gps_mapping_threads < _max_running_threads
+     };
+  };
+}foreach _gps_allCrossRoads;
+
+waitUntil {
+  ({!scriptDone _x} count _gps_mapping_threads) == 0
+};
 
 [format["Loaded : %1 roads|%2 crossroads|%3 road segments",count gps_allRoads,count gps_onlyCrossRoads,count gps_roadSegments]] call gps_fnc_log;
 

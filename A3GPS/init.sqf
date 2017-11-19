@@ -64,8 +64,9 @@ gps_menu_fnc_HudHideZoomOnPos = [_hudFolder,"fn_HudHideZoomOnPos"] call gps_fnc_
 //main menu
 _gpsMenuFolder = "menu\gps";
 gps_menu_fnc_gpsHelp = [_gpsMenuFolder,"fn_gpsHelp"] call gps_fnc_compile;
-gps_menu_fnc_updateSavedList = [_gpsMenuFolder,"fn_updateSavedList"] call gps_fnc_compile;
 gps_menu_fnc_loadGPSMenu =  [_gpsMenuFolder,"fn_loadGPSMenu"] call gps_fnc_compile;
+gps_menu_fnc_loadNavMenu =  [_gpsMenuFolder,"fn_loadNavMenu"] call gps_fnc_compile;
+gps_menu_fnc_loadOptionsMenu =  [_gpsMenuFolder,"fn_loadOptionsMenu"] call gps_fnc_compile;
 
 //quicknav
 _quickNavFolder = "menu\quicknav";
@@ -98,12 +99,16 @@ misc_fnc_localize = ["misc","fn_localize"] call gps_fnc_compile;
 misc_fnc_getSetting = ["misc","fn_getSetting"] call gps_fnc_compile;
 misc_fnc_setSetting = ["misc","fn_setSetting"] call gps_fnc_compile;
 
+misc_fnc_PQ_get = ["misc\PriorityQueue","fn_get"] call gps_fnc_compile;
+misc_fnc_PQ_insert = ["misc\PriorityQueue","fn_insert"] call gps_fnc_compile;
+
 gps_fnc_getConfigSetting = ["misc","fn_getConfigSetting"] call gps_fnc_compile;
 
 misc_fnc_hashTable_find = ["misc\hashTable","fn_find"] call gps_fnc_compile;
 misc_fnc_hashTable_set = ["misc\hashTable","fn_set"] call gps_fnc_compile;
 misc_fnc_hashTable_create = ["misc\hashTable","fn_create"] call gps_fnc_compile;
 misc_fnc_hashTable_exists = ["misc\hashTable","fn_exists"] call gps_fnc_compile;
+misc_fnc_hashTable_toIndexArray = ["misc\hashTable","fn_toIndexArray"] call gps_fnc_compile;
 
 misc_fnc_relDirTo =  ["misc","fn_relDirTo"] call gps_fnc_compile;
 misc_fnc_averageFromAngles = ["misc","fn_averageFromAngles"] call gps_fnc_compile;
@@ -112,7 +117,6 @@ misc_fnc_averageFromAngles = ["misc","fn_averageFromAngles"] call gps_fnc_compil
 
 [] call gps_fnc_refreshCache;
 
-gps_saveCurrent = false;
 gps_init_done = false;
 gps_local_markers =	[];
 gps_curr_thread = scriptNull;
@@ -128,6 +132,7 @@ _handle = [] spawn gps_fnc_mapRoutes;
 waitUntil {	//wait for the virtual mapping to be done
    scriptDone _handle
 };
+
 
 [
 	["STR_QUICKNAV_OPTION_STATION"] call misc_fnc_localize,

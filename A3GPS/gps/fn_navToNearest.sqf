@@ -6,11 +6,12 @@
 	@Description : will be removed in the future 
 **/
 
-params ["_position",nil,[[],objNull]];
+params [
+	["_position",[],[objNull,[]]]
+];
 
-if(isNil "_position") exitWith {};
 
-if(_position isEqualType objNull) then {
+if (_position isEqualType objNull) then {
 	_position = getPosATL _position;
 };
 

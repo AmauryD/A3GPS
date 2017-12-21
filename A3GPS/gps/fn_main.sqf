@@ -55,6 +55,7 @@ try {
 	
 	hintSilent (["STR_ARRIVED"] call misc_fnc_localize);
 	[] call gps_menu_fnc_closeHud;
+	[] call gps_fnc_deletePathHelpers;
 
 	gps_current_goal = nil;
 }catch{

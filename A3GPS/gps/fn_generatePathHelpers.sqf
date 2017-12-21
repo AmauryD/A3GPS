@@ -24,8 +24,7 @@ private _fn_findInSegment = {
 	_return
 };
 
-
-_start = diag_tickTime;
+[nil,getPosATL (_path select 0),["STR_START"] call misc_fnc_localize,"mil_dot",_color] call gps_fnc_createMarker;
 
 {
 	_point = _x;
@@ -55,5 +54,7 @@ _start = diag_tickTime;
 		}foreach _theSegment;
 	};
 }forEach _path;
+
+[nil,getPosATL (_path select (count _path - 1)),["STR_GOAL"] call misc_fnc_localize,"mil_flag",_color] call gps_fnc_createMarker;
 
 _fullPath

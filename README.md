@@ -2,8 +2,10 @@
 
 ## Description
 
-A3GPS provides a real GPS for Arma 3.
+A3GPS provides a 'real' GPS for Arma 3.
+**A3GPS is still in developpement but is now usable without major bugs on Altis**
 
+Don't hesitate to report me bugs or suggestions , it'll be with pleasure !
 Translation available for english and french languages.
 
 ### Informations
@@ -36,3 +38,6 @@ Now it should work , have fun !
 ## Known Issues
 
 - If you have already a mission with defined controls class , the mission will throw you an error "class XXX already defined ..." . to fix this , just remove the file common.hpp and the '#include "common.hpp"' in the menu.hpp in the menu folder.
+
+## For Mission Makers
+TODO

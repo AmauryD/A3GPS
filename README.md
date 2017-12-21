@@ -7,6 +7,7 @@ A3GPS provides a 'real' GPS for Arma 3.
 **A3GPS is still in developpement but is now usable without major bugs on Altis**.
 
 Don't hesitate to report me bugs or suggestions , it'll be with pleasure !
+
 Translation available for english and french languages.
 
 ### Informations

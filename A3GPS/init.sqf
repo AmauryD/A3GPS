@@ -82,14 +82,10 @@ gps_menu_fnc_addQuickNavOption = [_quickNavFolder,"fn_addQuickNavOption"] call g
 /** MISCELLANEOUS FUNCTIONS **/
 misc_fnc_createMarker = ["misc","fn_createmarker"] call gps_fnc_compile;
 misc_fnc_deleteAllMarkers = ["misc","fn_deleteAllMarkers"] call gps_fnc_compile;
-misc_fnc_nearestPos = ["misc","fn_nearestPos"] call gps_fnc_compile;
-misc_fnc_farestPos = ["misc","fn_farestPos"] call gps_fnc_compile;
 misc_fnc_nearestLocation = ["misc","fn_nearestLocation"] call gps_fnc_compile;
-misc_fnc_stackedEventHandlerExists = ["misc","fn_stackedEventHandlerExists"] call gps_fnc_compile;
 misc_fnc_editDialog = ["misc","fn_editDialog"] call gps_fnc_compile;
 misc_fnc_pushFront = ["misc","fn_pushFront"] call gps_fnc_compile;
 misc_fnc_nearestRoadInArray = ["misc","fn_nearestRoadInArray"] call gps_fnc_compile;
-misc_fnc_nearestRoad = ["misc","fn_nearestRoad"] call gps_fnc_compile;
 misc_fnc_safeSelect = ["misc","fn_safeSelect"] call gps_fnc_compile;
 misc_fnc_getRoadBoundingBoxWorld = ["misc","fn_getRoadBoundingBoxWorld"] call gps_fnc_compile;
 misc_fnc_getRoadDir = ["misc","fn_getRoadDir"] call gps_fnc_compile;
@@ -120,7 +116,6 @@ misc_fnc_hashTable_create = ["misc\hashTable","fn_create"] call gps_fnc_compile;
 misc_fnc_hashTable_exists = ["misc\hashTable","fn_exists"] call gps_fnc_compile;
 misc_fnc_hashTable_toIndexArray = ["misc\hashTable","fn_toIndexArray"] call gps_fnc_compile;
 
-misc_fnc_relDirTo =  ["misc","fn_relDirTo"] call gps_fnc_compile;
 misc_fnc_averageFromAngles = ["misc","fn_averageFromAngles"] call gps_fnc_compile;
 
 ["Compiling functions done"] call gps_fnc_log;
@@ -147,8 +142,8 @@ waitUntil {	//wait for the virtual mapping to be done
 	["STR_QUICKNAV_OPTION_STATION"] call misc_fnc_localize,
 	{
 		[
-			[player,nearestObjects [player,["Land_fs_feed_F"],5000]] call misc_fnc_nearestPos
-		] spawn gps_fnc_navToNearest;
+			[nearestObjects [player,["Land_fs_feed_F"],5000],player] call bis_fnc_nearestPosition
+		] spawn gps_fnc_main;
 	}
 ] call gps_menu_fnc_addQuickNavOption;
 
@@ -157,7 +152,7 @@ waitUntil {	//wait for the virtual mapping to be done
 	{
 		[
 			locationPosition ([getPosATL player,4000,["NameCity","NameVillage","NameCityCapital","NameLocal"]] call misc_fnc_nearestLocation)
-		] spawn gps_fnc_navToNearest;
+		] spawn gps_fnc_main;
 	}
 ] call gps_menu_fnc_addQuickNavOption;
 
@@ -185,7 +180,7 @@ waitUntil {	//wait for the virtual mapping to be done
 	}];
 
 	onMapSingleClick "
-		private _nearestStartNodeObject = [_pos,gps_onlyCrossRoads] call misc_fnc_nearestPos;
+		private _nearestStartNodeObject = [gps_onlyCrossRoads,_pos] call bis_fnc_nearestPosition;
 		private _mode = missionNameSpace getVariable ['map_mode','Node'];
 
 		if(_shift) then {

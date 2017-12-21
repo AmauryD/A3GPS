@@ -10,7 +10,7 @@ params [
 	["_worldName",worldName,[""]]
 ];
 
-_normalRoads = call compile preprocessFileLineNumbers format [gps_dir + "gps\data\%1\NormalRoads.sqf",_worldName];
+_normalRoads = call compile preprocessFileLineNumbers ([format ["gps\data\%1\NormalRoads.sqf",_worldName]] call gps_fnc_composeFilePath);
 
 if(isNil "_normalRoads") then {
 	[format["WARNING : normal roads data not found for world %1",_worldName]] call gps_fnc_log;

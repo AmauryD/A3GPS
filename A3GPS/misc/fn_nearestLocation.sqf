@@ -15,7 +15,7 @@ params [
 
 _locations = nearestLocations [_position, _types, _radius];
 _posArray = _locations apply {locationPosition _x};
-_nearest = [_position,_posArray] call misc_fnc_nearestPos;
+_nearest = [_posArray,_position] call bis_fnc_nearestPosition;
 _result = _locations select (_posArray find _nearest);
 
 if(isNil "_result") then {

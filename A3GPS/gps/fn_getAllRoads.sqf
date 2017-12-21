@@ -5,7 +5,7 @@
   @Modified : 23/10/17
 **/
 
-_allRoads = call compile loadFile format ["%1gps\data\%2\AllRoads.sqf",gps_dir,worldName];
+_allRoads = call compile loadFile ([format["gps\data\%1\AllRoads.sqf",worldName]] call gps_fnc_composeFilePath);
 
 if (isNil "_allRoads") exitWith {[]};
 

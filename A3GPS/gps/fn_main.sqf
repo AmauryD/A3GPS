@@ -20,8 +20,8 @@ _position = switch (typeName _position) do {
 	case "LOCATION" : { locationPosition _position };
 };
 
-private _startRoute = [getPosATL vehicle player,1000] call misc_fnc_nearestRoad;
-private _endRoute = [_position,1000] call misc_fnc_nearestRoad;
+private _startRoute = [getPosATL vehicle player,1000] call bis_fnc_nearestRoad;
+private _endRoute = [_position,1000] call bis_fnc_nearestRoad;
 
 if(!gps_init_done) exitWith	{hintSilent	(["STR_GPS_NOT_LOADED"] call misc_fnc_localize)};
 if(isNull _endRoute) exitWith {hintSilent (["STR_NO_VALID_END_ROAD"] call misc_fnc_localize)};
@@ -63,7 +63,11 @@ try {
 			[] call gps_fnc_deletePathHelpers;
 			[] call gps_menu_fnc_closeHud;
 		}; 
-		default {  }; 
+		case "RECALCULATE_PATH":{
+			[] call gps_fnc_deletePathHelpers;
+			[] call gps_menu_fnc_closeHud;
+			[] call gps_fnc_killGPS;
+		};
 	};
 	[_exception] call gps_fnc_log;
 };

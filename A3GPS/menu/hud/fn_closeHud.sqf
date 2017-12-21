@@ -16,4 +16,4 @@ _hudDisplay = uiNamespace getVariable ["gps_hud",displayNull];
 
 //uiSleep 0.5
 
-("gps_hud" call BIS_fnc_rscLayer) cutText ["","PLAIN"];
+"gps_hud" cutText ["","PLAIN"];

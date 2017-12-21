@@ -7,7 +7,9 @@
 **/
 disableSerialization;
 
-("gps_hud" call BIS_fnc_rscLayer) cutRsc ["gps_hud","PLAIN", 1 , false]; //show
+if !(isNull (uiNamespace getVariable ["gps_hud",displayNull])) exitWith {};
+
+"gps_hud" cutRsc ["gps_hud","PLAIN", 1 , false]; //show
 
 _hudDisplay = uiNamespace getVariable ["gps_hud",displayNull];
 

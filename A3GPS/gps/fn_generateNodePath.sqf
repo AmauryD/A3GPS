@@ -24,7 +24,6 @@ private _path = [];
 _path pushBack (_current select 1);
 
 while{!((_current select 1) isEqualTo _startRoute)} do {
-  systemChat format ["%1|%2",_current,diag_tickTime];
   _path pushBack (_current select 1);
   _current = [_gps_namespace,parseNumber str (_current select 0)] call misc_fnc_hashTable_find;
 };

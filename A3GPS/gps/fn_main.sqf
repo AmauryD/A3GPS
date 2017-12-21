@@ -40,34 +40,29 @@ gps_curr_thread = _thisScript;
 
 private _color = ["markers_color"] call misc_fnc_getSetting;
 
-[nil,getPosATL _startRoute,["STR_START"] call misc_fnc_localize,"mil_dot",_color] call gps_fnc_createMarker;
-[nil,getPosATL _endRoute,["STR_GOAL"] call misc_fnc_localize,"mil_flag",_color] call gps_fnc_createMarker;
-
 try {
-	private _path = [_startRoute,_endRoute] call gps_fnc_generateNodePath;
-
 	gps_current_goal = getPosATL _endRoute;
 
-	private _fullPath = [_path] call gps_fnc_generatePathHelpers;
-	[] call gps_menu_fnc_openHud;
-
-	if([_path,_fullPath,_endRoute] call gps_fnc_tracking) then {
+	waitUntil {
+		_startRoute = [getPosATL vehicle player,1000] call bis_fnc_nearestRoad;
+		[_startRoute] call gps_fnc_insertFakeNode;
 		[] call gps_fnc_deletePathHelpers;
-		hintSilent (["STR_ARRIVED"] call misc_fnc_localize);
-		[] call gps_menu_fnc_closeHud;
+		private _path = [_startRoute,_endRoute] call gps_fnc_generateNodePath;
+		private _fullPath = [_path] call gps_fnc_generatePathHelpers;
+		[] call gps_menu_fnc_openHud;
+		[_path,_fullPath,_endRoute] call gps_fnc_tracking;
 	};
+	
+	hintSilent (["STR_ARRIVED"] call misc_fnc_localize);
+	[] call gps_menu_fnc_closeHud;
+
 	gps_current_goal = nil;
 }catch{
-	switch (_exception) do { 
+	switch _exception do { 
 		case "PATH_NOT_FOUND" : {
 			[] call gps_fnc_deletePathHelpers;
 			[] call gps_menu_fnc_closeHud;
 		}; 
-		case "RECALCULATE_PATH":{
-			[] call gps_fnc_deletePathHelpers;
-			[] call gps_menu_fnc_closeHud;
-			[] call gps_fnc_killGPS;
-		};
 	};
 	[_exception] call gps_fnc_log;
 };

@@ -86,7 +86,7 @@ _map ctrlAddEventHandler ["Draw",{
 
 		_map drawIcon [
 			_pic,
-			[0,0,1,0.7],
+			[0,0,1,1],
 	        _locationGoal,
 	        24,
 	        24,
@@ -103,14 +103,26 @@ _map ctrlAddEventHandler ["MouseButtonClick",{
 
 	if(_shift) then {
 		_pos spawn {
-			try {
-				[_this] call gps_fnc_main;
-			}catch{		// Fatal error handling
-				[format["Error : %1",_exception]] call gps_menu_fnc_setGPSInfo; 
-				[] call gps_fnc_deletePathHelpers;
-			};
+			[_this] call gps_fnc_main;
 		};
 	};
+}];
+
+_saved_list ctrlAddEventHandler ["LBSelChanged",{
+	params ["_list","_index"];
+
+	_display = ctrlParent _list;
+	_selected = _list lbData _index;
+	_map = _display displayCtrl 2201;
+
+	_array = profileNamespace getVariable ["gps_saved",[]];
+
+	_selectedData = (_array select {(_x select 0) isEqualTo _selected}) select 0;
+	_selectedData params ["_name","_pos"];
+
+	ctrlMapAnimClear _map;
+	_map ctrlMapAnimAdd [1, 0.05, _pos];
+	CtrlMapAnimCommit _map;
 }];
 
 _saved_exec ctrlAddEventHandler ["ButtonClick",{

@@ -17,9 +17,6 @@ gps_data_map_center = [worldSize / 2,worldSize / 2,0];
 
 ["getting roads ..."] call gps_fnc_log;
 gps_allRoads = [] call gps_fnc_getAllRoads;
-if (gps_allRoads isEqualTo []) exitWith {
-  [format["Error : no road data found for world %1",worldName],"FATAL ERROR"] call bis_fnc_guiMessage;
-};
 ["done"] call gps_fnc_log;
 
 gps_max_road_index = MAX_ROAD_INDEX;

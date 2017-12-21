@@ -104,7 +104,7 @@ _map ctrlAddEventHandler ["MouseButtonClick",{
 	if(_shift) then {
 		_pos spawn {
 			try {
-				_this call gps_fnc_main;
+				[_this] call gps_fnc_main;
 			}catch{		// Fatal error handling
 				[format["Error : %1",_exception]] call gps_menu_fnc_setGPSInfo; 
 				[] call gps_fnc_deletePathHelpers;

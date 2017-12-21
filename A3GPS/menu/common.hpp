@@ -190,7 +190,7 @@
 		type = 101;
 		idc = 51;
 		style = 48;
-		colorBackground[] = {0.969,0.957,0.949,1};
+		colorBackground[] = {1,1,1,1};
 		colorOutside[] = {0,0,0,1};
 		colorText[] = {0,0,0,1};
 		font = "TahomaB";

@@ -27,14 +27,14 @@ private _crossRoad_isHighWay = [_crossRoad] call gps_fnc_isHighWay;
   // Bohemia , i want my do {} while {};
   while{true} do {
       _connected = [_currRoad] call gps_fnc_roadsConnectedTo;
+      _countConnected = count _connected;
       _passedBy pushBack _currRoad;
       _segmentValue = _segmentValue + (_previous distance2D _currRoad);
 
       _currRoad_isHighWay = [_currRoad] call gps_fnc_isHighWay;
       
-      if(count _connected isEqualTo 0) exitWith {};
-      if(count _connected isEqualTo 1) exitWith {};
-      if(count _connected > 2 || _currRoad in _exceptions) exitWith {  
+      if(_countConnected < 2) exitWith {};
+      if(_countConnected > 2 || _currRoad in _exceptions) exitWith {  
         if(_currRoad_isHighWay && _crossRoad_isHighWay) then {
           _segmentValue = (_segmentValue / 3); 
         };
@@ -51,7 +51,7 @@ private _crossRoad_isHighWay = [_crossRoad] call gps_fnc_isHighWay;
         };
       } forEach _connected;
 
-       if(_currRoad isEqualTo _oldRoad) exitWith {};
+      if(_currRoad isEqualTo _oldRoad) exitWith {};
     };
 } forEach _linkedTo;
 

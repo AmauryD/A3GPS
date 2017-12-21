@@ -6,6 +6,9 @@
 	@Description : Initialization
 **/
 
+#ifdef GPS_DEV 
+	enableSaving [false,false];
+#endif
 
 
 gps_dir = getText (missionConfigFile >> "CfgGPS" >> "gps_dir");
@@ -28,15 +31,14 @@ gps_fnc_deletePathHelpers =  ["gps","fn_deletePathHelpers"] call gps_fnc_compile
 gps_fnc_generatePathHelpers = ["gps","fn_generatePathHelpers"] call gps_fnc_compile;
 gps_fnc_tracking = ["gps","fn_tracking"] call gps_fnc_compile;
 gps_fnc_generateNodePath = ["gps","fn_generateNodePath"] call gps_fnc_compile;
+gps_fnc_composeFilePath = ["gps","fn_composeFilePath"] call gps_fnc_compile;
 
 gps_fnc_aStar = ["gps\algorithms\AStar","fn_AStar"] call gps_fnc_compile;
 gps_fnc_findLeast = ["gps\algorithms\AStar","fn_findLeast"] call gps_fnc_compile;
 gps_fnc_isInList = ["gps\algorithms\AStar","fn_isInList"] call gps_fnc_compile;
-gps_fnc_navToNearest = ["gps","fn_navToNearest"] call gps_fnc_compile;
 
 gps_fnc_main = ["gps","fn_main"] call gps_fnc_compile;
 
-gps_fnc_waitArrive = ["gps","fn_waitArrive"] call gps_fnc_compile;
 gps_fnc_insertFakeNode = ["gps","fn_insertFakeNode"] call gps_fnc_compile;
 gps_fnc_createMarker = ["gps","fn_createMarker"] call gps_fnc_compile;
 gps_fnc_getAllRoads = ["gps","fn_getAllRoads"] call gps_fnc_compile;
@@ -102,6 +104,14 @@ misc_fnc_setSetting = ["misc","fn_setSetting"] call gps_fnc_compile;
 misc_fnc_PQ_get = ["misc\PriorityQueue","fn_get"] call gps_fnc_compile;
 misc_fnc_PQ_insert = ["misc\PriorityQueue","fn_insert"] call gps_fnc_compile;
 
+misc_fnc_Q_get = ["misc\Queue","fn_get"] call gps_fnc_compile;
+misc_fnc_Q_insert = ["misc\Queue","fn_insert"] call gps_fnc_compile;
+
+misc_fnc_Ptr_get = ["misc\Pointers","fn_get"] call gps_fnc_compile;
+misc_fnc_Ptr_create = ["misc\Pointers","fn_create"] call gps_fnc_compile;
+misc_fnc_Ptr_set = ["misc\Pointers","fn_set"] call gps_fnc_compile;
+misc_fnc_Ptr_delete = ["misc\Pointers","fn_delete"] call gps_fnc_compile; // delete the value , not the pointer itself
+
 gps_fnc_getConfigSetting = ["misc","fn_getConfigSetting"] call gps_fnc_compile;
 
 misc_fnc_hashTable_find = ["misc\hashTable","fn_find"] call gps_fnc_compile;
@@ -120,7 +130,6 @@ misc_fnc_averageFromAngles = ["misc","fn_averageFromAngles"] call gps_fnc_compil
 gps_init_done = false;
 gps_local_markers =	[];
 gps_curr_thread = scriptNull;
-gps_track_handle = scriptNull;
 
 gps_version = "1.0";
 

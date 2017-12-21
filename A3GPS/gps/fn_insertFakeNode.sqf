@@ -10,7 +10,9 @@ params [
 	["_road",objNull,[objNull]]
 ];
 
+
 gps_onlyCrossRoads pushBackUnique _road;
+
 
 _res = [_road,[_road] call gps_fnc_roadsConnectedTo,gps_onlyCrossRoads] call gps_fnc_mapNodeValues;
 

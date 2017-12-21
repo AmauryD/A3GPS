@@ -10,6 +10,7 @@
 class CfgGPS {
 	//global
 	gps_dir = "";
+
 	default_marker_color = "ColorGreen";
 	default_language = "fr";
 

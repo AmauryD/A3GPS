@@ -8,13 +8,3 @@
 params ["_disp"];
 
 uiNamespace setVariable ['gps_hud', _disp];
-
-_zoomMapControl = _disp displayCtrl 2204;
-_zoomMapControl ctrlShow false;
-
-{	//hide the elements
-	_pos = ctrlPosition _x;
-	_x setVariable ["originalPos",_pos];
-	_x ctrlSetPosition [_pos select 0,_pos select 1,0,_pos select 3];
-	_x ctrlCommit 0;
-}foreach ((allControls _disp) - [_zoomMapControl]);

@@ -47,11 +47,3 @@ _zoomMapControl ctrlAddEventHandler ["Draw",{
         getDir _vehPlayer
 	];
 }];
-
-
-{
-	_x ctrlSetPosition (_x getVariable "originalPos");
-	_x ctrlCommit 1;
-}foreach ((allControls _hudDisplay) - [_zoomMapControl]);
-
-uiSleep 1;

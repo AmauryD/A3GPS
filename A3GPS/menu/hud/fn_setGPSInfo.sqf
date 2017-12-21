@@ -9,7 +9,7 @@ disableSerialization;
 
 params [
 	"_status",
-	["_img","icons\arrow_right.paa",[""]],
+	["_img","",[""]],
 	["_goalText","",[""]]
 ];
 
@@ -21,9 +21,14 @@ _text = _hudDisplay displayCtrl 1000;
 _picture = _hudDisplay displayCtrl 1200;
 _goalDistance = _hudDisplay displayCtrl 1002;
 
-_picture ctrlSetText _img;
-_text ctrlSetText _status;
+if(_status != "" && _status != ctrlText _text) then {
+	_text ctrlSetText _status;
+};
 
-if(_goalText != "") then {
+if(_img != "" && _img != ctrlText _picture) then {
+	_picture ctrlSetText _img;
+};
+
+if(_goalText != "" && _goalText != ctrlText _goalDistance) then {
 	_goalDistance ctrlSetText _goalText;
 };

@@ -9,4 +9,8 @@ params ["_array","_key","_val"];
 
 _id = (_key % count _array);
 
+if(isNil "_val") exitWith {
+	_array set [_id,nil];
+};
+
 _array set [_id,_val]

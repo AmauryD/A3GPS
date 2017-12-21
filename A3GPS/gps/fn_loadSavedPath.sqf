@@ -20,4 +20,4 @@ private _color = ["markers_color"] call misc_fnc_getSetting;
 	};
 }foreach (profileNamespace getVariable ["gps_saved",[]]);
 
-_theRightPath call gps_fnc_main;
+[_theRightPath] call gps_fnc_main;

@@ -65,24 +65,28 @@ class GPS_Localization {
 		fr="Pas d'arrivée valide détectée.";
 	};
 	class STR_ROAD_CONTINUE {
-		en = "Follow the road during %1m";
-		fr = "Suivez la route durant %1m";
+		en = "Follow the road during %1";
+		fr = "Suivez la route durant %1";
 	};
 	class STR_ROAD_TURN_SLOW_LEFT {
-		en = "Turn slight left in %1m";
-		fr = "Tournez légèrement à gauche dans %1m";
+		en = "Turn slight left in %1";
+		fr = "Tournez légèrement à gauche dans %1";
 	};
 	class STR_ROAD_TURN_LEFT {
 		en = "Turn left in %1m";
-		fr = "Tournez à gauche dans %1m";
+		fr = "Tournez à gauche dans %1";
+	};
+	class STR_ROAD_ARRIVED_IN {
+		en = "Continue %1 and you're at destination.";
+		fr = "Continuez durant %1 et vous êtes arrivé.";
 	};
 	class STR_ROAD_TURN_RIGHT {
-		en = "Turn right in %1m";
-		fr = "Tournez à droite dans %1m";
+		en = "Turn right in %1";
+		fr = "Tournez à droite dans %1";
 	};
 	class STR_ROAD_TURN_SLOW_RIGHT {
 		en = "Turn slight right in %1m";
-		fr = "Tournez légèrement à droite dans %1m";
+		fr = "Tournez légèrement à droite dans %1";
 	};
 	class STR_START {
 		en = "Start";

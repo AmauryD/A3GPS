@@ -9,16 +9,12 @@ scriptName "gps_main_thread";
 scopeName "main";
 
 _valid = params [
-	["_position",[],[[],objNull,locationNull]]
+	["_position",[],[[],objNull,locationNull,grpNull,""]]
 ];
 
 if (!_valid) exitWith {};
 
-_position = switch (typeName _position) do { 
-	case "ARRAY" : { _position }; 
-	case "OBJECT" : { getPosATL _position }; 
-	case "LOCATION" : { locationPosition _position };
-};
+_position = _position call bis_fnc_position;
 
 private _startRoute = [getPosATL vehicle player,1000] call bis_fnc_nearestRoad;
 private _endRoute = [_position,1000] call bis_fnc_nearestRoad;

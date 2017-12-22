@@ -151,7 +151,7 @@ waitUntil {	//wait for the virtual mapping to be done
 	["STR_QUICKNAV_OPTION_TOWN"] call misc_fnc_localize,
 	{
 		[
-			locationPosition ([getPosATL player,4000,["NameCity","NameVillage","NameCityCapital","NameLocal"]] call misc_fnc_nearestLocation)
+			[getPosATL player,4000,["NameCity","NameVillage","NameCityCapital","NameLocal"]] call misc_fnc_nearestLocation
 		] spawn gps_fnc_main;
 	}
 ] call gps_menu_fnc_addQuickNavOption;

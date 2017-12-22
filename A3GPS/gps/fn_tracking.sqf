@@ -134,6 +134,11 @@ try {
 			if(isOnRoad vehicle player) then {
 				throw "RECALCULATE_PATH";
 			};
+			[
+				["STR_GPS_LOST"] call misc_fnc_localize,
+				"A3\ui_f\data\Map\Markers\Military\unknown_CA.paa",
+				format ["%1Km",[vehicle player distance [0,0,0],2] call misc_fnc_metersToKilometers]
+			] call gps_menu_fnc_setGPSInfo;
 		};
 
 		uiSleep 1;

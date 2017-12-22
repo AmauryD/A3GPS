@@ -80,6 +80,9 @@ try {
 
 			_dir = [_dir1 - _dir2] call _fn_correctAngle;
 
+			if (_dir >= 330 || _dir <= 30) exitWith {
+				_path deleteAt (_path find _next_node);
+			};
 
 			_infos = switch (true) do
 			{	
@@ -141,7 +144,7 @@ try {
 			] call gps_menu_fnc_setGPSInfo;
 		};
 
-		uiSleep 1;
+		uiSleep 0.5;
 	};
 }catch{
 	_return = false;

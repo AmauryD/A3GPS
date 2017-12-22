@@ -127,7 +127,7 @@ try {
 				_infos set [0,format[_infos select 0,str(round _dist) + "m"]];
 			};
 
-			_infos pushBack format ["%1Km",[vehicle player distance [0,0,0],2] call misc_fnc_metersToKilometers];
+			_infos pushBack format ["%1Km",[vehicle player distance _goal,2] call misc_fnc_metersToKilometers];
 
 			_infos call gps_menu_fnc_setGPSInfo;
 		}else{
@@ -137,7 +137,7 @@ try {
 			[
 				["STR_GPS_LOST"] call misc_fnc_localize,
 				"A3\ui_f\data\Map\Markers\Military\unknown_CA.paa",
-				format ["%1Km",[vehicle player distance [0,0,0],2] call misc_fnc_metersToKilometers]
+				format ["%1Km",[vehicle player distance _goal,2] call misc_fnc_metersToKilometers]
 			] call gps_menu_fnc_setGPSInfo;
 		};
 

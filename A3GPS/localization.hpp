@@ -77,8 +77,8 @@ class GPS_Localization {
 		fr = "Tournez à gauche dans %1";
 	};
 	class STR_ROAD_ARRIVED_IN {
-		en = "Continue %1 and you're at destination.";
-		fr = "Continuez durant %1 et vous êtes arrivé.";
+		en = "Continue %1m and you're at destination.";
+		fr = "Continuez durant %1m et vous êtes arrivé.";
 	};
 	class STR_ROAD_TURN_RIGHT {
 		en = "Turn right in %1";

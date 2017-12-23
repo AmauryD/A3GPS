@@ -4,6 +4,7 @@
 	@Creation : 1/02/17
 	@Modified : 23/10/17
 	@Description : 
+  TODO : Need to improve this file
 **/
 params [
    "_crossRoad",
@@ -13,7 +14,6 @@ params [
 
 private _linkedCrossRoads = [];
 private _linkedSegments = [];
-private _previous = _crossRoad;
 private _crossRoad_isHighWay = [_crossRoad] call gps_fnc_isHighWay;
 
 {
@@ -21,7 +21,7 @@ private _crossRoad_isHighWay = [_crossRoad] call gps_fnc_isHighWay;
   private _connected = [_currRoad] call gps_fnc_roadsConnectedTo;
   private _segmentValue = 1;
   private _passedBy = [];
-  _previous = _crossRoad;
+  private _previous = _crossRoad;
   _passedBy pushBack _crossRoad;
 
   // Bohemia , i want my do {} while {};
@@ -43,15 +43,15 @@ private _crossRoad_isHighWay = [_crossRoad] call gps_fnc_isHighWay;
         _linkedSegments pushBack [_currRoad,_passedBy];
       };
        
-      _oldRoad = _currRoad;
-      _previous = _oldRoad;
+      _previous = _currRoad;
+
       {
-        if(!(_x in _passedBy)) then {
+        if !(_x in _passedBy) then {
           _currRoad = _x;
         };
       } forEach _connected;
 
-      if(_currRoad isEqualTo _oldRoad) exitWith {};
+      if(_currRoad isEqualTo _previous) exitWith {};
     };
 } forEach _linkedTo;
 

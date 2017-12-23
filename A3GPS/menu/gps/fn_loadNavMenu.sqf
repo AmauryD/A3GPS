@@ -21,15 +21,15 @@ _saved_delete = _display displayCtrl 1601;
 _saved_delete ctrlSetText (["STR_MENU_DELETE_SAVED_PATH"] call misc_fnc_localize);
 _saved_exec ctrlSetText (["STR_MENU_LOAD_SAVED_PATH"] call misc_fnc_localize);
 
-
+_saved = profileNamespace getVariable ["gps_saved",[]];
+_savedWorldData = [_saved,worldName,[]] call bis_fnc_getFromPairs; 
 
 {
-	_savedName = _x select 0;
-	_locationGoal = _x select 1;
+	_x params ["_savedName","_locationGoal"];
 
 	_idx = _saved_list lbAdd _savedName;
 	_saved_list lbSetTooltip [_idx,_savedName];
-	_saved_list lbSetData [_idx,_savedName];
+	_saved_list lbSetData [_idx,str _x];
 
 	_pic = switch(type ([_locationGoal] call misc_fnc_nearestLocation)) do
 	{
@@ -41,7 +41,7 @@ _saved_exec ctrlSetText (["STR_MENU_LOAD_SAVED_PATH"] call misc_fnc_localize);
 	};
 
 	_saved_list lbSetPicture [_idx,_pic];
-}foreach (profileNamespace getVariable ["gps_saved",[]]);
+}foreach _savedWorldData;
 
 
 _map ctrlAddEventHandler ["Draw",{
@@ -71,9 +71,11 @@ _map ctrlAddEventHandler ["Draw",{
         name player
 	];
 
+	_saved = profileNamespace getVariable ["gps_saved",[]];
+	_savedWorldData = [_saved,worldName,[]] call bis_fnc_getFromPairs; 
+
 	{
-		_savedName = _x select 0;
-		_locationGoal = _x select 1;
+		_x params ["_savedName","_locationGoal"];
 
 		_pic = switch(type ([_locationGoal] call misc_fnc_nearestLocation)) do
 		{
@@ -93,7 +95,7 @@ _map ctrlAddEventHandler ["Draw",{
 	        0,
 	        _savedName
 		];
-	}foreach (profileNamespace getVariable ["gps_saved",[]]);
+	}foreach _savedWorldData;
 }];
 
 _map ctrlAddEventHandler ["MouseButtonClick",{
@@ -102,9 +104,7 @@ _map ctrlAddEventHandler ["MouseButtonClick",{
 	_pos = _control ctrlMapScreenToWorld [_xCoord, _yCoord];
 
 	if(_shift) then {
-		_pos spawn {
-			[_this] call gps_fnc_main;
-		};
+		[_pos] spawn gps_fnc_main;
 	};
 }];
 
@@ -112,13 +112,10 @@ _saved_list ctrlAddEventHandler ["LBSelChanged",{
 	params ["_list","_index"];
 
 	_display = ctrlParent _list;
-	_selected = _list lbData _index;
+	_selected = parseSimpleArray (_list lbData _index);
 	_map = _display displayCtrl 2201;
-
-	_array = profileNamespace getVariable ["gps_saved",[]];
-
-	_selectedData = (_array select {(_x select 0) isEqualTo _selected}) select 0;
-	_selectedData params ["_name","_pos"];
+	
+	_selected params ["_name","_pos"];
 
 	ctrlMapAnimClear _map;
 	_map ctrlMapAnimAdd [1, 0.05, _pos];
@@ -126,13 +123,16 @@ _saved_list ctrlAddEventHandler ["LBSelChanged",{
 }];
 
 _saved_exec ctrlAddEventHandler ["ButtonClick",{
-	_saved_paths_list = (ctrlParent (_this select 0)) displayCtrl 1500;
+	params ["_control"];
+	_saved_paths_list = (ctrlParent _control) displayCtrl 1500;
 
 	_selected = _saved_paths_list lbData (lbCurSel _saved_paths_list);
 
 	if(_selected == "") exitWith {};
 
-	[_selected] spawn gps_fnc_loadSavedPath;
+	(parseSimpleArray _selected) params ["_name","_pos"];
+
+	[_pos] spawn gps_fnc_main;
 }];
 
 
@@ -143,13 +143,12 @@ _saved_delete ctrlAddEventHandler ["ButtonClick",{
 
 	if(_selected == "") exitWith {};
 
+	(parseSimpleArray _selected) params ["_name","_pos"];
+
 	_saved_paths_list lbDelete (lbCurSel _saved_paths_list);
 
-	_array = profileNamespace getVariable ["gps_saved",[]];
+	_saved = profileNamespace getVariable ["gps_saved",[]];
+	_savedWorldData = [_saved,worldName,[]] call bis_fnc_getFromPairs; 
 
-	{
-		if(_x select 0 isEqualTo _selected) exitWith {
-			_array deleteAt _forEachIndex;
-		};
-	}foreach _array;
+	[_savedWorldData,_name] call bis_fnc_removeFromPairs;
 }];

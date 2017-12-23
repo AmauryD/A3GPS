@@ -26,7 +26,6 @@ if(!canSuspend) exitWith {
 gps_fnc_mapRoutes = ["gps","fn_mapRoutes"] call gps_fnc_compile;
 gps_fnc_mapNodeValues = ["gps","fn_mapNodeValues"] call gps_fnc_compile;
 gps_fnc_roadsConnectedTo = ["gps","fn_roadsConnectedTo"] call gps_fnc_compile;
-gps_fnc_loadSavedPath = ["gps","fn_loadSavedPath"] call gps_fnc_compile;
 gps_fnc_deletePathHelpers =  ["gps","fn_deletePathHelpers"] call gps_fnc_compile;
 gps_fnc_generatePathHelpers = ["gps","fn_generatePathHelpers"] call gps_fnc_compile;
 gps_fnc_tracking = ["gps","fn_tracking"] call gps_fnc_compile;
@@ -43,7 +42,6 @@ gps_fnc_insertFakeNode = ["gps","fn_insertFakeNode"] call gps_fnc_compile;
 gps_fnc_createMarker = ["gps","fn_createMarker"] call gps_fnc_compile;
 gps_fnc_getAllRoads = ["gps","fn_getAllRoads"] call gps_fnc_compile;
 
-gps_fnc_loadWorldData = ["gps","fn_loadWorldData"] call gps_fnc_compile;
 gps_fnc_refreshCache = ["misc","fn_refreshCache"] call gps_fnc_compile;
 gps_fnc_killGPS = ["gps","fn_killGPS"] call gps_fnc_compile;
 gps_fnc_isHighway = ["gps","fn_isHighWay"] call gps_fnc_compile;
@@ -127,6 +125,10 @@ gps_version = "1.0";
 
 waitUntil {!isNull findDisplay 46};
 waitUntil {!isNull player};
+
+#ifdef GPS_DEV 
+	//uiSleep 2;
+#endif
 
 _handle = [] spawn gps_fnc_mapRoutes; 
 

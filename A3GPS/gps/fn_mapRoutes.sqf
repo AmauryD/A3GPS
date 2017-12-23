@@ -13,8 +13,6 @@ _start = diag_tickTime;
 
 gps_data_map_center = [worldSize / 2,worldSize / 2,0];
 
-[] call gps_fnc_loadWorldData;
-
 ["getting roads ..."] call gps_fnc_log;
 gps_allRoads = [] call gps_fnc_getAllRoads;
 ["done"] call gps_fnc_log;

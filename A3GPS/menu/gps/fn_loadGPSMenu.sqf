@@ -66,12 +66,18 @@ _kill_btn ctrlAddEventHandler ["ButtonClick",{
 }];
 
 _save_btn ctrlAddEventHandler ["ButtonClick",{
-	[] spawn {
+	_this spawn {
 		disableSerialization;
-		if(gps_curr_thread isEqualTo scriptNull || isNil "gps_current_goal") exitWith {};
+		params ["_control"];
 
-		private _saveName = [["STR_SELECT_SAVED_PATH_NAME"] call misc_fnc_localize,findDisplay 369852] call misc_fnc_editDialog;
-		if(_saveName isEqualTo "") exitWith {};
-		(profileNamespace getVariable ["gps_saved",[]]) pushBackUnique [_saveName,gps_current_goal];
+		if (scriptDone gps_curr_thread || isNil "gps_current_goal") exitWith {};
+
+		_saveName = [["STR_SELECT_SAVED_PATH_NAME"] call misc_fnc_localize,ctrlParent _control] call misc_fnc_editDialog;
+
+		if (_saveName isEqualTo "") exitWith {};
+		
+		_saved = profileNamespace getVariable ["gps_saved",[]];
+
+		[_saved,worldName,[[_saveName,gps_current_goal]]] call bis_fnc_addToPairs;
 	};
 }];

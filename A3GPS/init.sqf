@@ -48,11 +48,8 @@ gps_fnc_refreshCache = ["misc","fn_refreshCache"] call gps_fnc_compile;
 gps_fnc_killGPS = ["gps","fn_killGPS"] call gps_fnc_compile;
 gps_fnc_isHighway = ["gps","fn_isHighWay"] call gps_fnc_compile;
 
-/** TEST FUNCTIONS **/
-//dev_fnc_getConnectedSegments = "fn_getConnectedSegments" call gps_fnc_compile;
 
 /** GPS MENU FUNCTIONS **/
-
 //HUD
 _hudFolder = "menu\hud";
 gps_menu_fnc_setGPSInfo = [_hudFolder,"fn_setGPSInfo"] call gps_fnc_compile; // = update

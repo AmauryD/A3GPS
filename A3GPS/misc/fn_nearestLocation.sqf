@@ -17,7 +17,6 @@ _locations = nearestLocations [_position, _types, _radius];
 
 if (_locations isEqualTo []) exitWith {locationNull};
 
-_posArray = _locations apply {locationPosition _x};
-_result = [_posArray,_position] call bis_fnc_nearestPosition;
+_result = [_locations,_position] call bis_fnc_nearestPosition;
 
 _result

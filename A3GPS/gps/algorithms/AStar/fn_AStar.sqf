@@ -21,7 +21,11 @@ private _closed_list = [gps_max_road_index] call misc_fnc_hashTable_create;
 CREATE_NODE(objNull,_startRoute,0,0,0);
 _open_list pushBack str _startRoute;
 
-while {count _open_list != 0} do {
+// faster than while {true}
+for "_i" from 0 to 1 step 0 do {
+
+    if (_open_list isEqualTo []) exitWith {};
+ 
     private _qName = _open_list call gps_fnc_findLeast;
     private _qObject = GET_NODE(_qName);
 

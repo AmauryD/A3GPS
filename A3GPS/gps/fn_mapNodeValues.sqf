@@ -25,7 +25,7 @@ private _crossRoad_isHighWay = [_crossRoad] call gps_fnc_isHighWay;
   _passedBy pushBack _crossRoad;
 
   // Bohemia , i want my do {} while {};
-  while{true} do {
+  for "_i" from 0 to 1 step 0 do {
       _connected = [_currRoad] call gps_fnc_roadsConnectedTo;
       _countConnected = count _connected;
       _passedBy pushBack _currRoad;

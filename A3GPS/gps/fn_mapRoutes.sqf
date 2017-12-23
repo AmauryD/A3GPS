@@ -41,7 +41,7 @@ _gps_allRoadsWithInter = gps_allRoads apply { //FINALLY FIXED THIS
           _rID = parseNumber str _x;
           _connected pushBack _x;
           if([gps_roadsWithConnected,_rID] call misc_fnc_hashTable_exists) then {
-            ([gps_roadsWithConnected,_rID] call misc_fnc_hashTable_find) pushBack _x;
+            ([gps_roadsWithConnected,_rID] call misc_fnc_hashTable_find) pushBack _road;
           }else{
             [gps_roadsWithConnected,_rID,[_road]] call misc_fnc_hashTable_set;
           };

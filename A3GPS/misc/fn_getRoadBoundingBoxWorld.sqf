@@ -32,8 +32,8 @@ _fullbb = [
 ];
 
 _bbw = _fullbb apply {
-	_x set [0,(_x select 0) * _lenghtMultiplicator];
-	_x set [1,(_x select 1) * _widthMultiplicator];
+	_x set [0,(_x select 0) * _widthMultiplicator];
+	_x set [1,(_x select 1) * _lenghtMultiplicator];
 	_road modelToWorld ([_x,-_direction] call BIS_fnc_rotateVector2D)
 };
 

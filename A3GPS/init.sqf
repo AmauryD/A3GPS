@@ -33,8 +33,6 @@ gps_fnc_generateNodePath = ["gps","fn_generateNodePath"] call gps_fnc_compile;
 gps_fnc_composeFilePath = ["gps","fn_composeFilePath"] call gps_fnc_compile;
 
 gps_fnc_aStar = ["gps\algorithms\AStar","fn_AStar"] call gps_fnc_compile;
-gps_fnc_findLeast = ["gps\algorithms\AStar","fn_findLeast"] call gps_fnc_compile;
-gps_fnc_isInList = ["gps\algorithms\AStar","fn_isInList"] call gps_fnc_compile;
 
 gps_fnc_main = ["gps","fn_main"] call gps_fnc_compile;
 
@@ -136,7 +134,6 @@ waitUntil {	//wait for the virtual mapping to be done
    scriptDone _handle
 };
 
-
 [
 	["STR_QUICKNAV_OPTION_STATION"] call misc_fnc_localize,
 	{
@@ -169,6 +166,18 @@ waitUntil {	//wait for the virtual mapping to be done
 		{
 			[nil,getPosATL _x,str _x,'mil_dot'] call misc_fnc_createMarker;
 		}foreach (player nearRoads 1000);
+	}];
+
+	player addAction ["Show all highways",{
+		{
+			if ([_x] call gps_fnc_isHighway) then {
+				[str _x,getPosATL _x] call misc_fnc_createMarker;
+			};
+		}foreach gps_allRoads;
+	}];
+
+	player addAction ["Clear Map",{
+		{deleteMarkerLocal _x} foreach allMapMarkers;
 	}];
 
 	player addAction ["Node mode",{

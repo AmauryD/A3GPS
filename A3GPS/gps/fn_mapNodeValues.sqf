@@ -19,7 +19,7 @@ private _crossRoad_isHighWay = [_crossRoad] call gps_fnc_isHighWay;
 {
   private _currRoad = _x;
   private _connected = [_currRoad] call gps_fnc_roadsConnectedTo;
-  private _segmentValue = 1;
+  private _segmentValue = 0;
   private _passedBy = [];
   private _previous = _crossRoad;
   _passedBy pushBack _crossRoad;

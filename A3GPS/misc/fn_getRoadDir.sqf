@@ -19,11 +19,14 @@ if(isNull _otherRoad) then {
 
 	if(count _connectedRoads == 0) exitWith {_direction};
 
-	if(count _connectedRoads == 1) then 
+	if(count _connectedRoads >= 1) then 
 	{
-		_direction = _road getDir (_connectedRoads select 0);
-	}else{
-		_direction = (_connectedRoads select 0) getDir (_connectedRoads select 1);
+		_roadID = parseNumber str _road;
+		private _friendlyRoads = _connectedRoads select {(parseNumber str _x) in [_roadID + 1,_roadID - 1]};
+		if (_friendlyRoads isEqualTo []) then {
+			_friendlyRoads = _connectedRoads;
+		};
+		_direction = _road getDir (_friendlyRoads select 0);
 	};
 }else{
 	_direction = _road getDir _otherRoad;

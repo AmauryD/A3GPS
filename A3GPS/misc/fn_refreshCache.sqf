@@ -15,12 +15,6 @@ if(isNil {profileNamespace getVariable "gps_saved"}) then {  // to store path no
 		profileNameSpace setVariable ["gps_saved",[]];
 		systemChat "GPS : Corrupted data were erased";
 	};
-	{
-		if !(_x isEqualTypeArray ["",[]]) then {
-			_saved deleteAt _forEachIndex;
-			systemChat "GPS : Corrupted data were erased";
-		};
-	}foreach _saved;
 };
 if(isNil {profileNamespace getVariable "gps_settings"}) then {
 	profileNameSpace setVariable ["gps_settings",

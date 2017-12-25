@@ -1,70 +1,43 @@
 #include "..\..\..\macros.h"
 
-#define CREATE_NODE(PARENT,ROAD_OBJECT,F,G,H) [_nameSpace,parseNumber str ROAD_OBJECT,[PARENT,ROAD_OBJECT,F,G,H]] call misc_fnc_hashTable_set
-#define GET_NODE(ROAD_NAME) [_nameSpace,parseNumber ROAD_NAME] call misc_fnc_hashTable_find
+#define RID(road) parseNumber str road
 
-// G:dist from start | H dist from end | F G+H
-//Need to work with a namespace for a more 'POO' style
+params ["_startRoute","_goalRoute"];
 
-scopeName "main_algorithm";
+private _frontier = [];
+private _came_from = [gps_max_road_index] call misc_fnc_hashTable_create;
+private _cost_so_far = [gps_max_road_index] call misc_fnc_hashTable_create;
 
-private _start = diag_tickTime;
+[_came_from,RID(_startRoute),objNull] call misc_fnc_hashTable_set;
+[_frontier,_startRoute,0] call misc_fnc_PQ_insert;
+[_cost_so_far,RID(_startRoute),0] call misc_fnc_hashTable_set;
 
-private _startRoute = _this select 0;
-private _goalRoute = _this select 1;
-private _nameSpace = _this select 2;
-private _precision = param [3,1,[0]];
+while {count _frontier > 0} do {
+	private _current = [_frontier] call misc_fnc_PQ_get;
 
-private _open_list = [];
-private _closed_list = [gps_max_road_index] call misc_fnc_hashTable_create;
+	if (_current isEqualTo _goalRoute) exitWith {};
 
-CREATE_NODE(objNull,_startRoute,0,0,0);
-_open_list pushBack str _startRoute;
+	{
+		_x params ["_next","_cost"];
+		_new_cost = ([_cost_so_far,RID(_current)] call misc_fnc_hashTable_find) + _cost;
 
-// faster than while {true}
-for "_i" from 0 to 1 step 0 do {
+		if (
+			!([_cost_so_far,RID(_next)] call misc_fnc_hashTable_exists) 
+		) then {
+			[_cost_so_far,RID(_next),_new_cost] call misc_fnc_hashTable_set;
+			_priority = _new_cost + (_goalRoute distance _next);
+			[_frontier,_next,_priority] call misc_fnc_PQ_insert;
+			[_came_from,RID(_next),_current] call misc_fnc_hashTable_set;
+		}else{
+			if (_new_cost < ([_cost_so_far,RID(_next)] call misc_fnc_hashTable_find)) then {
+				[_cost_so_far,RID(_next),_new_cost] call misc_fnc_hashTable_set;
+				_priority = _new_cost + (_goalRoute distance _next);
+				[_frontier,_next,_priority] call misc_fnc_PQ_insert;
+				[_came_from,RID(_next),_current] call misc_fnc_hashTable_set;
+			};
+		};
 
-    if (_open_list isEqualTo []) exitWith {};
- 
-    private _qName = _open_list call gps_fnc_findLeast;
-    private _qObject = GET_NODE(_qName);
-
-    _open_list deleteAt (_open_list find _qName);
-    _connectedNodes = [gps_allCrossRoadsWithWeight,parseNumber _qName] call misc_fnc_hashTable_find;
-
-    {
-        _childObject = _x select 0;
-        _child_parent_link_weight = _x select 1;
-
-        #ifdef GPS_DEV
-            [str _childObject,getPosATL _childObject,str _childObject] call gps_fnc_createMarker;
-        #endif
-
-        _g = (_qObject select 3) + _child_parent_link_weight;
-        _h = (_childObject distance2D _goalRoute) / _precision;
-        _f = _g + _h;
-
-        _successor = str _childObject;
-        
-        if(_childObject isEqualTo _goalRoute) exitWith {
-            CREATE_NODE(_qObject select 1,_childObject,_f,_g,_h);
-            _open_list pushBack _successor;
-            
-            breakTo "main_algorithm";
-        };
-
-        if !(
-            [_open_list,_successor,_f] call gps_fnc_isInList || 
-            [_closed_list,parseNumber _successor] call misc_fnc_hashTable_exists
-        ) then {
-            CREATE_NODE(_qObject select 1,_childObject,_f,_g,_h);
-            _open_list pushBack _successor;
-        };
-    }foreach _connectedNodes;
-
-    [_closed_list,parseNumber _qName,true] call misc_fnc_hashTable_set;
+	}foreach ([gps_allCrossRoadsWithWeight,RID(_current)] call misc_fnc_hashTable_find);
 };
 
-_open_list = _open_list apply {GET_NODE(_x)};
-
-_open_list
+_came_from

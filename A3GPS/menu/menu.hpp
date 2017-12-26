@@ -6,7 +6,7 @@ class GPS_menu {
 		////////////////////////////////////////////////////////
 		// GUI EDITOR OUTPUT START (by AmauryD, v1.063, #Kehusi)
 		////////////////////////////////////////////////////////
-		class main_background: IGUIBack
+		class main_background: A3GPS_IGUIBack
 		{
 			idc = 2201;
 			x = 0.332676 * safezoneW + safezoneX;
@@ -23,7 +23,7 @@ class GPS_menu {
 		////////////////////////////////////////////////////////
 		// GUI EDITOR OUTPUT START (by AmauryD, v1.063, #Nuriso)
 		////////////////////////////////////////////////////////
-		class gps_bottom: RscPicture
+		class gps_bottom: A3GPS_RscPicture
 		{
 			idc = 1201;
 
@@ -33,7 +33,7 @@ class GPS_menu {
 			w = 0.318712 * safezoneW;
 			h = 0.051 * safezoneH;
 		};
-		class gps_corner_up_left: RscPicture
+		class gps_corner_up_left: A3GPS_RscPicture
 		{
 			idc = 1206;
 
@@ -43,7 +43,7 @@ class GPS_menu {
 			w = 0.0239034 * safezoneW;
 			h = 0.051 * safezoneH;
 		};
-		class gps_left: RscPicture
+		class gps_left: A3GPS_RscPicture
 		{
 			idc = 1205;
 
@@ -53,7 +53,7 @@ class GPS_menu {
 			w = 0.0239034 * safezoneW;
 			h = 0.306 * safezoneH;
 		};
-		class gps_corner_down_left: RscPicture
+		class gps_corner_down_left: A3GPS_RscPicture
 		{
 			idc = 1208;
 
@@ -63,7 +63,7 @@ class GPS_menu {
 			w = 0.0239034 * safezoneW;
 			h = 0.051 * safezoneH;
 		};
-		class gps_bottom_right: RscPicture
+		class gps_bottom_right: A3GPS_RscPicture
 		{
 			idc = 1212;
 
@@ -73,7 +73,7 @@ class GPS_menu {
 			w = 0.0239034 * safezoneW;
 			h = 0.051 * safezoneH;
 		};
-		class gps_right: RscPicture
+		class gps_right: A3GPS_RscPicture
 		{
 			idc = 1213;
 
@@ -83,7 +83,7 @@ class GPS_menu {
 			w = 0.0239034 * safezoneW;
 			h = 0.306 * safezoneH;
 		};
-		class gps_top_right: RscPicture
+		class gps_top_right: A3GPS_RscPicture
 		{
 			idc = 1214;
 
@@ -93,7 +93,7 @@ class GPS_menu {
 			w = 0.0239034 * safezoneW;
 			h = 0.051 * safezoneH;
 		};
-		class gps_top: RscPicture
+		class gps_top: A3GPS_RscPicture
 		{
 			idc = 1215;
 
@@ -103,7 +103,7 @@ class GPS_menu {
 			w = 0.318712 * safezoneW;
 			h = 0.051 * safezoneH;
 		};
-		class btn_nav: gps_rscbuttonMain
+		class btn_nav: A3GPS_rscbuttonMain
 		{
 			idc = 2400;
 
@@ -114,7 +114,7 @@ class GPS_menu {
 			h = 0.085 * safezoneH;
 			colorBackground[] = {-1,-1,-1,0.6};
 		};
-		class btn_options: gps_rscbuttonMain
+		class btn_options: A3GPS_rscbuttonMain
 		{
 			idc = 2401;
 
@@ -125,7 +125,7 @@ class GPS_menu {
 			h = 0.085 * safezoneH;
 			colorBackground[] = {-1,-1,-1,0.6};
 		};
-		class btn_help: gps_rscbuttonMain
+		class btn_help: A3GPS_rscbuttonMain
 		{
 			idc = 2402;
 
@@ -136,7 +136,7 @@ class GPS_menu {
 			h = 0.085 * safezoneH;
 			colorBackground[] = {-1,-1,-1,0.6};
 		};
-		class header: RscText
+		class header: A3GPS_RscText
 		{
 			idc = 1004;
 
@@ -147,7 +147,7 @@ class GPS_menu {
 			h = 0.068 * safezoneH;
 			sizeEx = 2 * GUI_GRID_H;
 		};
-		class btn_quit: gps_rscbuttonMain
+		class btn_quit: A3GPS_rscbuttonMain
 		{
 			idc = 2403;
 
@@ -158,7 +158,7 @@ class GPS_menu {
 			h = 0.085 * safezoneH;
 			colorBackground[] = {-1,-1,-1,0.6};
 		};
-		class save_current : gps_rscbuttonMain
+		class save_current : A3GPS_rscbuttonMain
 		{
 			idc = 2405;
 
@@ -169,7 +169,7 @@ class GPS_menu {
 			h = 0.085 * safezoneH;
 			colorBackground[] = {-1,-1,-1,0.6};
 		};
-		class kill_gps : gps_rscbuttonMain
+		class kill_gps : A3GPS_rscbuttonMain
 		{
 			idc = 2404;
 
@@ -193,7 +193,7 @@ class gps_menu_map {
 	// GUI EDITOR OUTPUT START (by AmauryD, v1.063, #Vegygo)
 	////////////////////////////////////////////////////////
 	class controlsBackground {
-		class map: RscMapControl {
+		class map: A3GPS_RscMapControl {
 			idc = 2201;
 
 			x = 0.332676 * safezoneW + safezoneX;
@@ -201,7 +201,7 @@ class gps_menu_map {
 			w = 0.334647 * safezoneW;
 			h = 0.357 * safezoneH;
 		};
-		class background_saved: IGUIBack
+		class background_saved: A3GPS_IGUIBack
 		{
 			idc = 2200;
 			x = 0.691227 * safezoneW + safezoneX;
@@ -215,7 +215,7 @@ class gps_menu_map {
 		////////////////////////////////////////////////////////
 		// GUI EDITOR OUTPUT START (by AmauryD, v1.063, #Dimemo)
 		////////////////////////////////////////////////////////
-		class gps_bottom: RscPicture
+		class gps_bottom: A3GPS_RscPicture
 		{
 			idc = 1201;
 
@@ -225,7 +225,7 @@ class gps_menu_map {
 			w = 0.318712 * safezoneW;
 			h = 0.051 * safezoneH;
 		};
-		class gps_corner_up_left: RscPicture
+		class gps_corner_up_left: A3GPS_RscPicture
 		{
 			idc = 1206;
 
@@ -235,7 +235,7 @@ class gps_menu_map {
 			w = 0.0239034 * safezoneW;
 			h = 0.051 * safezoneH;
 		};
-		class gps_left: RscPicture
+		class gps_left: A3GPS_RscPicture
 		{
 			idc = 1205;
 
@@ -245,7 +245,7 @@ class gps_menu_map {
 			w = 0.0239034 * safezoneW;
 			h = 0.306 * safezoneH;
 		};
-		class gps_corner_down_left: RscPicture
+		class gps_corner_down_left: A3GPS_RscPicture
 		{
 			idc = 1208;
 
@@ -255,7 +255,7 @@ class gps_menu_map {
 			w = 0.0239034 * safezoneW;
 			h = 0.051 * safezoneH;
 		};
-		class gps_bottom_right: RscPicture
+		class gps_bottom_right: A3GPS_RscPicture
 		{
 			idc = 1212;
 
@@ -265,7 +265,7 @@ class gps_menu_map {
 			w = 0.0239034 * safezoneW;
 			h = 0.051 * safezoneH;
 		};
-		class gps_right: RscPicture
+		class gps_right: A3GPS_RscPicture
 		{
 			idc = 1213;
 
@@ -275,7 +275,7 @@ class gps_menu_map {
 			w = 0.0239034 * safezoneW;
 			h = 0.306 * safezoneH;
 		};
-		class gps_top_right: RscPicture
+		class gps_top_right: A3GPS_RscPicture
 		{
 			idc = 1214;
 
@@ -285,7 +285,7 @@ class gps_menu_map {
 			w = 0.0239034 * safezoneW;
 			h = 0.051 * safezoneH;
 		};
-		class gps_top: RscPicture
+		class gps_top: A3GPS_RscPicture
 		{
 			idc = 1215;
 
@@ -295,7 +295,7 @@ class gps_menu_map {
 			w = 0.318712 * safezoneW;
 			h = 0.051 * safezoneH;
 		};
-		class RscPicture_1208: RscPicture
+		class RscPicture_1208: A3GPS_RscPicture
 		{
 			idc = 1205;
 
@@ -305,7 +305,7 @@ class gps_menu_map {
 			w = 0.0239034 * safezoneW;
 			h = 0.306 * safezoneH;
 		};
-		class RscPicture_1209: RscPicture
+		class RscPicture_1209: A3GPS_RscPicture
 		{
 			idc = 1213;
 
@@ -315,7 +315,7 @@ class gps_menu_map {
 			w = 0.0239034 * safezoneW;
 			h = 0.306 * safezoneH;
 		};
-		class RscPicture_1210: RscPicture
+		class RscPicture_1210: A3GPS_RscPicture
 		{
 			idc = 1201;
 
@@ -325,7 +325,7 @@ class gps_menu_map {
 			w = 0.119517 * safezoneW;
 			h = 0.051 * safezoneH;
 		};
-		class RscPicture_1211: RscPicture
+		class RscPicture_1211: A3GPS_RscPicture
 		{
 			idc = 1208;
 
@@ -335,7 +335,7 @@ class gps_menu_map {
 			w = 0.0239034 * safezoneW;
 			h = 0.051 * safezoneH;
 		};
-		class RscPicture_1212: RscPicture
+		class RscPicture_1212: A3GPS_RscPicture
 		{
 			idc = 1212;
 
@@ -345,7 +345,7 @@ class gps_menu_map {
 			w = 0.0239034 * safezoneW;
 			h = 0.051 * safezoneH;
 		};
-		class RscPicture_1213: RscPicture
+		class RscPicture_1213: A3GPS_RscPicture
 		{
 			idc = 1206;
 
@@ -355,7 +355,7 @@ class gps_menu_map {
 			w = 0.0239034 * safezoneW;
 			h = 0.051 * safezoneH;
 		};
-		class RscPicture_1214: RscPicture
+		class RscPicture_1214: A3GPS_RscPicture
 		{
 			idc = 1214;
 
@@ -365,7 +365,7 @@ class gps_menu_map {
 			w = 0.0239034 * safezoneW;
 			h = 0.051 * safezoneH;
 		};
-		class RscPicture_1215: RscPicture
+		class RscPicture_1215: A3GPS_RscPicture
 		{
 			idc = 1215;
 
@@ -375,7 +375,7 @@ class gps_menu_map {
 			w = 0.119517 * safezoneW;
 			h = 0.051 * safezoneH;
 		};
-		class saved_paths: RscListbox
+		class saved_paths: A3GPS_RscListbox
 		{
 			idc = 1500;
 			x = 0.699195 * safezoneW + safezoneX;
@@ -384,7 +384,7 @@ class gps_menu_map {
 			h = 0.200 * safezoneH;
 			sizeEx = 0.9 * GUI_GRID_H;
 		};
-		class exec_saved: RscButton
+		class exec_saved: A3GPS_RscButton
 		{
 			idc = 1600;
 			x = 0.707162 * safezoneW + safezoneX;
@@ -392,7 +392,7 @@ class gps_menu_map {
 			w = 0.103581 * safezoneW;
 			h = 0.035 * safezoneH;
 		};
-		class delete_saved: RscButton
+		class delete_saved: A3GPS_RscButton
 		{
 			idc = 1601;
 			x = 0.707162 * safezoneW + safezoneX;
@@ -412,7 +412,7 @@ class gps_menu_options {
 	// GUI EDITOR OUTPUT START (by AmauryD, v1.063, #Vegygo)
 	////////////////////////////////////////////////////////
 	class controlsBackground {
-		class main_background: IGUIBack
+		class main_background: A3GPS_IGUIBack
 		{
 			idc = 2201;
 
@@ -427,7 +427,7 @@ class gps_menu_options {
 		////////////////////////////////////////////////////////
 		// GUI EDITOR OUTPUT START (by AmauryD, v1.063, #Bohuwe)
 		////////////////////////////////////////////////////////
-		class gps_bottom: RscPicture
+		class gps_bottom: A3GPS_RscPicture
 		{
 			idc = 1201;
 
@@ -437,7 +437,7 @@ class gps_menu_options {
 			w = 0.318712 * safezoneW;
 			h = 0.051 * safezoneH;
 		};
-		class gps_corner_up_left: RscPicture
+		class gps_corner_up_left: A3GPS_RscPicture
 		{
 			idc = 1206;
 
@@ -447,7 +447,7 @@ class gps_menu_options {
 			w = 0.0239034 * safezoneW;
 			h = 0.051 * safezoneH;
 		};
-		class gps_left: RscPicture
+		class gps_left: A3GPS_RscPicture
 		{
 			idc = 1205;
 
@@ -457,7 +457,7 @@ class gps_menu_options {
 			w = 0.0239034 * safezoneW;
 			h = 0.306 * safezoneH;
 		};
-		class gps_corner_down_left: RscPicture
+		class gps_corner_down_left: A3GPS_RscPicture
 		{
 			idc = 1208;
 
@@ -467,7 +467,7 @@ class gps_menu_options {
 			w = 0.0239034 * safezoneW;
 			h = 0.051 * safezoneH;
 		};
-		class gps_bottom_right: RscPicture
+		class gps_bottom_right: A3GPS_RscPicture
 		{
 			idc = 1212;
 
@@ -477,7 +477,7 @@ class gps_menu_options {
 			w = 0.0239034 * safezoneW;
 			h = 0.051 * safezoneH;
 		};
-		class gps_right: RscPicture
+		class gps_right: A3GPS_RscPicture
 		{
 			idc = 1213;
 
@@ -487,7 +487,7 @@ class gps_menu_options {
 			w = 0.0239034 * safezoneW;
 			h = 0.306 * safezoneH;
 		};
-		class gps_top_right: RscPicture
+		class gps_top_right: A3GPS_RscPicture
 		{
 			idc = 1214;
 
@@ -497,7 +497,7 @@ class gps_menu_options {
 			w = 0.0239034 * safezoneW;
 			h = 0.051 * safezoneH;
 		};
-		class gps_top: RscPicture
+		class gps_top: A3GPS_RscPicture
 		{
 			idc = 1215;
 
@@ -507,7 +507,7 @@ class gps_menu_options {
 			w = 0.318712 * safezoneW;
 			h = 0.051 * safezoneH;
 		};
-		class lang_list: RscCombo
+		class lang_list: A3GPS_RscCombo
 		{
 			idc = 2100;
 			x = 0.5 * safezoneW + safezoneX;
@@ -515,7 +515,7 @@ class gps_menu_options {
 			w = 0.111549 * safezoneW;
 			h = 0.034 * safezoneH;
 		};
-		class language_txt: RscText
+		class language_txt: A3GPS_RscText
 		{
 			idc = 1001;
 			text = "Lang"; //--- ToDo: Localize;
@@ -524,7 +524,7 @@ class gps_menu_options {
 			w = 0.135452 * safezoneW;
 			h = 0.034 * safezoneH;
 		};
-		class markers_colors_txt: RscText
+		class markers_colors_txt: A3GPS_RscText
 		{
 			idc = 1000;
 			text = "Mark colors"; //--- ToDo: Localize;
@@ -533,7 +533,7 @@ class gps_menu_options {
 			w = 0.135452 * safezoneW;
 			h = 0.034 * safezoneH;
 		};
-		class colors_list: RscCombo
+		class colors_list: A3GPS_RscCombo
 		{
 			idc = 2101;
 			x = 0.5 * safezoneW + safezoneX;
@@ -541,7 +541,7 @@ class gps_menu_options {
 			w = 0.111549 * safezoneW;
 			h = 0.034 * safezoneH;
 		};
-		class drop_data_btn: RscButton
+		class drop_data_btn: A3GPS_RscButton
 		{
 			idc = 1600;
 			text = "DROP DATA"; //--- ToDo: Localize;

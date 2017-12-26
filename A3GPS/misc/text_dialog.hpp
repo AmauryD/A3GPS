@@ -7,7 +7,7 @@ class ac_text_dialog {
 		// GUI EDITOR OUTPUT START (by Rasta Populos, v1.063, #Kefasa)
 		////////////////////////////////////////////////////////
 
-		class IGUIBack_2200: IGUIBack
+		class IGUIBack_2200: A3GPS_IGUIBack
 		{
 			idc = 2200;
 
@@ -17,7 +17,7 @@ class ac_text_dialog {
 			h = 0.165 * safezoneH;
 			colorBackground[] = {0,0,0,0.4};
 		};
-		class text_edit: RscEdit
+		class text_edit: A3GPS_RscEdit
 		{
 			idc = 1400;
 
@@ -26,7 +26,7 @@ class ac_text_dialog {
 			w = 0.2475 * safezoneW;
 			h = 0.044 * safezoneH;
 		};
-		class enter_text: RscText
+		class enter_text: A3GPS_RscText
 		{
 			idc = 1000;
 
@@ -36,7 +36,7 @@ class ac_text_dialog {
 			w = 0.242344 * safezoneW;
 			h = 0.033 * safezoneH;
 		};
-		class okBtn: RscButton
+		class okBtn: A3GPS_RscButton
 		{
 			idc = 1600;
 
@@ -46,7 +46,7 @@ class ac_text_dialog {
 			w = 0.113437 * safezoneW;
 			h = 0.033 * safezoneH;
 		};
-		class NoBtn: RscButton
+		class NoBtn: A3GPS_RscButton
 		{
 			idc = 1601;
 

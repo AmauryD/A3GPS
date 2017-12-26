@@ -184,7 +184,7 @@
 /// Base Classes
 ///////////////////////////////////////////////////////////////////////////
 
-	class RscMapControl 
+	class A3GPS_RscMapControl 
 	{
 		access = 0;
 		type = 101;
@@ -568,7 +568,7 @@
 		};
 	};
 
-  class RscText
+  class A3GPS_RscText
   {
 	idc 	= -1;
 	access 	= 0;
@@ -595,13 +595,13 @@
   };
 
   //Multi-line text.
-  class RscTextMulti: RscText
+  class A3GPS_RscTextMulti: A3GPS_RscText
   {
 	linespacing = 1;
 	style = ST_LEFT + ST_MULTI;
   };
 
-  class RscFrame
+  class A3GPS_RscFrame
   {
 	type 	= CT_STATIC;
 	idc = -1;
@@ -615,7 +615,7 @@
   };
 
   //Standard active text (text that can be clicked like a button)
-   class RscActiveText
+   class A3GPS_RscActiveText
   {
 	idc 			= -1;
 	access			= ReadAndWrite;
@@ -642,7 +642,7 @@
 	text = "";
   };
 
-  class RscStructuredText
+  class A3GPS_RscStructuredText
   {
   	idc 	= -1;
 	access 	= 0;
@@ -668,7 +668,7 @@
 	};
   };
 
-    class RscHTML
+    class A3GPS_RscHTML
   {
 	idc 		= -1;
 	access		= ReadAndWrite;
@@ -735,7 +735,7 @@
   };
 
   // Todo NEEDS CHECKING WITH WIKI
-  class RscProgress
+  class A3GPS_RscProgress
   {
 	idc 		= -1;
 	access		= ReadAndWrite;
@@ -754,7 +754,7 @@
   };
 
   // Todo NEEDS CHECKING WITH WIKI
-  class RscProgressNotFreeze
+  class A3GPS_RscProgressNotFreeze
   {
 	idc 		= -1;
 	access		= ReadAndWrite;
@@ -770,7 +770,7 @@
 	texture 	= "#(argb,8,8,3)color(0,0,0,0)";
   };
 
-  class RscPicture
+  class A3GPS_RscPicture
   {
 	idc 		= -1;
 	access 		= 0;
@@ -795,7 +795,7 @@
 	tooltipColorShade[] = {0,0,0,0.65};
   };
 
-  class RscEdit
+  class A3GPS_RscEdit
   {
 	deletable = 0;
 	fade = 0;
@@ -822,7 +822,7 @@
 	tooltipColorShade[] = {0,0,0,0.65};
   };
 
-  class RscCombo
+  class A3GPS_RscCombo
   {
 	deletable = 0;
 	fade = 0;
@@ -839,7 +839,7 @@
 	colorPictureRightDisabled[] = {1,1,1,0.25};
 	colorPictureRightSelected[] = {1,1,1,1};
 	colorPictureSelected[] = {1,1,1,1};
-	colorScrollbar[] = {1,0,0,1};
+	coloA3GPS_Rscrollbar[] = {1,0,0,1};
 	colorSelect2Right[] = {0,0,0,1};
 	colorSelect[] = {0,0,0,1};
 	colorSelectBackground[] = {1,1,1,0.7};
@@ -880,12 +880,12 @@
 	y = 0;
 	w = 0.12;
 	h = 0.035;
-	arrowEmpty = "\A3\ui_f\data\GUI\RscCommon\rsccombo\arrow_combo_ca.paa";
-	arrowFull = "\A3\ui_f\data\GUI\RscCommon\rsccombo\arrow_combo_active_ca.paa";
+	arrowEmpty = "\A3\ui_f\data\GUI\RscCommon\Rsccombo\arrow_combo_ca.paa";
+	arrowFull = "\A3\ui_f\data\GUI\RscCommon\Rsccombo\arrow_combo_active_ca.paa";
 	wholeHeight = 0.45;
   };
 
-  class RscListBox
+  class A3GPS_RscListBox
   {
 	deletable = 0;
 	fade = 0;
@@ -895,7 +895,7 @@
 	rowHeight = 0;
 	colorText[] ={1,1,1,1};
 	colorDisabled[] = {1,1,1,0.25};
-	colorScrollbar[] = {1,0,0,0};
+	coloA3GPS_Rscrollbar[] = {1,0,0,0};
 	colorSelect[] = {0,0,0,1};
 	colorSelect2[] = {0,0,0,1};
 	colorSelectBackground[] = {0.95,0.95,0.95,1};
@@ -952,7 +952,7 @@
 
 
   // Todo Needs checking
-  class RscListNBox
+  class A3GPS_RscListNBox
   {
 	idc 			= -1;
 	access			= ReadAndWrite;
@@ -972,7 +972,7 @@
 	colorPicture[] 			= {1,1,1,1};
 	colorPictureDisabled[] 	= {1,1,1,1};
 	colorPictureSelected[] 	= {1,1,1,1};
-	colorScrollbar[] 		= {0.95,0.95,0.95,1};
+	coloA3GPS_Rscrollbar[] 		= {0.95,0.95,0.95,1};
 	colorSelect2[] 			= {0,0,0,1};
 	colorSelect[] 			= {0,0,0,1};
 	colorSelectBackground2[]= {1,1,1,0.5};
@@ -1030,7 +1030,7 @@
 	};
   };
 
-  class RscButton
+  class A3GPS_RscButton
   {
 	deletable = 0;
 	fade = 0;
@@ -1065,7 +1065,7 @@
 	borderSize = 0;
   };
 
-  class RscShortcutButton
+  class A3GPS_RscShortcutButton
   {
 	idc = -1;
 	style 	= ST_UNDEFINED;
@@ -1151,12 +1151,12 @@
 	colorDisabledSecondary[] = {1,1,1,0.25};
 	sizeExSecondary = "(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 1)";
 	fontSecondary = "PuristaMedium";
-	animTextureDefault = "\A3\ui_f\data\GUI\RscCommon\RscShortcutButton\normal_ca.paa";
-	animTextureNormal = "\A3\ui_f\data\GUI\RscCommon\RscShortcutButton\normal_ca.paa";
-	animTextureDisabled = "\A3\ui_f\data\GUI\RscCommon\RscShortcutButton\normal_ca.paa";
-	animTextureOver = "\A3\ui_f\data\GUI\RscCommon\RscShortcutButton\over_ca.paa";
-	animTextureFocused = "\A3\ui_f\data\GUI\RscCommon\RscShortcutButton\focus_ca.paa";
-	animTexturePressed = "\A3\ui_f\data\GUI\RscCommon\RscShortcutButton\down_ca.paa";
+	animTextureDefault = "\A3\ui_f\data\GUI\A3GPS_RscCommon\RscShortcutButton\normal_ca.paa";
+	animTextureNormal = "\A3\ui_f\data\GUI\A3GPS_RscCommon\RscShortcutButton\normal_ca.paa";
+	animTextureDisabled = "\A3\ui_f\data\GUI\A3GPS_RscCommon\RscShortcutButton\normal_ca.paa";
+	animTextureOver = "\A3\ui_f\data\GUI\A3GPS_RscCommon\RscShortcutButton\over_ca.paa";
+	animTextureFocused = "\A3\ui_f\data\GUI\A3GPS_RscCommon\RscShortcutButton\focus_ca.paa";
+	animTexturePressed = "\A3\ui_f\data\GUI\A3GPS_RscCommon\RscShortcutButton\down_ca.paa";
 
 	class AttributesImage
 	{
@@ -1166,7 +1166,7 @@
 	};
 };
 
-class RscShortcutButtonMain
+class A3GPS_RscShortcutButtonMain
 {
 	idc = -1;
 	style 	= ST_UNDEFINED;
@@ -1202,12 +1202,12 @@ class RscShortcutButtonMain
 		right = 0.005;
 		bottom = 0;
 	};
-	animTextureNormal = "\A3\ui_f\data\GUI\RscCommon\RscShortcutButtonMain\normal_ca.paa";
-	animTextureDisabled = "\A3\ui_f\data\GUI\RscCommon\RscShortcutButtonMain\disabled_ca.paa";
-	animTextureOver = "\A3\ui_f\data\GUI\RscCommon\RscShortcutButtonMain\over_ca.paa";
-	animTextureFocused = "\A3\ui_f\data\GUI\RscCommon\RscShortcutButtonMain\focus_ca.paa";
-	animTexturePressed = "\A3\ui_f\data\GUI\RscCommon\RscShortcutButtonMain\down_ca.paa";
-	animTextureDefault = "\A3\ui_f\data\GUI\RscCommon\RscShortcutButtonMain\normal_ca.paa";
+	animTextureNormal = "\A3\ui_f\data\GUI\A3GPS_RscCommon\A3GPS_RscShortcutButtonMain\normal_ca.paa";
+	animTextureDisabled = "\A3\ui_f\data\GUI\A3GPS_RscCommon\A3GPS_RscShortcutButtonMain\disabled_ca.paa";
+	animTextureOver = "\A3\ui_f\data\GUI\A3GPS_RscCommon\A3GPS_RscShortcutButtonMain\over_ca.paa";
+	animTextureFocused = "\A3\ui_f\data\GUI\A3GPS_RscCommon\A3GPS_RscShortcutButtonMain\focus_ca.paa";
+	animTexturePressed = "\A3\ui_f\data\GUI\A3GPS_RscCommon\A3GPS_RscShortcutButtonMain\down_ca.paa";
+	animTextureDefault = "\A3\ui_f\data\GUI\A3GPS_RscCommon\A3GPS_RscShortcutButtonMain\normal_ca.paa";
 
 	class Attributes
 	{
@@ -1224,7 +1224,7 @@ class RscShortcutButtonMain
 	};
 };
 
-class RscSlider
+class A3GPS_RscSlider
 {
 	idc = -1;
 	deletable = 0;
@@ -1241,7 +1241,7 @@ class RscSlider
 
 
   // ToDo Needs checking
-  class RscSliderH: RscSlider
+  class A3GPS_RscSliderH: A3GPS_RscSlider
   {
 	idc 			= -1;
 	access			= ReadAndWrite;
@@ -1259,7 +1259,7 @@ class RscSlider
 	shadow = 0;
   };
 
-class IGUIBack
+class A3GPS_IGUIBack
 {
 	type 	= CT_STATIC;
 	idc = -1;
@@ -1282,7 +1282,7 @@ class IGUIBack
 	};
 };
 
-class RscCheckBox
+class A3GPS_RscCheckBox
 {
 	idc = -1;
 	type 	= CT_CHECKBOX;
@@ -1302,16 +1302,16 @@ class RscCheckBox
 	colorBackgroundHover[] = {0,0,0,0};
 	colorBackgroundPressed[] ={0,0,0,0};
 	colorBackgroundDisabled[] = {0,0,0,0};
-	textureChecked = "A3\Ui_f\data\GUI\RscCommon\RscCheckBox\CheckBox_checked_ca.paa";
-	textureUnchecked = "A3\Ui_f\data\GUI\RscCommon\RscCheckBox\CheckBox_unchecked_ca.paa";
-	textureFocusedChecked = "A3\Ui_f\data\GUI\RscCommon\RscCheckBox\CheckBox_checked_ca.paa";
-	textureFocusedUnchecked = "A3\Ui_f\data\GUI\RscCommon\RscCheckBox\CheckBox_unchecked_ca.paa";
-	textureHoverChecked = "A3\Ui_f\data\GUI\RscCommon\RscCheckBox\CheckBox_checked_ca.paa";
-	textureHoverUnchecked = "A3\Ui_f\data\GUI\RscCommon\RscCheckBox\CheckBox_unchecked_ca.paa";
-	texturePressedChecked = "A3\Ui_f\data\GUI\RscCommon\RscCheckBox\CheckBox_checked_ca.paa";
-	texturePressedUnchecked = "A3\Ui_f\data\GUI\RscCommon\RscCheckBox\CheckBox_unchecked_ca.paa";
-	textureDisabledChecked = "A3\Ui_f\data\GUI\RscCommon\RscCheckBox\CheckBox_checked_ca.paa";
-	textureDisabledUnchecked = "A3\Ui_f\data\GUI\RscCommon\RscCheckBox\CheckBox_unchecked_ca.paa";
+	textureChecked = "A3\Ui_f\data\GUI\A3GPS_RscCommon\A3GPS_RscCheckBox\CheckBox_checked_ca.paa";
+	textureUnchecked = "A3\Ui_f\data\GUI\A3GPS_RscCommon\A3GPS_RscCheckBox\CheckBox_unchecked_ca.paa";
+	textureFocusedChecked = "A3\Ui_f\data\GUI\A3GPS_RscCommon\A3GPS_RscCheckBox\CheckBox_checked_ca.paa";
+	textureFocusedUnchecked = "A3\Ui_f\data\GUI\A3GPS_RscCommon\A3GPS_RscCheckBox\CheckBox_unchecked_ca.paa";
+	textureHoverChecked = "A3\Ui_f\data\GUI\A3GPS_RscCommon\A3GPS_RscCheckBox\CheckBox_checked_ca.paa";
+	textureHoverUnchecked = "A3\Ui_f\data\GUI\A3GPS_RscCommon\A3GPS_RscCheckBox\CheckBox_unchecked_ca.paa";
+	texturePressedChecked = "A3\Ui_f\data\GUI\A3GPS_RscCommon\A3GPS_RscCheckBox\CheckBox_checked_ca.paa";
+	texturePressedUnchecked = "A3\Ui_f\data\GUI\A3GPS_RscCommon\A3GPS_RscCheckBox\CheckBox_unchecked_ca.paa";
+	textureDisabledChecked = "A3\Ui_f\data\GUI\A3GPS_RscCommon\A3GPS_RscCheckBox\CheckBox_checked_ca.paa";
+	textureDisabledUnchecked = "A3\Ui_f\data\GUI\A3GPS_RscCommon\A3GPS_RscCheckBox\CheckBox_unchecked_ca.paa";
 	tooltipColorText[] = {1,1,1,1};
 	tooltipColorBox[] = {1,1,1,1};
 	tooltipColorShade[] ={0,0,0,0.65};
@@ -1321,7 +1321,7 @@ class RscCheckBox
 	soundEscape[] = {"",0.1,1};
 };
 
-class RscTextCheckBox
+class A3GPS_RscTextCheckBox
 {
 	idc = -1;
 	type 	= CT_CHECKBOXES;
@@ -1361,7 +1361,7 @@ class RscTextCheckBox
 	};
 };
 
-class RscButtonMenu
+class A3GPS_RscButtonMenu
 {
 	idc = -1;
 	type 	= CT_SHORTCUTBUTTON;
@@ -1428,7 +1428,7 @@ class RscButtonMenu
 	soundEscape[] = {"\A3\ui_f\data\sound\RscButtonMenu\soundEscape",0.09,1};
 };
 
-class RscButtonMenuOK
+class A3GPS_RscButtonMenuOK
 {
 	idc = 1;
 	shortcuts[] = 
@@ -1443,7 +1443,7 @@ class RscButtonMenuOK
 	soundPush[] = {"\A3\ui_f\data\sound\RscButtonMenuOK\soundPush",0.09,1};
 };
 
-class RscButtonMenuCancel
+class A3GPS_RscButtonMenuCancel
 {
 	idc = 2;
 	shortcuts[] = 
@@ -1453,7 +1453,7 @@ class RscButtonMenuCancel
 	text = "Cancel";
 };
 
-class RscControlsGroup
+class A3GPS_RscControlsGroup
 {
 	idc = -1;
 	deletable = 0;
@@ -1481,7 +1481,7 @@ class RscControlsGroup
 	};
 };
 
-class gps_rscbuttonMain : RscButtonMenu  {
+class A3GPS_RscbuttonMain : A3GPS_RscButtonMenu  {
 	default = 0;
 	style = 2;
 	type = 16;

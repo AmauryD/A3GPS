@@ -115,7 +115,7 @@ waitUntil {!isNull findDisplay 46};
 waitUntil {!isNull player};
 
 #ifdef GPS_DEV 
-	uiSleep 2;
+	//uiSleep 2;
 #endif
 
 _handle = [] spawn gps_fnc_mapRoutes; 

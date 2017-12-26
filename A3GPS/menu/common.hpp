@@ -1151,12 +1151,12 @@
 	colorDisabledSecondary[] = {1,1,1,0.25};
 	sizeExSecondary = "(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 1)";
 	fontSecondary = "PuristaMedium";
-	animTextureDefault = "\A3\ui_f\data\GUI\A3GPS_RscCommon\RscShortcutButton\normal_ca.paa";
-	animTextureNormal = "\A3\ui_f\data\GUI\A3GPS_RscCommon\RscShortcutButton\normal_ca.paa";
-	animTextureDisabled = "\A3\ui_f\data\GUI\A3GPS_RscCommon\RscShortcutButton\normal_ca.paa";
-	animTextureOver = "\A3\ui_f\data\GUI\A3GPS_RscCommon\RscShortcutButton\over_ca.paa";
-	animTextureFocused = "\A3\ui_f\data\GUI\A3GPS_RscCommon\RscShortcutButton\focus_ca.paa";
-	animTexturePressed = "\A3\ui_f\data\GUI\A3GPS_RscCommon\RscShortcutButton\down_ca.paa";
+	animTextureDefault = "\A3\ui_f\data\GUI\RscCommon\RscShortcutButton\normal_ca.paa";
+	animTextureNormal = "\A3\ui_f\data\GUI\RscCommon\RscShortcutButton\normal_ca.paa";
+	animTextureDisabled = "\A3\ui_f\data\GUI\RscCommon\RscShortcutButton\normal_ca.paa";
+	animTextureOver = "\A3\ui_f\data\GUI\RscCommon\RscShortcutButton\over_ca.paa";
+	animTextureFocused = "\A3\ui_f\data\GUI\RscCommon\RscShortcutButton\focus_ca.paa";
+	animTexturePressed = "\A3\ui_f\data\GUI\RscCommon\RscShortcutButton\down_ca.paa";
 
 	class AttributesImage
 	{
@@ -1202,12 +1202,12 @@ class A3GPS_RscShortcutButtonMain
 		right = 0.005;
 		bottom = 0;
 	};
-	animTextureNormal = "\A3\ui_f\data\GUI\A3GPS_RscCommon\A3GPS_RscShortcutButtonMain\normal_ca.paa";
-	animTextureDisabled = "\A3\ui_f\data\GUI\A3GPS_RscCommon\A3GPS_RscShortcutButtonMain\disabled_ca.paa";
-	animTextureOver = "\A3\ui_f\data\GUI\A3GPS_RscCommon\A3GPS_RscShortcutButtonMain\over_ca.paa";
-	animTextureFocused = "\A3\ui_f\data\GUI\A3GPS_RscCommon\A3GPS_RscShortcutButtonMain\focus_ca.paa";
-	animTexturePressed = "\A3\ui_f\data\GUI\A3GPS_RscCommon\A3GPS_RscShortcutButtonMain\down_ca.paa";
-	animTextureDefault = "\A3\ui_f\data\GUI\A3GPS_RscCommon\A3GPS_RscShortcutButtonMain\normal_ca.paa";
+	animTextureNormal = "\A3\ui_f\data\GUI\RscCommon\RscShortcutButtonMain\normal_ca.paa";
+	animTextureDisabled = "\A3\ui_f\data\GUI\RscCommon\RscShortcutButtonMain\disabled_ca.paa";
+	animTextureOver = "\A3\ui_f\data\GUI\RscCommon\RscShortcutButtonMain\over_ca.paa";
+	animTextureFocused = "\A3\ui_f\data\GUI\RscCommon\RscShortcutButtonMain\focus_ca.paa";
+	animTexturePressed = "\A3\ui_f\data\GUI\RscCommon\RscShortcutButtonMain\down_ca.paa";
+	animTextureDefault = "\A3\ui_f\data\GUI\RscCommon\RscShortcutButtonMain\normal_ca.paa";
 
 	class Attributes
 	{
@@ -1302,16 +1302,16 @@ class A3GPS_RscCheckBox
 	colorBackgroundHover[] = {0,0,0,0};
 	colorBackgroundPressed[] ={0,0,0,0};
 	colorBackgroundDisabled[] = {0,0,0,0};
-	textureChecked = "A3\Ui_f\data\GUI\A3GPS_RscCommon\A3GPS_RscCheckBox\CheckBox_checked_ca.paa";
-	textureUnchecked = "A3\Ui_f\data\GUI\A3GPS_RscCommon\A3GPS_RscCheckBox\CheckBox_unchecked_ca.paa";
-	textureFocusedChecked = "A3\Ui_f\data\GUI\A3GPS_RscCommon\A3GPS_RscCheckBox\CheckBox_checked_ca.paa";
-	textureFocusedUnchecked = "A3\Ui_f\data\GUI\A3GPS_RscCommon\A3GPS_RscCheckBox\CheckBox_unchecked_ca.paa";
-	textureHoverChecked = "A3\Ui_f\data\GUI\A3GPS_RscCommon\A3GPS_RscCheckBox\CheckBox_checked_ca.paa";
-	textureHoverUnchecked = "A3\Ui_f\data\GUI\A3GPS_RscCommon\A3GPS_RscCheckBox\CheckBox_unchecked_ca.paa";
-	texturePressedChecked = "A3\Ui_f\data\GUI\A3GPS_RscCommon\A3GPS_RscCheckBox\CheckBox_checked_ca.paa";
-	texturePressedUnchecked = "A3\Ui_f\data\GUI\A3GPS_RscCommon\A3GPS_RscCheckBox\CheckBox_unchecked_ca.paa";
-	textureDisabledChecked = "A3\Ui_f\data\GUI\A3GPS_RscCommon\A3GPS_RscCheckBox\CheckBox_checked_ca.paa";
-	textureDisabledUnchecked = "A3\Ui_f\data\GUI\A3GPS_RscCommon\A3GPS_RscCheckBox\CheckBox_unchecked_ca.paa";
+	textureChecked = "A3\Ui_f\data\GUI\RscCommon\RscCheckBox\CheckBox_checked_ca.paa";
+	textureUnchecked = "A3\Ui_f\data\GUI\RscCommon\RscCheckBox\CheckBox_unchecked_ca.paa";
+	textureFocusedChecked = "A3\Ui_f\data\GUI\RscCommon\RscCheckBox\CheckBox_checked_ca.paa";
+	textureFocusedUnchecked = "A3\Ui_f\data\GUI\RscCommon\RscCheckBox\CheckBox_unchecked_ca.paa";
+	textureHoverChecked = "A3\Ui_f\data\GUI\RscCommon\RscCheckBox\CheckBox_checked_ca.paa";
+	textureHoverUnchecked = "A3\Ui_f\data\GUI\RscCommon\RscCheckBox\CheckBox_unchecked_ca.paa";
+	texturePressedChecked = "A3\Ui_f\data\GUI\RscCommon\RscCheckBox\CheckBox_checked_ca.paa";
+	texturePressedUnchecked = "A3\Ui_f\data\GUI\RscCommon\RscCheckBox\CheckBox_unchecked_ca.paa";
+	textureDisabledChecked = "A3\Ui_f\data\GUI\RscCommon\RscCheckBox\CheckBox_checked_ca.paa";
+	textureDisabledUnchecked = "A3\Ui_f\data\GUI\RscCommon\RscCheckBox\CheckBox_unchecked_ca.paa";
 	tooltipColorText[] = {1,1,1,1};
 	tooltipColorBox[] = {1,1,1,1};
 	tooltipColorShade[] ={0,0,0,0.65};

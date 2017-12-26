@@ -1,3 +1,7 @@
+/*
+	All code and updates available on Github : https://github.com/AmauryD/A3GPS
+*/
+
 #include "macros.h"
 #include "menu\common.hpp"
 #include "menu\menu.hpp"
@@ -19,7 +23,7 @@ class CfgGPS {
 	default_keyHandling_enable = true; //usefull when you want to implement in your own keyHandling file
 };
 
-// might cause some errors ifA3GPS_RscTitles is already defined , in this case put the includes in your otherA3GPS_RscTitles class
+// might cause some errors if RscTitles is already defined , in this case put the includes in your other RscTitles class
 class RscTitles 
 {
 	#include "menu\hud.hpp"

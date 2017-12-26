@@ -185,8 +185,8 @@ class GPS_Localization {
 		fr = "Vous êtes arrivé à destination , merci d'avoir utilisé A3GPS™";
 	};
 	class STR_MENU_INFO {
-		en = "<t align='center' size='1.5'>GPS v%1</t><br/>by <t align='center' underline='true'> [utopia]Amaury . </t>";
-		fr = "<t align='center' size='1.5'>GPS v%1</t><br/>par <t align='center' underline='true'> [utopia]Amaury . </t>";
+		en = "<t align='center' size='1.5'>GPS version %1</t><br/>by <t align='center' underline='true'> [utopia]Amaury . </t>";
+		fr = "<t align='center' size='1.5'>GPS version %1</t><br/>par <t align='center' underline='true'> [utopia]Amaury . </t>";
 	};
 	class STR_MENU_CONFIRM_DROP_DATA_CONTENT {
 		en = "Are you sure ? This will erase all your saved data and settings";
@@ -203,6 +203,10 @@ class GPS_Localization {
 	class STR_MENU_STOPPING_PROCESS {
 		en = "Stopping GPS process and cleaning the map ...";
 		fr = "Arrêt du processus et nettoyage de la carte ...";
+	};
+	class STR_PATH_NOT_FOUND {
+		en = "The GPS failed to find a valid path ...";
+		fr = "Le GPS n'a pas pu trouver un chemin valide ...";
 	};
 
 	//log messages , optionnal 

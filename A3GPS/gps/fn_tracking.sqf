@@ -11,32 +11,30 @@ private _goal = _this select 2;
 private _fullPathNode = _fullPath apply	{_x select 0};	//divide fullPath in 2 arrays [Object] and [Direction]
 private _fullPathDir = _fullPath apply	{_x select 1};
 
+// tmp fix
+_path pushBackUnique _goal;
+_fullPathNode pushBackUnique _goal;
+
 private _fn_findNextNode = {
 	params ["_path","_fullPathNode"];
 
-	_currRoadIndex = _fullPathNode find ([getPosATL player,20,_fullPathNode] call misc_fnc_nearestRoadInArray); //searching nearestRoad in path to avoid road superposition problem
-	_nextPath = _fullPathNode select [_currRoadIndex,(count _fullPathNode) - 1];
-	private _next = objNull;
+	_nearestRoadInFullPath = [getPosATL player,30,_fullPathNode] call misc_fnc_nearestRoadInArray;
 
-	{
-		if(_x in _path) exitWith {
-			_next = _x;
-		};
-	}foreach _nextPath;
+	// if no road is found , exit
+	if (isNull _nearestRoadInFullPath) exitWith {objNull};
 
-	_next
+	// select from the current node to the end
+	_nextPathRange = _fullPathNode select [_fullPathNode find _nearestRoadInFullPath,count _fullPathNode];
+
+	// select the nearest
+	(_nextPathRange select {_x in _path}) param [0,objNull];
 };
 
 private _fn_correctAngle = {
-	params ["_dir"];
+	params [["_dir",0,[0]]];
 
-	if (_dir < 0) then {
-		_dir = _dir + 360;
-	};
-	if (_dir > 360) then {
-		_dir = _dir - 360;
-	};
-
+	_dir = if (_dir < 0) then {_dir + 360}else{_dir};
+	_dir = if (_dir > 360) then {_dir - 360}else{_dir};
 	_dir
 };
 
@@ -53,11 +51,11 @@ try {
 		if !(isNull _next_node) then {
 			_next_node_index_fullPath = _fullPathNode find _next_node;
 
-			if(_next_node_index_fullPath >= (count _fullPath - 1)) exitWith {
+			if(_next_node_index_fullPath >= (count _fullPath - 2)) exitWith {
 				[
 					format [["STR_ROAD_ARRIVED_IN"] call misc_fnc_localize,vehicle player distance _goal],
 					"A3\ui_f\data\Map\Markers\Military\flag_CA.paa",
-					format ["%1Km",[vehicle player distance [0,0,0],2] call misc_fnc_metersToKilometers]
+					format ["%1Km",[vehicle player distance _goal,2] call misc_fnc_metersToKilometers]
 				] call gps_menu_fnc_setGPSInfo;
 			};
 
@@ -75,11 +73,12 @@ try {
 			_dir1 = _next_node getDir _next_node_next_node;
 			_dir1 = [_dir1 - _next_node_previous_dir] call _fn_correctAngle;
 
-			_dir2 = _next_node_previous_node getDir _next_node;
+			_dir2 = _next_node getDir _next_node_previous_node;
 			_dir2 = [_dir2 - _next_node_previous_dir] call _fn_correctAngle;
 
 			_dir = [_dir1 - _dir2] call _fn_correctAngle;
 
+			
 			if (_dir >= 330 || _dir <= 30) exitWith {
 				_path deleteAt (_path find _next_node);
 			};

@@ -74,16 +74,12 @@ gps_menu_fnc_addQuickNavOption = [_quickNavFolder,"fn_addQuickNavOption"] call g
 
 /** MISCELLANEOUS FUNCTIONS **/
 misc_fnc_createMarker = ["misc","fn_createmarker"] call gps_fnc_compile;
-misc_fnc_deleteAllMarkers = ["misc","fn_deleteAllMarkers"] call gps_fnc_compile;
 misc_fnc_nearestLocation = ["misc","fn_nearestLocation"] call gps_fnc_compile;
 misc_fnc_editDialog = ["misc","fn_editDialog"] call gps_fnc_compile;
-misc_fnc_pushFront = ["misc","fn_pushFront"] call gps_fnc_compile;
 misc_fnc_nearestRoadInArray = ["misc","fn_nearestRoadInArray"] call gps_fnc_compile;
-misc_fnc_safeSelect = ["misc","fn_safeSelect"] call gps_fnc_compile;
 misc_fnc_getRoadBoundingBoxWorld = ["misc","fn_getRoadBoundingBoxWorld"] call gps_fnc_compile;
 misc_fnc_getRoadDir = ["misc","fn_getRoadDir"] call gps_fnc_compile;
 misc_fnc_arePolygonsOverlapping = ["misc","fn_arePolygonsOverlapping"] call gps_fnc_compile;
-misc_fnc_arrayInsert = ["misc","fn_arrayInsert"] call gps_fnc_compile;
 misc_fnc_metersToKilometers = ["misc","fn_metersToKilometers"] call gps_fnc_compile;
 
 misc_fnc_localize = ["misc","fn_localize"] call gps_fnc_compile;
@@ -96,18 +92,12 @@ misc_fnc_PQ_insert = ["misc\PriorityQueue","fn_insert"] call gps_fnc_compile;
 misc_fnc_Q_get = ["misc\Queue","fn_get"] call gps_fnc_compile;
 misc_fnc_Q_insert = ["misc\Queue","fn_insert"] call gps_fnc_compile;
 
-misc_fnc_Ptr_get = ["misc\Pointers","fn_get"] call gps_fnc_compile;
-misc_fnc_Ptr_create = ["misc\Pointers","fn_create"] call gps_fnc_compile;
-misc_fnc_Ptr_set = ["misc\Pointers","fn_set"] call gps_fnc_compile;
-misc_fnc_Ptr_delete = ["misc\Pointers","fn_delete"] call gps_fnc_compile; // delete the value , not the pointer itself
-
 gps_fnc_getConfigSetting = ["misc","fn_getConfigSetting"] call gps_fnc_compile;
 
 misc_fnc_hashTable_find = ["misc\hashTable","fn_find"] call gps_fnc_compile;
 misc_fnc_hashTable_set = ["misc\hashTable","fn_set"] call gps_fnc_compile;
 misc_fnc_hashTable_create = ["misc\hashTable","fn_create"] call gps_fnc_compile;
 misc_fnc_hashTable_exists = ["misc\hashTable","fn_exists"] call gps_fnc_compile;
-misc_fnc_hashTable_toIndexArray = ["misc\hashTable","fn_toIndexArray"] call gps_fnc_compile;
 
 misc_fnc_averageFromAngles = ["misc","fn_averageFromAngles"] call gps_fnc_compile;
 
@@ -119,13 +109,13 @@ gps_init_done = false;
 gps_local_markers =	[];
 gps_curr_thread = scriptNull;
 
-gps_version = "1.0";
+gps_version = "pre-1.0";
 
 waitUntil {!isNull findDisplay 46};
 waitUntil {!isNull player};
 
 #ifdef GPS_DEV 
-	//uiSleep 2;
+	uiSleep 2;
 #endif
 
 _handle = [] spawn gps_fnc_mapRoutes; 
@@ -156,9 +146,10 @@ waitUntil {	//wait for the virtual mapping to be done
 #ifdef GPS_DEV
 	player addAction ["Show all crossRoads",{
 		{deleteMarker _x}foreach allMapMarkers;
+		_onlyCross = gps_onlyCrossRoads select {!isNil "_x"};
 		{
 			[nil,getPosATL _x,str _x,'mil_dot'] call misc_fnc_createMarker;
-		}foreach gps_onlyCrossRoads;
+		}foreach _onlyCross;
 	}];
 
 	player addAction ["Show all roads (near player)",{

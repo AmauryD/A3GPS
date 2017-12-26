@@ -15,7 +15,7 @@ params [
 
 _fileName = format["%1.sqf",_fileName];
 
-private _header = ([format["private _thisFile = '%1';",_fileName],""]) select _disableHeader;
+private _header = [format["private _thisFile = '%1';",_fileName],""] select _disableHeader;
 
 compileFinal format["%1%2",
 	_header,

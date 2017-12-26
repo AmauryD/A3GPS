@@ -3,13 +3,12 @@
 	@Author : [Utopia] Amaury
 	@Creation : 22/10/17
 	@Modified : 23/10/17
-	@Description : Log function of GPS , diag_log anything to RPT with file name and diag_tickTime
+	@Description : Log function of GPS , diag_log anything to RPT with file name
 		Return : Nothing
 **/
 params ["_anything"];
 
-diag_log format	["[%1] GPS (%3): %2",
-	diag_tickTime,
+diag_log format	["GPS (%2): %1",
 	_anything,
 	if(isNil "_thisFile") then {
 		"Unknown file"

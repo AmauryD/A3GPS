@@ -6,6 +6,8 @@
   @Description :
 **/
 
-private _road = param [0,objNull,[objNull]];
+params [
+	["_road",objNull,[objNull]]
+];
 
 [gps_roadsWithConnected,parseNumber str _road] call misc_fnc_hashTable_find;

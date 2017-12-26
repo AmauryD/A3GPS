@@ -59,6 +59,7 @@ try {
 		case "PATH_NOT_FOUND" : {
 			[] call gps_fnc_deletePathHelpers;
 			[] call gps_menu_fnc_closeHud;
+			hintSilent (["STR_PATH_NOT_FOUND"] call misc_fnc_localize);
 		}; 
 	};
 	[_exception] call gps_fnc_log;

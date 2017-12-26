@@ -13,6 +13,7 @@ private _cost_so_far = [gps_max_road_index] call misc_fnc_hashTable_create;
 [_cost_so_far,RID(_startRoute),0] call misc_fnc_hashTable_set;
 
 while {count _frontier > 0} do {
+	// get road with lowest value in queue
 	private _current = [_frontier] call misc_fnc_PQ_get;
 
 	if (_current isEqualTo _goalRoute) exitWith {};

@@ -21,6 +21,7 @@ private _path = [];
 while {_current != _startRoute} do {
   _path pushBack _current;
   _current = [_came_from,parseNumber str _current] call misc_fnc_hashTable_find;
+  if (isNil "_current") then { throw "PATH_NOT_FOUND" };
 };
 
 _path pushBack _startRoute;

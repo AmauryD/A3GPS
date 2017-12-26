@@ -43,15 +43,16 @@ private _crossRoad_isHighWay = [_crossRoad] call gps_fnc_isHighWay;
       _linkedSegments pushBack [_currRoad,_passedBy];
     };
 
-    _previous = _currRoad;
+    _old = _currRoad;
 
     {
-      if !(_x in _passedBy) then {
-      _currRoad = _x;
+      if !(_x isEqualTo _previous) exitWith {
+        _previous = _currRoad;
+        _currRoad = _x;
       };
     } forEach _connected;
 
-    if(_currRoad isEqualTo _previous) exitWith {};
+    if(_currRoad isEqualTo _old) exitWith {};
   };
 } forEach _linkedTo;
 

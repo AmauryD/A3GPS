@@ -8,11 +8,10 @@
 **/
 params [
 	["_key","",[""]],
-	["_default","",[""]],
 	["_lang",["lang"] call misc_fnc_getSetting,[""]]
 ];
 
-private _return = _default;
+private _return = _key;
 private _cfgEntry = missionConfigFile >> "GPS_Localization" >> _key;
 
 if(isClass _cfgEntry) then {

@@ -6,11 +6,6 @@
 
 params [["_road", objNull, [objNull]]];
 
-private _connectedRoads = roadsConnectedTo _road;
-
-private _numConnectedRoads = count _connectedRoads;
-if (_numConnectedRoads == 0) exitWith {false}; //Connected road not found, can't calculate direction
-
 private _direction = [_road] call misc_fnc_getRoadDir;
 
 private _roadPos = getPosATl _road;
@@ -21,9 +16,7 @@ private _sin = sin (_direction+90);
 private _vectorDir = [_sin, _cos, 0];
 
 //Find road width in one direction
-private _checkPos = _roadPos;
 private _testWidth = HIGHWAY_DIAMETER / 2;
-private _width = 0;
 
 _pos1 = _roadPos vectorAdd (_vectorDir vectorMultiply _testWidth);
 _vectorDir = [-_sin, -_cos, 0];

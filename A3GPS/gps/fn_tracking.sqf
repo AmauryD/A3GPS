@@ -9,10 +9,6 @@ private _path = +(_this select 0); // copy path
 private _fullPath = +(_this select 1); // copy fullPath
 private _goal = _this select 2;
 
-// tmp fix
-_path pushBackUnique _goal;
-_fullPath pushBackUnique _goal;
-
 private _fn_findNextNode = {
 	params ["_path","_fullPath"];
 

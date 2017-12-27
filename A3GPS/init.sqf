@@ -182,7 +182,7 @@ waitUntil {
 	player addAction ["Road mode",{
 		map_mode = "Road";
 	}];
-
+	/*
 	onMapSingleClick "
 		private _nearestStartNodeObject = [gps_onlyCrossRoads,_pos] call bis_fnc_nearestPosition;
 		private _mode = missionNameSpace getVariable ['map_mode','Node'];
@@ -213,6 +213,7 @@ waitUntil {
 		};
 		true
 	";
+	*/
 #endif	
 
 gps_init_done = true;

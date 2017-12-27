@@ -12,34 +12,45 @@ params [
 
 private	_fullPath = [];
 
-private _fn_findInSegment = {
-	params ["_segment","_road"];
-	private _return = [];
-	{
-		if(_x select 0 isEqualTo _road) exitWith {
-			_return = _x select 1;
-		};
-	}foreach _segment;
-	_return
-};
-
 {
-	_point = _x;
-	_nextPoint = _path select (_forEachIndex + 1);
+	private _road = _x;
+	private _next = _path select (_forEachIndex + 1);
+	private _linked = [_road] call gps_fnc_roadsConnectedTo;
 
-	if !(isNil "_nextPoint") then {
-		_theSegment = [gps_roadSegments,str _point] call misc_fnc_hashTable_find;
-
-		_theSegment = [_theSegment,_nextPoint] call _fn_findInSegment;
-
-		if(_theSegment isEqualTo []) then {
-			_fullPath pushBack _point;
-		};
-
-		{
-			_fullPath pushBack _x;
-		}foreach _theSegment;
+	if (isNil "_next") exitWith {
+		_fullPath pushBack _road;
 	};
+
+	{
+	  private _passedBy = [_road];
+	  private _currRoad = _x;
+	  private _previous = _road;
+
+	  // faster than while {true}
+	  for "_i" from 0 to 1 step 0 do {
+	    _connected = [_currRoad] call gps_fnc_roadsConnectedTo;
+
+	    _passedBy pushBack _currRoad;
+
+	    if (_currRoad isEqualTo _next) exitWith {
+	    	_passedBy deleteAt (count _passedBy -1);
+	    	_fullPath append _passedBy;
+	    };
+
+	   	if (count _connected > 2) exitWith {};
+
+	   	_old = _currRoad;
+
+	    {
+	      if !(_x isEqualTo _previous) exitWith {
+	        _previous = _currRoad;
+	        _currRoad = _x;
+	      };
+	    } forEach _connected;
+
+	    if(_currRoad isEqualTo _old) exitWith {};
+	  };
+	} forEach _linked;
 }forEach _path;
 
 _fullPath

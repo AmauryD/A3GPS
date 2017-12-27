@@ -13,22 +13,17 @@ params [
 ];
 
 private _linkedCrossRoads = [];
-private _linkedSegments = [];
 private _crossRoad_isHighWay = [_crossRoad] call gps_fnc_isHighWay;
 
 {
   private _currRoad = _x;
-  private _connected = [_currRoad] call gps_fnc_roadsConnectedTo;
   private _segmentValue = 0;
-  private _passedBy = [];
   private _previous = _crossRoad;
-  _passedBy pushBack _crossRoad;
 
   // faster than while {true}
   for "_i" from 0 to 1 step 0 do {
     _connected = [_currRoad] call gps_fnc_roadsConnectedTo;
     _countConnected = count _connected;
-    _passedBy pushBack _currRoad;
     _segmentValue = _segmentValue + (_previous distance2D _currRoad);
 
     _currRoad_isHighWay = [_currRoad] call gps_fnc_isHighWay;
@@ -39,8 +34,6 @@ private _crossRoad_isHighWay = [_crossRoad] call gps_fnc_isHighWay;
         _segmentValue = (_segmentValue / 3); 
       };
       _linkedCrossRoads pushBack [_currRoad,_segmentValue];
-      _passedBy deleteAt (count _passedBy - 1);
-      _linkedSegments pushBack [_currRoad,_passedBy];
     };
 
     _old = _currRoad;
@@ -56,7 +49,7 @@ private _crossRoad_isHighWay = [_crossRoad] call gps_fnc_isHighWay;
   };
 } forEach _linkedTo;
 
-[gps_roadSegments,str _crossRoad,_linkedSegments] call misc_fnc_hashTable_set;
+//[gps_roadSegments,str _crossRoad,_linkedSegments] call misc_fnc_hashTable_set;
 [gps_allCrossRoadsWithWeight,str _crossRoad,_linkedCrossRoads] call misc_fnc_hashTable_set;
 
 _linkedCrossRoads

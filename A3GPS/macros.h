@@ -1,3 +1,2 @@
-//#define GPS_DEV //comment if you want to switch to production
-
-#define MAX_ROAD_INDEX 1813600
+#define VERSION "pre-1.0"
+#define GPS_DEV //comment if you want to switch to production

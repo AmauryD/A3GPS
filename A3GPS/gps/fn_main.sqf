@@ -64,3 +64,5 @@ try {
 	};
 	[_exception] call gps_fnc_log;
 };
+
+[] call gps_fnc_deleteNameSpaces;

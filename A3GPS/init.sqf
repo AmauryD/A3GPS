@@ -28,6 +28,7 @@ gps_fnc_mapNodeValues = ["gps","fn_mapNodeValues"] call gps_fnc_compile;
 gps_fnc_roadsConnectedTo = ["gps","fn_roadsConnectedTo"] call gps_fnc_compile;
 gps_fnc_deletePathHelpers =  ["gps","fn_deletePathHelpers"] call gps_fnc_compile;
 gps_fnc_generatePathHelpers = ["gps","fn_generatePathHelpers"] call gps_fnc_compile;
+gps_fnc_deleteNameSpaces = ["gps","fn_deleteNameSpaces"] call gps_fnc_compile;
 gps_fnc_tracking = ["gps","fn_tracking"] call gps_fnc_compile;
 gps_fnc_generateNodePath = ["gps","fn_generateNodePath"] call gps_fnc_compile;
 gps_fnc_composeFilePath = ["gps","fn_composeFilePath"] call gps_fnc_compile;
@@ -37,7 +38,6 @@ gps_fnc_aStar = ["gps\algorithms\AStar","fn_AStar"] call gps_fnc_compile;
 gps_fnc_main = ["gps","fn_main"] call gps_fnc_compile;
 
 gps_fnc_insertFakeNode = ["gps","fn_insertFakeNode"] call gps_fnc_compile;
-gps_fnc_createMarker = ["gps","fn_createMarker"] call gps_fnc_compile;
 gps_fnc_getAllRoads = ["gps","fn_getAllRoads"] call gps_fnc_compile;
 
 gps_fnc_refreshCache = ["misc","fn_refreshCache"] call gps_fnc_compile;
@@ -52,6 +52,7 @@ gps_menu_fnc_setGPSInfo = [_hudFolder,"fn_setGPSInfo"] call gps_fnc_compile; // 
 gps_menu_fnc_loadHud = [_hudFolder,"fn_loadHud"] call gps_fnc_compile;
 gps_menu_fnc_openHud = [_hudFolder,"fn_openHud"] call gps_fnc_compile;
 gps_menu_fnc_closeHud = [_hudFolder,"fn_closeHud"] call gps_fnc_compile;
+gps_menu_fnc_drawPath = [_hudFolder,"fn_drawPath"] call gps_fnc_compile;
 gps_menu_fnc_HudZoomOnPos = [_hudFolder,"fn_hudZoomOnPos"] call gps_fnc_compile;
 gps_menu_fnc_HudHideZoomOnPos = [_hudFolder,"fn_HudHideZoomOnPos"] call gps_fnc_compile;
 
@@ -94,10 +95,11 @@ misc_fnc_Q_insert = ["misc\Queue","fn_insert"] call gps_fnc_compile;
 
 gps_fnc_getConfigSetting = ["misc","fn_getConfigSetting"] call gps_fnc_compile;
 
-misc_fnc_hashTable_find = ["misc\hashTable","fn_find"] call gps_fnc_compile;
-misc_fnc_hashTable_set = ["misc\hashTable","fn_set"] call gps_fnc_compile;
-misc_fnc_hashTable_create = ["misc\hashTable","fn_create"] call gps_fnc_compile;
-misc_fnc_hashTable_exists = ["misc\hashTable","fn_exists"] call gps_fnc_compile;
+_hashTableDir = "misc\hashTable";
+misc_fnc_hashTable_find = [_hashTableDir,"fn_find"] call gps_fnc_compile;
+misc_fnc_hashTable_set = [_hashTableDir,"fn_set"] call gps_fnc_compile;
+misc_fnc_hashTable_create = [_hashTableDir,"fn_create"] call gps_fnc_compile;
+misc_fnc_hashTable_exists = [_hashTableDir,"fn_exists"] call gps_fnc_compile;
 
 misc_fnc_averageFromAngles = ["misc","fn_averageFromAngles"] call gps_fnc_compile;
 
@@ -106,10 +108,8 @@ misc_fnc_averageFromAngles = ["misc","fn_averageFromAngles"] call gps_fnc_compil
 [] call gps_fnc_refreshCache;
 
 gps_init_done = false;
-gps_local_markers =	[];
+gps_fakeNodes = ["gps_fakeNodes"] call misc_fnc_hashTable_create;
 gps_curr_thread = scriptNull;
-
-gps_version = "pre-1.0";
 
 waitUntil {!isNull findDisplay 46};
 waitUntil {!isNull player};
@@ -123,6 +123,11 @@ _handle = [] spawn gps_fnc_mapRoutes;
 waitUntil {	//wait for the virtual mapping to be done
    scriptDone _handle
 };
+
+waitUntil {
+  !isNull ((findDisplay 12) displayCtrl 51)
+};
+((findDisplay 12) displayCtrl 51) ctrlAddEventHandler ["Draw",gps_menu_fnc_drawPath];
 
 [
 	["STR_QUICKNAV_OPTION_STATION"] call misc_fnc_localize,
@@ -187,10 +192,10 @@ waitUntil {	//wait for the virtual mapping to be done
 				case 'Node': {
 					{deleteMarkerLocal _x;} forEach allMapMarkers;
 					[nil,getPosATL _nearestStartNodeObject,'main','mil_dot'] call misc_fnc_createMarker;
-					_connectedNodes = [gps_allCrossRoadsWithWeight,parseNumber str _nearestStartNodeObject] call misc_fnc_hashTable_find;
+					_connectedNodes = [gps_allCrossRoadsWithWeight,str _nearestStartNodeObject] call misc_fnc_hashTable_find;
 
 					{
-						[nil,getPosATL (_x select 0),str (_x select 1),'mil_dot'] call gps_fnc_createMarker;
+						[nil,getPosATL (_x select 0),str (_x select 1),'mil_dot'] call misc_fnc_createMarker;
 					}foreach _connectedNodes;
 				};
 				case 'Road': {
@@ -201,7 +206,7 @@ waitUntil {	//wait for the virtual mapping to be done
 					_connected = [_road] call gps_fnc_roadsConnectedTo;
 					systemChat str _connected;
 					{
-						[nil,getPosATL _x,str _x,'mil_dot'] call gps_fnc_createMarker;
+						[nil,getPosATL _x,str _x,'mil_dot'] call misc_fnc_createMarker;
 					}foreach _connected;
 				};
 			};

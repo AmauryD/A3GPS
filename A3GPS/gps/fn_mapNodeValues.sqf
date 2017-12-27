@@ -56,7 +56,7 @@ private _crossRoad_isHighWay = [_crossRoad] call gps_fnc_isHighWay;
   };
 } forEach _linkedTo;
 
-[gps_roadSegments,parseNumber str _crossRoad,_linkedSegments] call misc_fnc_hashTable_set;
-[gps_allCrossRoadsWithWeight,parseNumber str _crossRoad,_linkedCrossRoads] call misc_fnc_hashTable_set;
+[gps_roadSegments,str _crossRoad,_linkedSegments] call misc_fnc_hashTable_set;
+[gps_allCrossRoadsWithWeight,str _crossRoad,_linkedCrossRoads] call misc_fnc_hashTable_set;
 
 _linkedCrossRoads

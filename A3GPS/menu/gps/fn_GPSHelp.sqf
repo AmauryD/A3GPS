@@ -6,4 +6,4 @@
 	@Description : nothing to say
 **/
 
-hintSilent parseText format [["STR_MENU_INFO"] call misc_fnc_localize,gps_version];
+hintSilent parseText format [["STR_MENU_INFO"] call misc_fnc_localize,VERSION];

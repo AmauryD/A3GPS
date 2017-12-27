@@ -17,14 +17,13 @@ gps_data_map_center = [worldSize / 2,worldSize / 2,0];
 gps_allRoads = [] call gps_fnc_getAllRoads;
 ["done"] call gps_fnc_log;
 
-gps_max_road_index = MAX_ROAD_INDEX;
-
 private _gps_allRoadsWithInter = [];
 private _gps_allCrossRoads = [];
-gps_allCrossRoadsWithWeight = [gps_max_road_index] call misc_fnc_hashTable_create;
+
 gps_onlyCrossRoads = [];
-gps_roadSegments = [gps_max_road_index] call misc_fnc_hashTable_create;
-gps_roadsWithConnected =  [gps_max_road_index] call misc_fnc_hashTable_create;
+gps_allCrossRoadsWithWeight = ["gps_allCrossRoadsWithWeight"] call misc_fnc_hashTable_create;
+gps_roadSegments = ["gps_roadSegments"] call misc_fnc_hashTable_create;
+gps_roadsWithConnected =  ["gps_roadsWithConnected"] call misc_fnc_hashTable_create;
 
 ["mapping road intersect ..."] call gps_fnc_log;
 
@@ -36,7 +35,7 @@ _gps_allRoadsWithInter = gps_allRoads apply { //FINALLY FIXED THIS
   //#ifdef GPS_DEV 
     {
        if(count (roadsConnectedTo _x) == 1) then {
-          _rID = parseNumber str _x;
+          _rID = str _x;
           _connected pushBack _x;
           if([gps_roadsWithConnected,_rID] call misc_fnc_hashTable_exists) then {
             ([gps_roadsWithConnected,_rID] call misc_fnc_hashTable_find) pushBack _road;
@@ -47,9 +46,9 @@ _gps_allRoadsWithInter = gps_allRoads apply { //FINALLY FIXED THIS
     }foreach ((_near - _connected) - [_road]);
   //#endif
   
-  _currentConnected = [gps_roadsWithConnected,parseNumber str _road] call misc_fnc_hashTable_find;
+  _currentConnected = [gps_roadsWithConnected,str _road] call misc_fnc_hashTable_find;
   if(isNil "_currentConnected") then {
-      [gps_roadsWithConnected,parseNumber str _road,_connected] call misc_fnc_hashTable_set;
+      [gps_roadsWithConnected,str _road,_connected] call misc_fnc_hashTable_set;
   }else{
       _currentConnected append _connected;
   };
@@ -59,7 +58,7 @@ _gps_allRoadsWithInter = gps_allRoads apply { //FINALLY FIXED THIS
 ["done"] call gps_fnc_log;
 
 {
-  _connected = [gps_roadsWithConnected,parseNumber str (_x select 0)] call misc_fnc_hashTable_find;
+  _connected = [gps_roadsWithConnected,str (_x select 0)] call misc_fnc_hashTable_find;
   if(count _connected > 2) then {_gps_allCrossRoads pushBack _x};
 } forEach _gps_allRoadsWithInter;
 
@@ -71,6 +70,6 @@ gps_onlyCrossRoads = _gps_allCrossRoads apply {_x select 0};
   _x call gps_fnc_mapNodeValues;
 }foreach _gps_allCrossRoads;
 
-[format["Loaded : %1 roads|%2 crossroads|%3 road segments",count gps_allRoads,count gps_onlyCrossRoads,count gps_roadSegments]] call gps_fnc_log;
+[format["Loaded : %1 roads|%2 crossroads|%3 road segments",count gps_allRoads,count gps_onlyCrossRoads,count allVariables gps_roadSegments]] call gps_fnc_log;
 
 [format [["STR_LOG_VMAP_INIT_DONE"] call misc_fnc_localize,round (diag_tickTime - _start)]] call gps_fnc_log;

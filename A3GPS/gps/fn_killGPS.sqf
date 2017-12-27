@@ -8,5 +8,6 @@
 [["STR_MENU_STOPPING_PROCESS"] call misc_fnc_localize] call gps_menu_fnc_setGPSInfo;
 terminate gps_curr_thread;
 [] call gps_fnc_deletePathHelpers;
+[] call gps_fnc_deleteNameSpaces;
 gps_current_goal = nil;
 [["STR_MENU_MAP_CLEARED"] call misc_fnc_localize] call gps_menu_fnc_setGPSInfo;

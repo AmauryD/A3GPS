@@ -8,6 +8,10 @@ class GPS_Localization {
 		en="The GPS is not loaded , please wait a little...";
 		fr="Votre GPS n'est pas encore chargé.";
 	};
+	class STR_LOADING {
+		en="Loading";
+		fr="Chargement en cours";
+	};
 	class STR_NO {
 		en="No.";
 		fr="Non.";

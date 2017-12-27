@@ -8,26 +8,33 @@
 private _path = +(_this select 0); // copy path
 private _fullPath = +(_this select 1); // copy fullPath
 private _goal = _this select 2;
-private _fullPathNode = _fullPath apply	{_x select 0};	//divide fullPath in 2 arrays [Object] and [Direction]
-private _fullPathDir = _fullPath apply	{_x select 1};
 
 // tmp fix
 _path pushBackUnique _goal;
-_fullPathNode pushBackUnique _goal;
+_fullPath pushBackUnique _goal;
 
 private _fn_findNextNode = {
-	params ["_path","_fullPathNode"];
+	params ["_path","_fullPath"];
 
-	_nearestRoadInFullPath = [getPosATL player,30,_fullPathNode] call misc_fnc_nearestRoadInArray;
+	_nearestRoadInFullPath = [getPosATL player,30,_fullPath] call misc_fnc_nearestRoadInArray;
 
 	// if no road is found , exit
 	if (isNull _nearestRoadInFullPath) exitWith {objNull};
 
 	// select from the current node to the end
-	_nextPathRange = _fullPathNode select [_fullPathNode find _nearestRoadInFullPath,count _fullPathNode];
+	_nextPathRange = _fullPath select [_fullPath find _nearestRoadInFullPath,count _fullPath];
+
+	gps_draw_points = _nextPathRange apply {getPosATL _x};
 
 	// select the nearest
 	(_nextPathRange select {_x in _path}) param [0,objNull];
+};
+
+private _fn_vectorAngle = {
+	params ["_vector_1","_vector_2"];
+	_vector_1 params ["_x1","_y1"]; 
+	_vector_2 params ["_x2","_y2"]; 
+	(_y2 atan2 _x2) - (_y1 atan2 _x1)
 };
 
 private _fn_correctAngle = {
@@ -43,17 +50,17 @@ private _return = true;
 
 try {
 	while {vehicle player distance _goal > 15} do { //this script thread will be destroyed when arrived 
-		private ["_next_node","_dir","_dir1","_dir2"];
+		private ["_next_node","_dir"];
 
 		// regarde sur le full path node la position du joueur par rapport à la fin
-		_next_node = [_path,_fullPathNode] call _fn_findNextNode;
+		_next_node = [_path,_fullPath] call _fn_findNextNode;
 
 		if !(isNull _next_node) then {
-			_next_node_index_fullPath = _fullPathNode find _next_node;
+			_next_node_index_fullPath = _fullPath find _next_node;
 
 			if(_next_node_index_fullPath >= (count _fullPath - 2)) exitWith {
 				[
-					format [["STR_ROAD_ARRIVED_IN"] call misc_fnc_localize,vehicle player distance _goal],
+					format [["STR_ROAD_ARRIVED_IN"] call misc_fnc_localize,(vehicle player distance _goal) toFixed 1],
 					"A3\ui_f\data\Map\Markers\Military\flag_CA.paa",
 					format ["%1Km",[vehicle player distance _goal,2] call misc_fnc_metersToKilometers]
 				] call gps_menu_fnc_setGPSInfo;
@@ -62,63 +69,60 @@ try {
 			_next_node_previous = if (_next_node_index_fullPath < 2) then {_fullPath select 0}else{_fullPath select (_next_node_index_fullPath - 2)};
 			_next_node_next = _fullPath select (_next_node_index_fullPath + 2);
 
-			_next_node_previous params ["_next_node_previous_node","_next_node_previous_dir"];
-			_next_node_next params ["_next_node_next_node","_next_node_next_dir"];
+			_vector_1 = [getPosASL _next_node,getPosASL _next_node_previous] call bis_fnc_vectorFromXToY; 
+			_vector_2 = [getPosASL _next_node,getPosASL _next_node_next] call bis_fnc_vectorFromXToY; 
+
+			_dir = [[_vector_2,_vector_1] call _fn_vectorAngle] call _fn_correctAngle;
 
 			#ifdef GPS_DEV
-				[nil,getPos _next_node_previous_node,str _next_node_previous_node,nil,"ColorRed"] call gps_fnc_createMarker;
-				[nil,getPos _next_node_next_node,str _next_node_next_node,nil,"ColorGreen"] call gps_fnc_createMarker;
+				deleteMarker "a";
+				deleteMarker "b";
+				deleteMarker "c";
+				["a",getPos _next_node_previous,str _next_node_previous,nil,"ColorRed"] call misc_fnc_createMarker;
+				["b",getPos _next_node_next,str _next_node_next,nil,"ColorGreen"] call misc_fnc_createMarker;
+				["c",getPos _next_node,str _dir,nil,"ColorBlue"] call misc_fnc_createMarker;
 			#endif
 
-			_dir1 = _next_node getDir _next_node_next_node;
-			_dir1 = [_dir1 - _next_node_previous_dir] call _fn_correctAngle;
-
-			_dir2 = _next_node getDir _next_node_previous_node;
-			_dir2 = [_dir2 - _next_node_previous_dir] call _fn_correctAngle;
-
-			_dir = [_dir1 - _dir2] call _fn_correctAngle;
-
-			
-			if (_dir >= 330 || _dir <= 30) exitWith {
+			if (_dir >= 165 && _dir <= 195) exitWith {
 				_path deleteAt (_path find _next_node);
 			};
 
 			_infos = switch (true) do
 			{	
-				case (_dir >= 330): { 
-					[
-						["STR_ROAD_CONTINUE"] call misc_fnc_localize,
-						["icons\direction_continue.paa"] call gps_fnc_composeFilePath
-					]
-				};
-				case (_dir >= 300): { 
-					[
-						["STR_ROAD_TURN_SLOW_LEFT"] call misc_fnc_localize,
-						["icons\direction_fork_slight_left.paa"] call gps_fnc_composeFilePath
-					]
-				};
-				case (_dir >= 180): { 
-					[
-						["STR_ROAD_TURN_LEFT"] call misc_fnc_localize,
-						["icons\direction_fork_left.paa"] call gps_fnc_composeFilePath
-					]
-				};
-				case (_dir >= 60):  {
+				case (_dir >= 210):  {
 					[
 						["STR_ROAD_TURN_RIGHT"] call misc_fnc_localize,
 						["icons\direction_fork_right.paa"] call gps_fnc_composeFilePath
 					]
 				};
-				case (_dir >= 30): { 
+				case (_dir >= 200): { 
 					 [
 					 	["STR_ROAD_TURN_SLOW_RIGHT"] call misc_fnc_localize,
 					 	["icons\direction_fork_slight_right.paa"] call gps_fnc_composeFilePath
 					 ]
 				};
-				default {
+				case (_dir >= 160): { 
 					[
 						["STR_ROAD_CONTINUE"] call misc_fnc_localize,
 						["icons\direction_continue.paa"] call gps_fnc_composeFilePath
+					]
+				};
+				case (_dir >= 85): { 
+					[
+						["STR_ROAD_TURN_SLOW_LEFT"] call misc_fnc_localize,
+						["icons\direction_fork_slight_left.paa"] call gps_fnc_composeFilePath
+					]
+				};
+				case (_dir >= 75): { 
+					[
+						["STR_ROAD_TURN_LEFT"] call misc_fnc_localize,
+						["icons\direction_fork_left.paa"] call gps_fnc_composeFilePath
+					]
+				};
+				default {
+					[
+						["STR_ROAD_TURN_LEFT"] call misc_fnc_localize,
+						["icons\direction_fork_left.paa"] call gps_fnc_composeFilePath
 					]
 				};
 			};
@@ -126,7 +130,7 @@ try {
 			if (_dist > 1000) then {
 				_infos set [0,format[_infos select 0,([_dist,2] call misc_fnc_metersToKilometers) + "Km"]];
 			}else{
-				_infos set [0,format[_infos select 0,str(round _dist) + "m"]];
+				_infos set [0,format[_infos select 0,(_dist toFixed 1) + "m"]];
 			};
 
 			_infos pushBack format ["%1Km",[vehicle player distance _goal,2] call misc_fnc_metersToKilometers];

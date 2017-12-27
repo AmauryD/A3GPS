@@ -98,6 +98,8 @@ _map ctrlAddEventHandler ["Draw",{
 	}foreach _savedWorldData;
 }];
 
+_map ctrlAddEventHandler ["Draw",gps_menu_fnc_drawPath];
+
 _map ctrlAddEventHandler ["MouseButtonClick",{
 	params ["_control","_btn","_xCoord","_yCoord","_shift"];
 

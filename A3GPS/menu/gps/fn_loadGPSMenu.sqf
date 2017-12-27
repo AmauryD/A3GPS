@@ -30,7 +30,7 @@ if !(gps_init_done) then {
 		private _count = 0;
 		while {!gps_init_done && !isNull _nav_btn} do {
 			_count = _count + 1;
-			_text = "Loading ";
+			_text = ["STR_LOADING"] call misc_fnc_localize;
 			for "_i" from 1 to _count do {
 				_text = _text + ".";
 			};
@@ -38,7 +38,7 @@ if !(gps_init_done) then {
 			if(_count >= 3) then {
 				_count = 0;
 			};
-			uiSleep 0.5;
+			uisleep 0.5;
 		};
 		_nav_btn ctrlEnable true;
 		_nav_btn ctrlSetTooltip  (["STR_MENU_TT_NAV"] call misc_fnc_localize);

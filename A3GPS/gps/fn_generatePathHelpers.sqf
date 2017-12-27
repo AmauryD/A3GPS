@@ -10,7 +10,6 @@ params [
 	["_path",[],[[]]]
 ];
 
-private _color = ["markers_color"] call misc_fnc_getSetting;
 private	_fullPath = [];
 
 private _fn_findInSegment = {
@@ -24,37 +23,23 @@ private _fn_findInSegment = {
 	_return
 };
 
-[nil,getPosATL (_path select 0),["STR_START"] call misc_fnc_localize,"mil_dot",_color] call gps_fnc_createMarker;
-
 {
 	_point = _x;
 	_nextPoint = _path select (_forEachIndex + 1);
 
 	if !(isNil "_nextPoint") then {
-		_theSegment = [gps_roadSegments,parseNumber str _point] call misc_fnc_hashTable_find;
+		_theSegment = [gps_roadSegments,str _point] call misc_fnc_hashTable_find;
 
 		_theSegment = [_theSegment,_nextPoint] call _fn_findInSegment;
 
 		if(_theSegment isEqualTo []) then {
-			_direction = _point getDir _nextPoint;
-			[str _x,getPosATL _x,"","mil_arrow",_color,[0.25,0.25],_direction] call gps_fnc_createMarker;
-			_fullPath pushBack [_point,_direction];
+			_fullPath pushBack _point;
 		};
 
 		{
-			_nextRoad = _theSegment select (_forEachIndex + 1);
-
-			if(isNil "_nextRoad") then { 
-				_nextRoad = _nextPoint;
-			};
-			_direction = [_x,_nextRoad] call BIS_fnc_DirTo;
-
-			[str _x,getPosATL _x,"","mil_arrow",_color,[0.25,0.25],_direction] call gps_fnc_createMarker;
-			_fullPath pushBack [_x,_direction];
+			_fullPath pushBack _x;
 		}foreach _theSegment;
 	};
 }forEach _path;
-
-[nil,getPosATL (_path select (count _path - 1)),["STR_GOAL"] call misc_fnc_localize,"mil_flag",_color] call gps_fnc_createMarker;
 
 _fullPath

@@ -5,12 +5,6 @@
 	@Modified : 23/10/17
 	@Description : --
 **/
-params ["_array","_key","_val"];
+params ["_namespace","_key","_val"];
 
-_id = (_key % count _array);
-
-if(isNil "_val") exitWith {
-	_array set [_id,nil];
-};
-
-_array set [_id,_val]
+_namespace setVariable [_key,_val];

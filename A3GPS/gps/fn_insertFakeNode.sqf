@@ -10,10 +10,14 @@ params [
 	["_road",objNull,[objNull]]
 ];
 
-gps_onlyCrossRoads pushBackUnique _road;
+if (count ([_road] call gps_fnc_roadsConnectedTo) > 2) exitWith {}; //already a node
 
-_res = [_road,[_road] call gps_fnc_roadsConnectedTo,gps_onlyCrossRoads] call gps_fnc_mapNodeValues;
+[gps_fakeNodes,str _road,_road] call misc_fnc_hashTable_set;
+
+_nodes = (allVariables gps_fakeNodes) apply {gps_fakeNodes getVariable _x};
+
+_res = [_road,[_road] call gps_fnc_roadsConnectedTo,_nodes] call gps_fnc_mapNodeValues;
 
 {
-	[_x select 0,[_x select 0] call gps_fnc_roadsConnectedTo,gps_onlyCrossRoads] call gps_fnc_mapNodeValues;
+	[_x select 0,[_x select 0] call gps_fnc_roadsConnectedTo,_nodes] call gps_fnc_mapNodeValues;
 }foreach _res;

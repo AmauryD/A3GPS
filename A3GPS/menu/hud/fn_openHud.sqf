@@ -17,7 +17,6 @@ _map = _hudDisplay displayCtrl 2201;
 _text = _hudDisplay displayCtrl 1000;
 _backGround = _hudDisplay displayCtrl 2200;
 _picture = _hudDisplay displayCtrl 1200;
-_zoomMapControl = _hudDisplay displayCtrl 2204;
 
 _map mapCenterOnCamera true;
 
@@ -33,19 +32,8 @@ _map ctrlAddEventHandler ["Draw",{
         24,
         0
 	];
-	_map ctrlMapAnimAdd [0,(0.02 max (_speed / 1000)) min 0.5,visiblePosition _vehPlayer];
+	_map ctrlMapAnimAdd [0,(0.04 max (_speed / 1000)) min 0.1,visiblePosition _vehPlayer];
 	ctrlMapAnimCommit _map;
 }];
-_zoomMapControl ctrlAddEventHandler ["Draw",{
-	_map = _this select 0;
-	_vehPlayer = vehicle player;
-	_speed = speed _vehPlayer;
-	_map drawIcon [
-		getText (configFile/"CfgVehicles"/typeOf _vehPlayer/"Icon"),
-		[1,1,1,1],
-        visiblePosition _vehPlayer,
-        12,
-        12,
-        getDir _vehPlayer
-	];
-}];
+
+_map ctrlAddEventHandler ["Draw",{[_this select 0,true,100] call gps_menu_fnc_drawPath}];

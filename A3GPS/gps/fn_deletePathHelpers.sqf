@@ -6,5 +6,4 @@
   @Description : deletes all the helpers on the road and on the map
 **/
 
-{deleteMarkerLocal _x}forEach gps_local_markers;
-gps_local_markers =	[];
+gps_draw_points = [];

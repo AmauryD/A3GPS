@@ -1,12 +1,12 @@
 #include "..\..\..\macros.h"
 
-#define RID(road) parseNumber str road
+#define RID(road) str road
 
 params ["_startRoute","_goalRoute"];
 
 private _frontier = [];
-private _came_from = [gps_max_road_index] call misc_fnc_hashTable_create;
-private _cost_so_far = [gps_max_road_index] call misc_fnc_hashTable_create;
+private _came_from = [] call misc_fnc_hashTable_create;
+private _cost_so_far = [] call misc_fnc_hashTable_create;
 
 [_came_from,RID(_startRoute),objNull] call misc_fnc_hashTable_set;
 [_frontier,_startRoute,0] call misc_fnc_PQ_insert;

@@ -5,8 +5,6 @@
 	@Modified : 23/10/17
 	@Description : --
 **/
-params ["_array","_key"];
+params ["_namespace","_key"];
 
-_id = (_key % count _array);
-
-_array select _id
+_namespace getVariable _key

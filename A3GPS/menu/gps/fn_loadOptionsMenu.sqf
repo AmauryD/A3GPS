@@ -34,10 +34,6 @@ _switch_key_btn ctrlSetText (["STR_MENU_QUICKNAV_SWITCH_KEY"] call misc_fnc_loca
 _exec_key_btn ctrlSetText (["STR_MENU_QUICKNAV_EXEC_KEY"] call misc_fnc_localize); 
 _quick_header ctrlSetText (["STR_MENU_QUICKNAV_HEADER"] call misc_fnc_localize);
 
-_open_close_key_btn ctrlSetTooltip keyName (["quicknav_open_key"] call misc_fnc_getSetting);
-_switch_key_btn ctrlSetTooltip keyName (["quicknav_switch_key"] call misc_fnc_getSetting);
-_exec_key_btn ctrlSetTooltip keyName (["quicknav_execute_key"] call misc_fnc_getSetting);
-
 _drop_data_btn ctrlSetText (["STR_MENU_DROP_DATA"] call misc_fnc_localize);
 _markers_text ctrlSetText (["STR_MENU_OPTIONS_MARKERS"] call misc_fnc_localize);
 _lang_text ctrlSetText (["STR_MENU_OPTIONS_LANG"] call misc_fnc_localize);
@@ -126,3 +122,7 @@ _lang_list ctrlAddEventHandler ["LBSelChanged",{
 	(findDisplay 369852) closeDisplay 0;
 	[] spawn gps_menu_fnc_loadGPSMenu;
 }];
+
+_open_close_key_btn ctrlSetTooltip keyName (["quicknav_open_key"] call misc_fnc_getSetting);
+_switch_key_btn ctrlSetTooltip keyName (["quicknav_switch_key"] call misc_fnc_getSetting);
+_exec_key_btn ctrlSetTooltip keyName (["quicknav_execute_key"] call misc_fnc_getSetting);

@@ -89,7 +89,7 @@ class GPS_Localization {
 		fr = "Tournez légèrement à gauche dans %1";
 	};
 	class STR_ROAD_TURN_LEFT {
-		en = "Turn left in %1m";
+		en = "Turn left in %1";
 		fr = "Tournez à gauche dans %1";
 	};
 	class STR_ROAD_ARRIVED_IN {

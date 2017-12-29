@@ -24,6 +24,15 @@ if(isNil {profileNamespace getVariable "gps_settings"}) then {
 		],
 		["markers_color",
 			["default_marker_color"] call gps_fnc_getConfigSetting
+		],
+		["quicknav_open_key",
+			["default_quicknav_open_key"] call gps_fnc_getConfigSetting
+		],
+		["quicknav_switch_key",
+			["default_quicknav_switch_key"] call gps_fnc_getConfigSetting
+		],
+		["quicknav_execute_key",
+			["default_quicknav_execute_key"] call gps_fnc_getConfigSetting
 		]
 	]];
 };

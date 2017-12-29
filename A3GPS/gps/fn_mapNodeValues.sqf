@@ -28,8 +28,7 @@ private _crossRoad_isHighWay = [_crossRoad] call gps_fnc_isHighWay;
 
     _currRoad_isHighWay = [_currRoad] call gps_fnc_isHighWay;
 
-    if(_countConnected < 2) exitWith {};
-    if(_countConnected > 2 || _currRoad in _exceptions) exitWith {  
+    if(_countConnected > 2 || _currRoad in _exceptions || _countConnected isEqualTo 1) exitWith {  
       if(_currRoad_isHighWay && _crossRoad_isHighWay) then {
         _segmentValue = (_segmentValue / 3); 
       };
@@ -49,7 +48,6 @@ private _crossRoad_isHighWay = [_crossRoad] call gps_fnc_isHighWay;
   };
 } forEach _linkedTo;
 
-//[gps_roadSegments,str _crossRoad,_linkedSegments] call misc_fnc_hashTable_set;
 [gps_allCrossRoadsWithWeight,str _crossRoad,_linkedCrossRoads] call misc_fnc_hashTable_set;
 
 _linkedCrossRoads

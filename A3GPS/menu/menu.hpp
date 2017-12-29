@@ -541,6 +541,42 @@ class gps_menu_options {
 			w = 0.111549 * safezoneW;
 			h = 0.034 * safezoneH;
 		};
+		class open_close_key: A3GPS_RscButton
+		{
+			idc = 1601;
+			text = "Open/Close"; //--- ToDo: Localize;
+			x = 0.364531 * safezoneW + safezoneX;
+			y = 0.517 * safezoneH + safezoneY;
+			w = 0.0796875 * safezoneW;
+			h = 0.034 * safezoneH;
+		};
+		class switch_key: A3GPS_RscButton
+		{
+			idc = 1602;
+			text = ""; //--- ToDo: Localize;
+			x = 0.460156 * safezoneW + safezoneX;
+			y = 0.517 * safezoneH + safezoneY;
+			w = 0.0796875 * safezoneW;
+			h = 0.034 * safezoneH;
+		};
+		class exec_key : A3GPS_RscButton
+		{
+			idc = 1603;
+			text = ""; //--- ToDo: Localize;
+			x = 0.555781 * safezoneW + safezoneX;
+			y = 0.517 * safezoneH + safezoneY;
+			w = 0.0796875 * safezoneW;
+			h = 0.034 * safezoneH;
+		};
+		class quicknav_header : A3GPS_RscText
+		{
+			idc = 1014;
+			text = ""; //--- ToDo: Localize;
+			x = 0.356562 * safezoneW + safezoneX;
+			y = 0.466 * safezoneH + safezoneY;
+			w = 0.175469 * safezoneW;
+			h = 0.034 * safezoneH;
+		};
 		class drop_data_btn: A3GPS_RscButton
 		{
 			idc = 1600;
@@ -556,4 +592,5 @@ class gps_menu_options {
 		////////////////////////////////////////////////////////
 	};
 };
+
 

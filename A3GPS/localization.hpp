@@ -16,6 +16,14 @@ class GPS_Localization {
 		en="No.";
 		fr="Non.";
 	};
+	class STR_CANCEL {
+		en="Cancel";
+		fr="Annuler";
+	};
+	class STR_OK {
+		en="OK";
+		fr="OK";
+	};
 	class STR_YES {
 		en="Yes.";
 		fr="Oui.";
@@ -39,6 +47,10 @@ class GPS_Localization {
 	class STR_MENU_TT_SAVE {
 		en="Save current path";
 		fr="Sauvegarder le trajet actuel";
+	};
+	class STR_MENU_KEY_CHOICE {
+		en="Choose a key";
+		fr="Choisissez une touche";
 	};
 	class STR_MENU_TT_QUIT {
 		en="Close window.";
@@ -171,6 +183,22 @@ class GPS_Localization {
 	class STR_MENU_STOP_PROCESS {
 		en = "Stop";
 		fr = "Arreter";
+	};
+	class STR_MENU_QUICKNAV_CLOSE_KEY{
+		en = "Open";
+		fr = "Ouvrir";
+	};
+	class STR_MENU_QUICKNAV_SWITCH_KEY{
+		en = "Next";
+		fr = "Suivant";
+	};
+	class STR_MENU_QUICKNAV_EXEC_KEY{
+		en = "Execute";
+		fr = "Exécuter";
+	};
+	class STR_MENU_QUICKNAV_HEADER{
+		en = "Quicknav keys";
+		fr = "Touches nav. rapide";
 	};
 	class STR_QUICKNAV_OPTION_STATION {
 		en = "< Service station >";

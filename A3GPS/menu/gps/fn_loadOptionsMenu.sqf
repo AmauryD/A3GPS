@@ -23,6 +23,20 @@ _drop_data_btn = _display displayCtrl 1600;
 
 _save_path_text = _display displayCtrl 1002;
 
+_open_close_key_btn = _display displayCtrl 1601;
+_switch_key_btn = _display displayCtrl 1602;
+_exec_key_btn = _display displayCtrl 1603;
+
+_quick_header = _display displayCtrl 1014;
+
+_open_close_key_btn ctrlSetText (["STR_MENU_QUICKNAV_CLOSE_KEY"] call misc_fnc_localize);
+_switch_key_btn ctrlSetText (["STR_MENU_QUICKNAV_SWITCH_KEY"] call misc_fnc_localize);
+_exec_key_btn ctrlSetText (["STR_MENU_QUICKNAV_EXEC_KEY"] call misc_fnc_localize); 
+_quick_header ctrlSetText (["STR_MENU_QUICKNAV_HEADER"] call misc_fnc_localize);
+
+_open_close_key_btn ctrlSetTooltip keyName (["quicknav_open_key"] call misc_fnc_getSetting);
+_switch_key_btn ctrlSetTooltip keyName (["quicknav_switch_key"] call misc_fnc_getSetting);
+_exec_key_btn ctrlSetTooltip keyName (["quicknav_execute_key"] call misc_fnc_getSetting);
 
 _drop_data_btn ctrlSetText (["STR_MENU_DROP_DATA"] call misc_fnc_localize);
 _markers_text ctrlSetText (["STR_MENU_OPTIONS_MARKERS"] call misc_fnc_localize);
@@ -48,6 +62,38 @@ _lang = ["lang"] call misc_fnc_getSetting;
 		_colors_list lbSetCurSel _forEachIndex;
 	};
 }forEach [["","colorRed",[1,0,0,1]],["","colorYellow",[1,1,0,1]],["","colorBlue",[0,0,1,1]],["","ColorWhite",[1,1,1,1]],["","ColorGreen",[0,1,0,1]]];
+
+_open_close_key_btn ctrlAddEventHandler ["ButtonClick",{
+	_this spawn {
+		disableSerialization;
+		params ["_ctrl"];
+		_key = [ctrlParent _ctrl] call misc_fnc_keyChoose;
+		if (_key isEqualTo -1) exitWith {};
+		["quicknav_open_key",_key] call misc_fnc_setSetting;
+		_ctrl ctrlSetTooltip keyName (["quicknav_open_key"] call misc_fnc_getSetting);
+	};
+}];
+_switch_key_btn ctrlAddEventHandler ["ButtonClick",{
+	_this spawn {
+		disableSerialization;
+		params ["_ctrl"];
+		_key = [ctrlParent _ctrl] call misc_fnc_keyChoose;
+		if (_key isEqualTo -1) exitWith {};
+		["quicknav_switch_key",_key] call misc_fnc_setSetting;
+		_ctrl ctrlSetTooltip keyName (["quicknav_switch_key"] call misc_fnc_getSetting);
+	};
+}];
+_exec_key_btn ctrlAddEventHandler ["ButtonClick",{
+	_this spawn {
+		disableSerialization;
+		params ["_ctrl"];
+		_key = [ctrlParent _ctrl] call misc_fnc_keyChoose;
+		if (_key isEqualTo -1) exitWith {};
+		["quicknav_execute_key",_key] call misc_fnc_setSetting;
+		_ctrl ctrlSetTooltip keyName (["quicknav_execute_key"] call misc_fnc_getSetting);
+	};
+}];
+
 
 _drop_data_btn ctrlAddEventHandler ["ButtonClick",{ //reset some things , i don't know why this exists
 	[] spawn {

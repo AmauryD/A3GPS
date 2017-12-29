@@ -4,6 +4,7 @@
   @Creation : 10/05/17
   @Modified : 18/06/17
   @Description : worst function ever
+  I'll need a better way to do this , still have false/positive
 **/
 private _path = +(_this select 0); // copy path
 private _fullPath = +(_this select 1); // copy fullPath
@@ -79,40 +80,22 @@ try {
 				["c",getPos _next_node,str _dir,nil,"ColorBlue"] call misc_fnc_createMarker;
 			#endif
 
-			if (_dir >= 165 && _dir <= 195) exitWith {
+			if (_dir >= 140 && _dir <= 220) exitWith {
 				_path deleteAt (_path find _next_node);
 			};
 
 			_infos = switch (true) do
 			{	
-				case (_dir >= 210):  {
+				case (_dir >= 220):  {
 					[
 						["STR_ROAD_TURN_RIGHT"] call misc_fnc_localize,
 						["icons\direction_fork_right.paa"] call gps_fnc_composeFilePath
 					]
 				};
-				case (_dir >= 200): { 
-					 [
-					 	["STR_ROAD_TURN_SLOW_RIGHT"] call misc_fnc_localize,
-					 	["icons\direction_fork_slight_right.paa"] call gps_fnc_composeFilePath
-					 ]
-				};
-				case (_dir >= 160): { 
+				case (_dir >= 140): { 
 					[
 						["STR_ROAD_CONTINUE"] call misc_fnc_localize,
 						["icons\direction_continue.paa"] call gps_fnc_composeFilePath
-					]
-				};
-				case (_dir >= 85): { 
-					[
-						["STR_ROAD_TURN_SLOW_LEFT"] call misc_fnc_localize,
-						["icons\direction_fork_slight_left.paa"] call gps_fnc_composeFilePath
-					]
-				};
-				case (_dir >= 75): { 
-					[
-						["STR_ROAD_TURN_LEFT"] call misc_fnc_localize,
-						["icons\direction_fork_left.paa"] call gps_fnc_composeFilePath
 					]
 				};
 				default {
@@ -122,6 +105,7 @@ try {
 					]
 				};
 			};
+
 			_dist = vehicle player distance _next_node;
 			if (_dist > 1000) then {
 				_infos set [0,format[_infos select 0,([_dist,2] call misc_fnc_metersToKilometers) + "Km"]];
@@ -132,6 +116,8 @@ try {
 			_infos pushBack format ["%1Km",[vehicle player distance _goal,2] call misc_fnc_metersToKilometers];
 
 			_infos call gps_menu_fnc_setGPSInfo;
+
+			uiSleep 0.5;
 		}else{
 			if(isOnRoad vehicle player) then {
 				throw "RECALCULATE_PATH";
@@ -142,8 +128,6 @@ try {
 				format ["%1Km",[vehicle player distance _goal,2] call misc_fnc_metersToKilometers]
 			] call gps_menu_fnc_setGPSInfo;
 		};
-
-		uiSleep 0.5;
 	};
 }catch{
 	_return = false;

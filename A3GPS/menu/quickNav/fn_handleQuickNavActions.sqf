@@ -16,13 +16,13 @@ _hudDisplay = uiNamespace getVariable ["gps_quickNav",displayNull];
 if(dialog) exitWith {_handled};
 
 _handled = switch(_key) do {
-	case 15: {
+	case (["quicknav_open_key"] call misc_fnc_getSetting): {
 		call gps_menu_fnc_quickNavCreate
 	};
-	case 54: {
+	case (["quicknav_switch_key"] call misc_fnc_getSetting): {
 		call gps_menu_fnc_quickNavNextOption
 	};
-	case 28: {
+	case (["quicknav_execute_key"] call misc_fnc_getSetting): {
 		call gps_menu_fnc_quickNavExecuteCurrentOption
 	};
 	default	{

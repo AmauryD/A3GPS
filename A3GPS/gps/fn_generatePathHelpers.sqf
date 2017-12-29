@@ -2,7 +2,7 @@
 /**
   @Author : [Utopia] Amaury
   @Creation : 5/02/17
-  @Modified : 6/02/17
+  @Modified : 27/12/17
   @Description : functions to create the markers and the arrows on the map with a node path
 **/
 
@@ -13,6 +13,8 @@ params [
 private	_fullPath = [];
 
 {
+	scopeName "path";
+
 	private _road = _x;
 	private _next = _path select (_forEachIndex + 1);
 	private _linked = [_road] call gps_fnc_roadsConnectedTo;
@@ -32,9 +34,10 @@ private	_fullPath = [];
 
 	    _passedBy pushBack _currRoad;
 
-	    if (_currRoad isEqualTo _next) exitWith {
+	    if (_currRoad isEqualTo _next) then {
 	    	_passedBy deleteAt (count _passedBy -1);
 	    	_fullPath append _passedBy;
+	    	breakTo "path";
 	    };
 
 	   	if (count _connected > 2) exitWith {};

@@ -33,8 +33,6 @@ gps_fnc_tracking = ["gps","fn_tracking"] call gps_fnc_compile;
 gps_fnc_generateNodePath = ["gps","fn_generateNodePath"] call gps_fnc_compile;
 gps_fnc_composeFilePath = ["gps","fn_composeFilePath"] call gps_fnc_compile;
 
-gps_fnc_aStar = ["gps\algorithms\AStar","fn_AStar"] call gps_fnc_compile;
-
 gps_fnc_main = ["gps","fn_main"] call gps_fnc_compile;
 
 gps_fnc_insertFakeNode = ["gps","fn_insertFakeNode"] call gps_fnc_compile;
@@ -95,13 +93,17 @@ misc_fnc_Q_insert = ["misc\Queue","fn_insert"] call gps_fnc_compile;
 
 gps_fnc_getConfigSetting = ["misc","fn_getConfigSetting"] call gps_fnc_compile;
 
+gps_fnc_aStar = ["gps\algorithms\AStar","fn_AStar"] call gps_fnc_compile;
+gps_fnc_RDP = ["gps\algorithms\RDP","fn_RDP"] call gps_fnc_compile;
+misc_fnc_pointLineDist = ["misc","fn_pointLineDist"] call gps_fnc_compile;
+
 _hashTableDir = "misc\hashTable";
 misc_fnc_hashTable_find = [_hashTableDir,"fn_find"] call gps_fnc_compile;
 misc_fnc_hashTable_set = [_hashTableDir,"fn_set"] call gps_fnc_compile;
 misc_fnc_hashTable_create = [_hashTableDir,"fn_create"] call gps_fnc_compile;
 misc_fnc_hashTable_exists = [_hashTableDir,"fn_exists"] call gps_fnc_compile;
 
-misc_fnc_averageFromAngles = ["misc","fn_averageFromAngles"] call gps_fnc_compile;
+misc_fnc_keyChoose = ["misc\KeyChoice","fn_chooseKey"] call gps_fnc_compile;
 
 ["Compiling functions done"] call gps_fnc_log;
 
@@ -133,7 +135,7 @@ waitUntil {
 	["STR_QUICKNAV_OPTION_STATION"] call misc_fnc_localize,
 	{
 		[
-			[nearestObjects [player,["Land_fs_feed_F"],5000],player] call bis_fnc_nearestPosition
+			[nearestObjects [player,["Land_fs_feed_F"],3000],player] call bis_fnc_nearestPosition
 		] spawn gps_fnc_main;
 	}
 ] call gps_menu_fnc_addQuickNavOption;

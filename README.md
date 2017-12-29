@@ -59,6 +59,7 @@ Use the function **gps_menu_fnc_loadGPSMenu** to call the menu
 ```
 
 Now it should work , have fun !
+To navigate , menu >> navigation >> shift + click on the map where you want to go
 
 ## Known Issues
 

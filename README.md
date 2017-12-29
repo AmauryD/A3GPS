@@ -46,6 +46,9 @@ If your gps installation is not in the root directory then change the **gps_dir*
    gps_dir = "Client\Core\Custom\";
 ```
 
+### Import the data of your current map
+Put [the folder](https://github.com/AmauryD/A3GPS/tree/master/data) with the name of your map inside your gps data folder.
+
 ### To call the Menu
 
 Use the function **gps_menu_fnc_loadGPSMenu** to call the menu 

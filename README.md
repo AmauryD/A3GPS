@@ -20,6 +20,7 @@ The GPS will take 2-3 minutes to load and compute all the roads data but you can
 - Compatible with every missions (after arma 3 v1.70).
 - Custom keybindings.
 - HUD when you navigate.
+- Path recalculation if user is taking another path.
 - Quick navigation to travel for exemple to the nearest Fuel Station or Town without opening the main menu.
 - Supported maps : Altis , Stratis , Malden , Tanoa . 
 	- It will work on other maps but you can have performance issues.

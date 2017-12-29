@@ -4,15 +4,25 @@
 
 A3GPS provides a 'real' GPS for Arma 3.
 
-**A3GPS is still in developpement but is now usable without major bugs on Altis**.
-
 Don't hesitate to report me bugs or suggestions , it'll be with pleasure !
 
 Translation available for english and french languages.
 
 ### Informations
 
-The path is not always the shortest , this script is subject to new updates , stay tuned ! 
+The path is not always the shortest , this script is subject to new updates , stay tuned ! 	
+
+The GPS will take 2-3 minutes to load and compute all the roads data but you can still access the menu.
+
+## Features
+- Shortest path calculation to arrive at a selected route.
+- Save path and quickly start navigation again.
+- Compatible with every missions (after arma 3 v1.70).
+- Custom keybindings.
+- HUD when you navigate.
+- Quick navigation to travel for exemple to the nearest Fuel Station or Town without opening the main menu.
+- Supported maps : Altis , Stratis , Malden , Tanoa . 
+	- It will work on other maps but you can have performance issues.
 
 ## Installation 
 
@@ -31,15 +41,21 @@ Add this line :
 ### In the config.hpp file :
 If your gps installation is not in the root directory then change the **gps_dir** value to your directory with a **\\** at the end of the path.
 
+#### Exemple if your gps folder is in **Client/Core/Custom**
+```sqf
+   gps_dir = "Client\Core\Custom\";
+```
+
 ### To call the Menu
 
-Use the function **gps_menu_fnc_loadGPSMenu** to call the menu
+Use the function **gps_menu_fnc_loadGPSMenu** to call the menu 
+#### Exemple if you want to open it with an AddAction
+```sqf
+   player addAction ["Open GPS",gps_menu_fnc_loadGPSMenu];
+```
 
 Now it should work , have fun !
 
 ## Known Issues
 
-- If you have already a mission with defined controls class , the mission will throw you an error "class XXX already defined ..." . to fix this , just remove the file common.hpp and the '#include "common.hpp"' in the menu.hpp in the menu folder.
-
-## For Mission Makers
-TODO
+- If you have already a **RscTitles** class , just place the 2 #include inside the class in config.hpp and move it to your other **RscTitles** class.

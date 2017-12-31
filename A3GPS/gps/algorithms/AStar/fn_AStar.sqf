@@ -1,7 +1,5 @@
 #include "..\..\..\macros.h"
 
-#define RID(road) str road
-
 params ["_startRoute","_goalRoute"];
 
 private _frontier = [];

@@ -30,19 +30,17 @@ _gps_allRoadsWithInter = gps_allRoads apply { //FINALLY FIXED THIS
   private _near = getPosATL _road nearRoads 14;
   private _connected = roadsConnectedTo _road;
 
-  //#ifdef GPS_DEV 
-    {
-       if(count (roadsConnectedTo _x) == 1) then {
-          _rID = str _x;
-          _connected pushBack _x;
-          if([gps_roadsWithConnected,_rID] call misc_fnc_hashTable_exists) then {
-            ([gps_roadsWithConnected,_rID] call misc_fnc_hashTable_find) pushBack _road;
-          }else{
-            [gps_roadsWithConnected,_rID,[_road]] call misc_fnc_hashTable_set;
-          };
-       };
-    }foreach ((_near - _connected) - [_road]);
-  //#endif
+  {
+     if(count (roadsConnectedTo _x) == 1) then {
+        _rID = str _x;
+        _connected pushBack _x;
+        if([gps_roadsWithConnected,_rID] call misc_fnc_hashTable_exists) then {
+          ([gps_roadsWithConnected,_rID] call misc_fnc_hashTable_find) pushBack _road;
+        }else{
+          [gps_roadsWithConnected,_rID,[_road]] call misc_fnc_hashTable_set;
+        };
+     };
+  }foreach ((_near - _connected) - [_road]);
   
   _currentConnected = [gps_roadsWithConnected,str _road] call misc_fnc_hashTable_find;
   if(isNil "_currentConnected") then {
@@ -54,18 +52,14 @@ _gps_allRoadsWithInter = gps_allRoads apply { //FINALLY FIXED THIS
 };
 
 ["done"] call gps_fnc_log;
-
-_gps_allCrossRoads = _gps_allRoadsWithInter select {
-  _x params ["_road"];
-  _connected = [gps_roadsWithConnected,str _road] call misc_fnc_hashTable_find;
-  count _connected > 2
-};
-
 ["mapping node values ..."] call gps_fnc_log;
 
 {
-  _x call gps_fnc_mapNodeValues;
-}foreach _gps_allCrossRoads;
+  _connected = [gps_roadsWithConnected,str (_x select 0)] call misc_fnc_hashTable_find;
+  if (count _connected > 2) then {
+    _x call gps_fnc_mapNodeValues;
+  };
+}foreach _gps_allRoadsWithInter;
 
 [format["Loaded : %1 roads",count gps_allRoads]] call gps_fnc_log;
 

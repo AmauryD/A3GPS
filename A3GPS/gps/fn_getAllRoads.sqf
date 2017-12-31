@@ -13,5 +13,10 @@ if (isNil "_allRoads") exitWith {
 };
 
 _allRoads apply {
-	[_x,10] call bis_fnc_nearestRoad;
+	_road = (_x nearRoads 0.1) param [0,objNull];
+	if (isNull _road) then {
+		[_x,10] call bis_fnc_nearestROad;
+	}else{
+		_road;
+	};	
 };

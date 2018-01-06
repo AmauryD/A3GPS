@@ -63,7 +63,7 @@ _open_close_key_btn ctrlAddEventHandler ["ButtonClick",{
 	_this spawn {
 		disableSerialization;
 		params ["_ctrl"];
-		_key = [ctrlParent _ctrl] call misc_fnc_keyChoose;
+		_key = [ctrlParent _ctrl,["quicknav_open_key"] call misc_fnc_getSetting] call misc_fnc_keyChoose;
 		if (_key isEqualTo -1) exitWith {};
 		["quicknav_open_key",_key] call misc_fnc_setSetting;
 		_ctrl ctrlSetTooltip keyName (["quicknav_open_key"] call misc_fnc_getSetting);
@@ -73,7 +73,7 @@ _switch_key_btn ctrlAddEventHandler ["ButtonClick",{
 	_this spawn {
 		disableSerialization;
 		params ["_ctrl"];
-		_key = [ctrlParent _ctrl] call misc_fnc_keyChoose;
+		_key = [ctrlParent _ctrl,["quicknav_switch_key"] call misc_fnc_getSetting] call misc_fnc_keyChoose;
 		if (_key isEqualTo -1) exitWith {};
 		["quicknav_switch_key",_key] call misc_fnc_setSetting;
 		_ctrl ctrlSetTooltip keyName (["quicknav_switch_key"] call misc_fnc_getSetting);
@@ -83,7 +83,7 @@ _exec_key_btn ctrlAddEventHandler ["ButtonClick",{
 	_this spawn {
 		disableSerialization;
 		params ["_ctrl"];
-		_key = [ctrlParent _ctrl] call misc_fnc_keyChoose;
+		_key = [ctrlParent _ctrl,["quicknav_execute_key"] call misc_fnc_getSetting] call misc_fnc_keyChoose;
 		if (_key isEqualTo -1) exitWith {};
 		["quicknav_execute_key",_key] call misc_fnc_setSetting;
 		_ctrl ctrlSetTooltip keyName (["quicknav_execute_key"] call misc_fnc_getSetting);

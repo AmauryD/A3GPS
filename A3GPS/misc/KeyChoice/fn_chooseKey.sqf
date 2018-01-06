@@ -5,9 +5,10 @@
 
 disableSerialization;
 
-private _parent = param[0,findDisplay 46,[displayNull]];
+params [["_parent",findDisplay 46,[displayNull]],["_defaultKey",-1,[0]]];
+
 private _display = _parent createDisplay "choseKeyMenu";
-private _return  = -1;
+private _keyText = _display displayCtrl 1001;
 
 (_display displayCtrl 1600) ctrlSetText (["STR_CANCEL"] call misc_fnc_localize);
 (_display displayCtrl 1601) ctrlSetText (["STR_OK"] call misc_fnc_localize);
@@ -15,8 +16,12 @@ private _return  = -1;
 
 if(!canSuspend) exitWith {systemChat "can't suspend here"};
 
-uinamespace setvariable ["lvl_currChosenKey",nil];
+uinamespace setvariable ["lvl_currChosenKey",_defaultKey];
 uinamespace setvariable ["lvl_currChosenKey_status",nil];
+
+if (_defaultKey != -1) then {
+	_keyText ctrlSetText keyName _defaultKey;
+};
 
 _ctrlButtonOK = _display displayCtrl 1601;
 _ctrlButtonCancel  = _display displayCtrl 1600;
@@ -25,8 +30,7 @@ _ctrlButtonOK ctrlseteventhandler ["buttonclick","uinamespace setvariable ['lvl_
 _ctrlButtonCancel ctrlseteventhandler ["buttonclick","uinamespace setvariable ['lvl_currChosenKey_status',false]; true"];
 _display displayaddeventhandler ["unload","uinamespace setvariable ['lvl_currChosenKey_status',false];"];
 _ehKeyDown = _display displayaddeventhandler ["keydown",{
-	_display = _this select 0;
-	_key = _this select 1;
+	params ["_display","_key"];
 
 	(_display displayCtrl 1001) ctrlSetText (keyName _key);
 	uinamespace setvariable ['lvl_currChosenKey',_key];
@@ -37,8 +41,4 @@ waituntil {!isnil {uinamespace getvariable "lvl_currChosenKey_status"}};
 
 _display closeDisplay 0;
 
-if (uinamespace getvariable "lvl_currChosenKey_status") then {
-	_return = uinamespace getvariable "lvl_currChosenKey";
-};
-
-_return 
+uinamespace getvariable "lvl_currChosenKey";

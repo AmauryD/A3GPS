@@ -42,7 +42,7 @@ private _fn_correctAngle = {
 	_dir
 };
 
-private _color = ["markers_color"] call misc_fnc_getSetting;
+private _color = ["marker_color"] call misc_fnc_getSetting;
 private _return = true;
 
 try {

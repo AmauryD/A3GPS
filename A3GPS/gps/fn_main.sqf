@@ -34,7 +34,7 @@ gps_curr_thread = _thisScript;
 [_startRoute] call gps_fnc_insertFakeNode;
 [_endRoute] call gps_fnc_insertFakeNode;
 
-private _color = ["markers_color"] call misc_fnc_getSetting;
+private _color = ["marker_color"] call misc_fnc_getSetting;
 
 try {
 	gps_current_goal = getPosATL _endRoute;

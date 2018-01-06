@@ -11,9 +11,9 @@ params [
 	["_maxDraw",20000,[0]] //less fps drop on hud ?
 ];
 
-_color = ["markers_color"] call misc_fnc_getSetting;
+_color = ["marker_color"] call misc_fnc_getSetting;
 _colorRGBA = getArray (configFile >> "CfgMarkerColors" >> _color >> "color");
-_scale = ((3 * 0.15) * 10^(abs log (ctrlMapScale _ctrl))) max 5; // from Waffle SS. (https://community.bistudio.com/wiki/drawIcon)
+_scale = ((4 * 0.15) * 10^(abs log (ctrlMapScale _ctrl))) max 5; // from Waffle SS. (https://community.bistudio.com/wiki/drawIcon)
 _dir = getDir player;
 
 _toDraw = (missionNamespace getVariable ["gps_draw_points",[]]) select [0,_maxDraw];

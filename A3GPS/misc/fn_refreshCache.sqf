@@ -48,7 +48,7 @@ if(isNil "_saved") then {
 		};
 	}foreach [
 		"lang",
-		"markers_color",
+		"marker_color",
 		"quicknav_open_key",
 		"quicknav_switch_key",
 		"quicknav_execute_key"

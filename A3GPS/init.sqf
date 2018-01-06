@@ -9,7 +9,7 @@ misc_fnc_getCurrentDir = {
 	params [["_fullPath","",[""]]];
 
 	_fullPath = toLower _fullPath;
-	_completeMissionName = toLower format ["%1.%2",missionName,worldName];
+	_completeMissionName = toLower format [".%1",worldName];
 
 	_missionDir = _fullPath select [(_fullPath find _completeMissionName) + count _completeMissionName];
 	_allDirs = _missionDir splitString "\";

@@ -8,7 +8,8 @@
 **/
 
 params [
-	["_key","",["",configNull]]
+	["_key","",["",configNull]],
+	["_default",nil]
 ];
 
 private _mainConfig = missionConfigFile >> "CfgGPS"; // static 
@@ -24,7 +25,7 @@ private _return = switch(true) do {
 		getText _path
 	};
 	default {
-		nil 
+		_default 
 	};
 };
 

@@ -13,12 +13,9 @@
 #define true 1
 
 class CfgGPS {
-	//global
-	gps_dir = ""; // don't forget to add a backslash at the end of the path
-
 	//default user options
 	default_marker_color = "ColorGreen";
-	default_language = "fr";
+	default_lang = "fr";
 
 	//quicknav
 	// see https://community.bistudio.com/wiki/DIK_KeyCodes for the keys number

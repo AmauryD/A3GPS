@@ -11,8 +11,6 @@ params ["","_key","_shift","_ctrl","_alt"];
 
 _handled = false;
 
-_hudDisplay = uiNamespace getVariable ["gps_quickNav",displayNull];
-
 if(dialog) exitWith {_handled};
 
 _handled = switch(_key) do {

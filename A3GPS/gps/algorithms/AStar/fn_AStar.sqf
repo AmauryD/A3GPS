@@ -1,6 +1,6 @@
 #include "..\..\..\macros.h"
 
-params ["_startRoute","_goalRoute"];
+params ["_startRoute","_goalRoute","_namespace"];
 
 private _frontier = [];
 private _counter = 0;
@@ -39,7 +39,7 @@ while {count _frontier > 0} do {
 				[_came_from,RID(_next),_current] call misc_fnc_hashTable_set;
 			};
 		};
-	}foreach ([gps_allCrossRoadsWithWeight,RID(_current)] call misc_fnc_hashTable_find);
+	}foreach ([_namespace,RID(_current)] call misc_fnc_hashTable_find);
 };
 
 _came_from

@@ -11,7 +11,7 @@ params [
 	["_goalRoute",objNull,[objNull]]
 ];
 
-private _came_from = [_startRoute,_goalRoute] call gps_fnc_AStar;
+private _came_from = [_startRoute,_goalRoute,gps_allCrossRoadsWithWeight] call gps_fnc_AStar;
 
 if(_came_from isEqualTo []) then { throw "PATH_NOT_FOUND" };
 

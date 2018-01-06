@@ -1,4 +1,4 @@
-params ["_queue","_element","_priority"];
+params ["_queue","_priority","_counter","_element"];
 
-_queue pushBack [_priority,_element];
+_queue pushBack [_priority, _counter, _element];
 _queue sort true;

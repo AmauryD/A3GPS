@@ -39,14 +39,6 @@ Add this line :
   [] execVM "path_to_gps_folder\init.sqf"
 ```
 
-### In the config.hpp file :
-If your gps installation is not in the root directory then change the **gps_dir** value to your directory with a **\\** at the end of the path.
-
-#### Exemple if your gps folder is in **Client/Core/Custom**
-```sqf
-   gps_dir = "Client\Core\Custom\";
-```
-
 ### Import the data of your current map
 Put [the folder](https://github.com/AmauryD/A3GPS/tree/master/data) with the name of your map inside your gps data folder.
 

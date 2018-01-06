@@ -38,7 +38,7 @@ _drop_data_btn ctrlSetText (["STR_MENU_DROP_DATA"] call misc_fnc_localize);
 _markers_text ctrlSetText (["STR_MENU_OPTIONS_MARKERS"] call misc_fnc_localize);
 _lang_text ctrlSetText (["STR_MENU_OPTIONS_LANG"] call misc_fnc_localize);
 
-_color = ["markers_color"] call misc_fnc_getSetting;
+_color = ["marker_color"] call misc_fnc_getSetting;
 _lang = ["lang"] call misc_fnc_getSetting;
 
 {
@@ -108,7 +108,7 @@ _colors_list ctrlAddEventHandler ["LBSelChanged",{
 
 	_type = _control lbData _index;
 
-	["markers_color",_type] call misc_fnc_setSetting;
+	["marker_color",_type] call misc_fnc_setSetting;
 	{_x setMarkerColorLocal	_type}foreach gps_local_markers;
 }];
 

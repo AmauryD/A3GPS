@@ -5,18 +5,27 @@
 	@Modified : 22/10/17
 	@Description : Initialization
 **/
+misc_fnc_getCurrentDir = {
+	params [["_fullPath","",[""]]];
 
-#ifdef GPS_DEV 
-	enableSaving [false,false];
-#endif
+	_fullPath = toLower _fullPath;
+	_completeMissionName = toLower format ["%1.%2",missionName,worldName];
 
+	_missionDir = _fullPath select [(_fullPath find _completeMissionName) + count _completeMissionName];
+	_allDirs = _missionDir splitString "\";
+	if (count _allDirs <= 1) exitWith {
+		""
+	};
+	_allDirs deleteAt (count _allDirs - 1);
+	(_allDirs joinString "\") + "\";
+};
 
-gps_dir = getText (missionConfigFile >> "CfgGPS" >> "gps_dir");
+gps_dir = [__FILE__] call misc_fnc_getCurrentDir;
 
 gps_fnc_compile = compileFinal	preprocessFileLineNumbers (gps_dir + "misc\fn_compile.sqf");
 gps_fnc_log = ["misc","fn_log",true] call gps_fnc_compile;
 
-if(!canSuspend) exitWith {
+if (not canSuspend) exitWith {
 	["Please execute the init in a suspension allowed context"] call gps_fnc_log;
 };
 
@@ -117,7 +126,7 @@ waitUntil {!isNull findDisplay 46};
 waitUntil {!isNull player};
 
 #ifdef GPS_DEV 
-	uiSleep 2;
+	//uiSleep 2;
 #endif
 
 _handle = [] spawn gps_fnc_mapRoutes; 
@@ -148,77 +157,6 @@ waitUntil {
 		] spawn gps_fnc_main;
 	}
 ] call gps_menu_fnc_addQuickNavOption;
-
-
-#ifdef GPS_DEV
-	player addAction ["Show all crossRoads",{
-		{deleteMarker _x}foreach allMapMarkers;
-		_onlyCross = gps_onlyCrossRoads select {!isNil "_x"};
-		{
-			[nil,getPosATL _x,str _x,'mil_dot'] call misc_fnc_createMarker;
-		}foreach _onlyCross;
-	}];
-
-	player addAction ["Show all roads (near player)",{
-		{deleteMarker _x}foreach allMapMarkers;
-		{
-			[nil,getPosATL _x,str _x,'mil_dot'] call misc_fnc_createMarker;
-		}foreach (player nearRoads 1000);
-	}];
-
-	player addAction ["Show all highways",{
-		{
-			if ([_x] call gps_fnc_isHighway) then {
-				[str _x,getPosATL _x] call misc_fnc_createMarker;
-			};
-		}foreach gps_allRoads;
-	}];
-
-	player addAction ["Clear Map",{
-		{deleteMarkerLocal _x} foreach allMapMarkers;
-	}];
-
-	player addAction ["Node mode",{
-		map_mode = "Node";
-	}];
-	player addAction ["Road mode",{
-		map_mode = "Road";
-	}];
-	/*
-	onMapSingleClick "
-		private _nearestStartNodeObject = [gps_onlyCrossRoads,_pos] call bis_fnc_nearestPosition;
-		private _mode = missionNameSpace getVariable ['map_mode','Node'];
-
-		if(_shift) then {
-			switch(_mode) do {
-				case 'Node': {
-					{deleteMarkerLocal _x;} forEach allMapMarkers;
-					[nil,getPosATL _nearestStartNodeObject,'main','mil_dot'] call misc_fnc_createMarker;
-					_connectedNodes = [gps_allCrossRoadsWithWeight,str _nearestStartNodeObject] call misc_fnc_hashTable_find;
-
-					{
-						[nil,getPosATL (_x select 0),str (_x select 1),'mil_dot'] call misc_fnc_createMarker;
-					}foreach _connectedNodes;
-				};
-				case 'Road': {
-					_road = roadAt _pos;
-					if(isNull _road) exitWith {};
-					{deleteMarkerLocal _x;} forEach allMapMarkers;
-					[nil,getPosATL _road,'main','mil_dot'] call misc_fnc_createMarker;
-					_connected = [_road] call gps_fnc_roadsConnectedTo;
-					systemChat str _connected;
-					{
-						[nil,getPosATL _x,str _x,'mil_dot'] call misc_fnc_createMarker;
-					}foreach _connected;
-				};
-			};
-		};
-		true
-	";
-	*/
-#endif	
-
-gps_init_done = true;
 
 if((["default_keyHandling_enable"] call gps_fnc_getConfigSetting) == 1) then {
 	(findDisplay 46) displayAddEventHandler ["KeyDown",gps_menu_fnc_handleQuickNavActions];

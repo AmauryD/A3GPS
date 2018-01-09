@@ -1,5 +1,7 @@
 # A3GPS v1.0 
 
+:information_source: v1.1 should be released this 29 january
+
 ## Description
 
 A3GPS provides a 'real' GPS for Arma 3.

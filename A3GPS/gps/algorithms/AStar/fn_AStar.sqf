@@ -1,6 +1,11 @@
 #include "..\..\..\macros.h"
 
-params ["_startRoute","_goalRoute","_namespace"];
+params [
+	"_startRoute",
+	"_goalRoute",
+	"_namespace",
+	["_weightFunction",{_goalRoute distance _next},[{}]]
+];
 
 private _frontier = [];
 private _counter = 0;
@@ -27,14 +32,14 @@ while {count _frontier > 0} do {
 		) then {
 			_counter = _counter + 1;
 			[_cost_so_far,RID(_next),_new_cost] call misc_fnc_hashTable_set;
-			_priority = _new_cost + (_goalRoute distance _next);
+			_priority = _new_cost + (call _weightFunction);
 			[_frontier,_priority,_counter,_next] call misc_fnc_PQ_insert;
 			[_came_from,RID(_next),_current] call misc_fnc_hashTable_set;
 		}else{
 			if (_new_cost < ([_cost_so_far,RID(_next)] call misc_fnc_hashTable_find)) then {
 				_counter = _counter + 1;
 				[_cost_so_far,RID(_next),_new_cost] call misc_fnc_hashTable_set;
-				_priority = _new_cost + (_goalRoute distance _next);
+				_priority = _new_cost + (call _weightFunction);
 				[_frontier,_priority,_counter,_next] call misc_fnc_PQ_insert;
 				[_came_from,RID(_next),_current] call misc_fnc_hashTable_set;
 			};

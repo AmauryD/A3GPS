@@ -61,9 +61,10 @@ _gps_allRoadsWithInter = gps_allRoads apply { //FINALLY FIXED THIS
   };
 }foreach _gps_allRoadsWithInter;
 
+
 [format["Loaded : %1 roads",count gps_allRoads]] call gps_fnc_log;
 
 [format [["STR_LOG_VMAP_INIT_DONE"] call misc_fnc_localize,round (diag_tickTime - _start)]] call gps_fnc_log;
 
 gps_init_done = true;
-[missionNameSpace,"gps_loaded",[true]] call BIS_fnc_callScriptedEventHandler;
+[missionNameSpace,"gps_loaded",[]] call BIS_fnc_callScriptedEventHandler;

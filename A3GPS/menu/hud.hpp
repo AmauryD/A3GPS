@@ -31,7 +31,55 @@ class gps_hud
 			y = 0.313012 * safezoneH + safezoneY;
 			w = 0.21519 * safezoneW;
 			h = 0.30598 * safezoneH;
-			colorBackground[] = {-1,-1,-1,1};
+			alphaFadeStartScale = 0;
+			alphaFadeEndScale = 0;
+			colorBackground[] = {0,0,0,0.7};
+			colorForest[] = {0,0,0,0};
+			colorRocks[] = {0,0,0,0};
+			colorForestBorder[] = {0,0,0,0};
+			colorRocksBorder[] = {0,0,0,0};
+			colorLevels[] = {0,0,0,0};
+			colorPowerLines[] = {0,0,0,0};
+			colorRailWay[] = {0,0,0,0};
+			colorMainCountlines[] = {0,0,0,0};
+			colorCountlinesWater[] = {0,0,0,0};
+			colorCountlines[] = {0,0,0,0};
+			class Tree
+			{
+				color[] =  {0,0,0,0};
+				icon = "\A3\ui_f\data\map\mapcontrol\bush_ca.paa";
+				size = 12;
+				importance = "0.9 * 16 * 0.05";
+				coefMin = 0.25;
+				coefMax = 4;
+			};
+			class SmallTree
+			{
+				color[] =  {0,0,0,0};
+				icon = "\A3\ui_f\data\map\mapcontrol\bush_ca.paa";
+				size = 12;
+				importance = "0.6 * 12 * 0.05";
+				coefMin = 0.25;
+				coefMax = 4;
+			};
+			class Bush
+			{
+				color[] =  {0,0,0,0};
+				icon = "\A3\ui_f\data\map\mapcontrol\bush_ca.paa";
+				size = "14/2";
+				importance = "0.2 * 14 * 0.05 * 0.05";
+				coefMin = 0.25;
+				coefMax = 4;
+			};
+			class Rock
+			{
+				color[] =  {0,0,0,0};
+				icon = "\A3\ui_f\data\map\mapcontrol\rock_ca.paa";
+				size = 12;
+				importance = "0.5 * 12 * 0.05";
+				coefMin = 0.25;
+				coefMax = 4;
+			};
 		};
 	};
 
@@ -48,8 +96,9 @@ class gps_hud
 			w = 0.21519 * safezoneW;
 			h = 0.0339977 * safezoneH;
 			colorBackground[] = {0,0,0,0.9};
-			sizeEx = 0.5 * GUI_GRID_H;
+			sizeEx = 0.025;
 		};
+
 		class status_picture:A3GPS_RscPicture
 		{
 			idc = 1200;
@@ -61,17 +110,6 @@ class gps_hud
 			h = 0.0849944 * safezoneH;
 			colorBackground[] = {1,1,1,1};
 		};
-		class goal_image:A3GPS_RscPicture
-		{
-			idc = 1201;
-
-			text = "A3\ui_f\data\Map\Markers\Military\flag_CA.paa";
-			x = 0.11932 * safezoneW + safezoneX;
-			y = 0.313012 * safezoneH + safezoneY;
-			w = 0.0159379 * safezoneW;
-			h = 0.0340016 * safezoneH;
-			colorBackground[] = {0,0,0,0.5};
-		};
 		class goal_distance:A3GPS_RscText
 		{
 			idc = 1002;
@@ -81,7 +119,19 @@ class gps_hud
 			w = 0.07782 * safezoneW;
 			h = 0.0339977 * safezoneH;
 			colorBackground[] = {0,0,0,0.5};
-			sizeEx = 0.9 * GUI_GRID_H;
+			sizeEx = 0.032;
+			style = ST_CENTER;
+		};
+		class goal_image:A3GPS_RscPicture
+		{
+			idc = 1201;
+
+			text = "A3\ui_f\data\Map\Markers\Military\flag_CA.paa";
+			x = 0.133438 * safezoneW + safezoneX;
+			y = 0.313 * safezoneH + safezoneY;
+			w = 0.015938 * safezoneW;
+			h = 0.0340017 * safezoneH;
+			colorBackground[] = {0,0,0,0.9};
 		};
 		////////////////////////////////////////////////////////
 		// GUI EDITOR OUTPUT END

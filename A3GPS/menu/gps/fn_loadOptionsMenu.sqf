@@ -5,34 +5,28 @@
 	@Modified : 4/02/17
 	@Description : the GPS menu init , difficult to read but i really don't like making menus
 **/
+#define EH_MENU_NAME "menu_options"
 
 disableSerialization;
 
 if(!isNull findDisplay 369854) exitWith {};
 
+// EH 
+_canOpen = ["gps_menu_opening",[EH_MENU_NAME],true] call misc_fnc_callScriptedEventHandlerReturn;
+if (!_canOpen) exitWith {};
+
 createDialog "GPS_MENU_OPTIONS";
 _display = findDisplay 369854;
 
+[missionNameSpace,"gps_menu_opened",[EH_MENU_NAME,_display]] spawn BIS_fnc_callScriptedEventHandler;
+
 _lang_list = _display displayCtrl 2100;
 _lang_text =  _display displayCtrl 1001;
-
 _markers_text = _display displayCtrl 1000;
 _colors_list = _display displayCtrl 2101;
-
 _drop_data_btn = _display displayCtrl 1600;
-
 _save_path_text = _display displayCtrl 1002;
-
-_open_close_key_btn = _display displayCtrl 1601;
-_switch_key_btn = _display displayCtrl 1602;
-_exec_key_btn = _display displayCtrl 1603;
-
-_quick_header = _display displayCtrl 1014;
-
-_open_close_key_btn ctrlSetText (["STR_MENU_QUICKNAV_CLOSE_KEY"] call misc_fnc_localize);
-_switch_key_btn ctrlSetText (["STR_MENU_QUICKNAV_SWITCH_KEY"] call misc_fnc_localize);
-_exec_key_btn ctrlSetText (["STR_MENU_QUICKNAV_EXEC_KEY"] call misc_fnc_localize); 
-_quick_header ctrlSetText (["STR_MENU_QUICKNAV_HEADER"] call misc_fnc_localize);
+_colors_pick = _display displayCtrl 1601;
 
 _drop_data_btn ctrlSetText (["STR_MENU_DROP_DATA"] call misc_fnc_localize);
 _markers_text ctrlSetText (["STR_MENU_OPTIONS_MARKERS"] call misc_fnc_localize);
@@ -49,47 +43,12 @@ _lang = ["lang"] call misc_fnc_getSetting;
 	};
 }foreach (configProperties [(missionConfigFile >> "GPS_localization" >> "STR_LANGUAGES")]);
 
-{	
-	_index = _colors_list lbAdd (_x select 0);
-	_colors_list lbSetData [_index,_x select 1];
-	_colors_list lbSetPicture [_index,((_x select 2) call bis_fnc_colorRGBAToTexture)];
-
-	if(_color == _x select 1) then {
-		_colors_list lbSetCurSel _forEachIndex;
-	};
-}forEach [["","colorRed",[1,0,0,1]],["","colorYellow",[1,1,0,1]],["","colorBlue",[0,0,1,1]],["","ColorWhite",[1,1,1,1]],["","ColorGreen",[0,1,0,1]]];
-
-_open_close_key_btn ctrlAddEventHandler ["ButtonClick",{
-	_this spawn {
-		disableSerialization;
-		params ["_ctrl"];
-		_key = [ctrlParent _ctrl,["quicknav_open_key"] call misc_fnc_getSetting] call misc_fnc_keyChoose;
-		if (_key isEqualTo -1) exitWith {};
-		["quicknav_open_key",_key] call misc_fnc_setSetting;
-		_ctrl ctrlSetTooltip keyName (["quicknav_open_key"] call misc_fnc_getSetting);
-	};
-}];
-_switch_key_btn ctrlAddEventHandler ["ButtonClick",{
-	_this spawn {
-		disableSerialization;
-		params ["_ctrl"];
-		_key = [ctrlParent _ctrl,["quicknav_switch_key"] call misc_fnc_getSetting] call misc_fnc_keyChoose;
-		if (_key isEqualTo -1) exitWith {};
-		["quicknav_switch_key",_key] call misc_fnc_setSetting;
-		_ctrl ctrlSetTooltip keyName (["quicknav_switch_key"] call misc_fnc_getSetting);
-	};
-}];
-_exec_key_btn ctrlAddEventHandler ["ButtonClick",{
-	_this spawn {
-		disableSerialization;
-		params ["_ctrl"];
-		_key = [ctrlParent _ctrl,["quicknav_execute_key"] call misc_fnc_getSetting] call misc_fnc_keyChoose;
-		if (_key isEqualTo -1) exitWith {};
-		["quicknav_execute_key",_key] call misc_fnc_setSetting;
-		_ctrl ctrlSetTooltip keyName (["quicknav_execute_key"] call misc_fnc_getSetting);
-	};
-}];
-
+_currentColor = ["marker_color"] call misc_fnc_getSetting;
+_colors_pick ctrlSetBackgroundColor _currentColor;
+_colors_pick ctrlSetBackgroundColor _currentColor;
+_colors_pick ctrlSetTooltipColorBox _currentColor;
+_colors_pick ctrlSetTooltipColorText _currentColor;
+_colors_pick ctrlSetTooltip (_currentColor call bis_fnc_colorRGBATOHTML);
 
 _drop_data_btn ctrlAddEventHandler ["ButtonClick",{ //reset some things , i don't know why this exists
 	[] spawn {
@@ -103,13 +62,19 @@ _drop_data_btn ctrlAddEventHandler ["ButtonClick",{ //reset some things , i don'
 	};
 }]; 
 
-_colors_list ctrlAddEventHandler ["LBSelChanged",{
-	params ["_control","_index"];
+_colors_pick ctrlAddEventHandler ["ButtonClick",{
+	_this spawn {
+		disableSerialization;
+		params ["_control","_index"];
 
-	_type = _control lbData _index;
-
-	["marker_color",_type] call misc_fnc_setSetting;
-	{_x setMarkerColorLocal	_type}foreach gps_local_markers;
+		_color = [ctrlParent _control,["marker_color"] call misc_fnc_getSetting] call misc_fnc_colorPicker;
+		if (_color isEqualTo []) exitWith {};
+		["marker_color",_color] call misc_fnc_setSetting;
+		_control ctrlSetBackgroundColor _color;
+		_control ctrlSetTooltipColorBox _color;
+		_control ctrlSetTooltipColorText _color;
+		_control ctrlSetTooltip (_color call bis_fnc_colorRGBATOHTML);
+	};
 }];
 
 _lang_list ctrlAddEventHandler ["LBSelChanged",{
@@ -122,7 +87,3 @@ _lang_list ctrlAddEventHandler ["LBSelChanged",{
 	(findDisplay 369852) closeDisplay 0;
 	[] spawn gps_menu_fnc_loadGPSMenu;
 }];
-
-_open_close_key_btn ctrlSetTooltip keyName (["quicknav_open_key"] call misc_fnc_getSetting);
-_switch_key_btn ctrlSetTooltip keyName (["quicknav_switch_key"] call misc_fnc_getSetting);
-_exec_key_btn ctrlSetTooltip keyName (["quicknav_execute_key"] call misc_fnc_getSetting);

@@ -222,7 +222,7 @@
 	    class LineMarker
 	    {
 	        lineDistanceMin = 3e-005;
-	        lineLengthMin = 5;
+	        lineLengthMin = 0.1;
 	        lineWidthThick = 0.1;
 	        lineWidthThin = 0.1;
 	        textureComboBoxColor = "#(argb,8,8,3)color(1,1,1,1)";
@@ -397,12 +397,12 @@
 		};
 		class Fuelstation
 		{
-			color[] = {0,1,0,1};
+			color[] = {1,1,1,1};
 			icon = "\A3\ui_f\data\map\mapcontrol\fuelstation_CA.paa";
-			size = 32;
-			importance = 2;
-			coefMin = 1;
-			coefMax = 1.2;
+			size = 24;
+			importance = 0.85;
+			coefMin = 0.85;
+			coefMax = 1;
 		};
 		class Hospital
 		{

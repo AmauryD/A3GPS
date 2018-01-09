@@ -60,9 +60,6 @@ gps_menu_fnc_loadHud = [_hudFolder,"fn_loadHud"] call gps_fnc_compile;
 gps_menu_fnc_openHud = [_hudFolder,"fn_openHud"] call gps_fnc_compile;
 gps_menu_fnc_closeHud = [_hudFolder,"fn_closeHud"] call gps_fnc_compile;
 gps_menu_fnc_drawPath = [_hudFolder,"fn_drawPath"] call gps_fnc_compile;
-gps_menu_fnc_HudZoomOnPos = [_hudFolder,"fn_hudZoomOnPos"] call gps_fnc_compile;
-gps_menu_fnc_HudHideZoomOnPos = [_hudFolder,"fn_HudHideZoomOnPos"] call gps_fnc_compile;
-
 
 //main menu
 _gpsMenuFolder = "menu\gps";
@@ -70,6 +67,7 @@ gps_menu_fnc_gpsHelp = [_gpsMenuFolder,"fn_gpsHelp"] call gps_fnc_compile;
 gps_menu_fnc_loadGPSMenu =  [_gpsMenuFolder,"fn_loadGPSMenu"] call gps_fnc_compile;
 gps_menu_fnc_loadNavMenu =  [_gpsMenuFolder,"fn_loadNavMenu"] call gps_fnc_compile;
 gps_menu_fnc_loadOptionsMenu =  [_gpsMenuFolder,"fn_loadOptionsMenu"] call gps_fnc_compile;
+gps_menu_fnc_loadControlsMenu =  [_gpsMenuFolder,"fn_loadControlsMenu"] call gps_fnc_compile;
 
 //quicknav
 _quickNavFolder = "menu\quicknav";
@@ -113,8 +111,12 @@ misc_fnc_hashTable_create = [_hashTableDir,"fn_create"] call gps_fnc_compile;
 misc_fnc_hashTable_exists = [_hashTableDir,"fn_exists"] call gps_fnc_compile;
 
 misc_fnc_keyChoose = ["misc\KeyChoice","fn_chooseKey"] call gps_fnc_compile;
+misc_fnc_colorPicker = ["misc\ColorPicker","fn_colorPick"] call gps_fnc_compile;
+
+misc_fnc_callScriptedEventHandlerReturn = ["misc","fn_callScriptedEventHandlerReturn"] call gps_fnc_compile;
 
 ["Compiling functions done"] call gps_fnc_log;
+[missionNameSpace,"gps_functions_compiled",[]] spawn BIS_fnc_callScriptedEventHandler;
 
 [] call gps_fnc_refreshCache;
 
@@ -129,35 +131,33 @@ waitUntil {!isNull player};
 	//uiSleep 2;
 #endif
 
-_handle = [] spawn gps_fnc_mapRoutes; 
-
-waitUntil {	//wait for the virtual mapping to be done
-   scriptDone _handle
-};
+[] spawn gps_fnc_mapRoutes; 
 
 waitUntil {
   !isNull ((findDisplay 12) displayCtrl 51)
 };
 ((findDisplay 12) displayCtrl 51) ctrlAddEventHandler ["Draw",gps_menu_fnc_drawPath];
 
-[
-	["STR_QUICKNAV_OPTION_STATION"] call misc_fnc_localize,
-	{
-		[
-			[nearestObjects [player,["Land_fs_feed_F"],3000],player] call bis_fnc_nearestPosition
-		] spawn gps_fnc_main;
-	}
-] call gps_menu_fnc_addQuickNavOption;
+[missionNamespace,"gps_loaded",{
+	[
+		["STR_QUICKNAV_OPTION_STATION"] call misc_fnc_localize,
+		{
+			[
+				[nearestObjects [player,["Land_fs_feed_F"],3000],player] call bis_fnc_nearestPosition
+			] spawn gps_fnc_main;
+		}
+	] call gps_menu_fnc_addQuickNavOption;
 
-[
-	["STR_QUICKNAV_OPTION_TOWN"] call misc_fnc_localize,
-	{
-		[
-			[getPosATL player,4000,["NameCity","NameVillage","NameCityCapital","NameLocal"]] call misc_fnc_nearestLocation
-		] spawn gps_fnc_main;
-	}
-] call gps_menu_fnc_addQuickNavOption;
+	[
+		["STR_QUICKNAV_OPTION_TOWN"] call misc_fnc_localize,
+		{
+			[
+				[getPosATL player,4000,["NameCity","NameVillage","NameCityCapital","NameLocal"]] call misc_fnc_nearestLocation
+			] spawn gps_fnc_main;
+		}
+	] call gps_menu_fnc_addQuickNavOption;
 
-if((["default_keyHandling_enable"] call gps_fnc_getConfigSetting) == 1) then {
-	(findDisplay 46) displayAddEventHandler ["KeyDown",gps_menu_fnc_handleQuickNavActions];
-};
+	if((["default_keyHandling_enable"] call gps_fnc_getConfigSetting) == 1) then {
+		(findDisplay 46) displayAddEventHandler ["KeyDown",gps_menu_fnc_handleQuickNavActions];
+	};
+}] call bis_fnc_addScriptedEventHandler;

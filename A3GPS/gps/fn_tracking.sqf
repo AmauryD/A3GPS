@@ -10,6 +10,12 @@ private _path = +(_this select 0); // copy path
 private _fullPath = +(_this select 1); // copy fullPath
 private _goal = _this select 2;
 
+// this is temp
+_path = [_path apply {getPosATL _x}] call gps_fnc_RDP;
+_path = _path arrayIntersect _path;
+_path = _path apply {[_x,1] call bis_fnc_nearestRoad};
+_path deleteAt 0; // delete first node , she's useless
+
 private _fn_findNextNode = {
 	params ["_path","_fullPath"];
 
@@ -66,10 +72,11 @@ try {
 			_next_node_previous = if (_next_node_index_fullPath < 2) then {_fullPath select 0}else{_fullPath select (_next_node_index_fullPath - 2)};
 			_next_node_next = _fullPath select (_next_node_index_fullPath + 2);
 
-			_vector_1 = [getPosASL _next_node,getPosASL _next_node_previous] call bis_fnc_vectorFromXToY; 
-			_vector_2 = [getPosASL _next_node,getPosASL _next_node_next] call bis_fnc_vectorFromXToY; 
+			_vector_1 = getPosASL _next_node vectorFromTo getPosASL _next_node_previous; 
+			_vector_2 = getPosASL _next_node vectorFromTo getPosASL _next_node_next; 
 
-			_dir = [[_vector_2,_vector_1] call _fn_vectorAngle] call _fn_correctAngle;
+			_angle = [_vector_2,_vector_1] call _fn_vectorAngle;
+			_dir = [_angle] call _fn_correctAngle;
 
 			#ifdef GPS_DEV
 				deleteMarker "a";
@@ -80,22 +87,18 @@ try {
 				["c",getPos _next_node,str _dir,nil,"ColorBlue"] call misc_fnc_createMarker;
 			#endif
 
-			if (_dir >= 140 && _dir <= 220) exitWith {
-				_path deleteAt (_path find _next_node);
-			};
-
 			_infos = switch (true) do
 			{	
-				case (_dir >= 220):  {
+				case (_dir >= 180):  {
 					[
 						["STR_ROAD_TURN_RIGHT"] call misc_fnc_localize,
 						["icons\direction_fork_right.paa"] call gps_fnc_composeFilePath
 					]
 				};
-				case (_dir >= 140): { 
+				case (_dir <= 180): { 
 					[
-						["STR_ROAD_CONTINUE"] call misc_fnc_localize,
-						["icons\direction_continue.paa"] call gps_fnc_composeFilePath
+						["STR_ROAD_TURN_LEFT"] call misc_fnc_localize,
+						["icons\direction_fork_left.paa"] call gps_fnc_composeFilePath
 					]
 				};
 				default {

@@ -5,15 +5,22 @@
 	@Modified : 4/02/17
 	@Description : the GPS menu init , difficult to read but i really don't like making menus
 **/
+#define EH_MENU_NAME "menu_main"
 
 disableSerialization;
 
 if(!isNull findDisplay 369852) exitWith {};
 
+// EH 
+_canOpen = ["gps_menu_opening",[EH_MENU_NAME],true] call misc_fnc_callScriptedEventHandlerReturn;
+if (!_canOpen) exitWith {};
+
 [] call gps_fnc_refreshCache;
 
 createDialog "GPS_MENU";
 _display = findDisplay 369852;
+
+[missionNameSpace,"gps_menu_opened",[EH_MENU_NAME,_display]] spawn BIS_fnc_callScriptedEventHandler;
 
 _nav_btn = _display displayCtrl 2400;
 _option_btn = _display displayCtrl 2401;
@@ -21,6 +28,7 @@ _help_btn = _display displayCtrl 2402;
 _quit_btn = _display displayCtrl 2403;
 _kill_btn = _display displayCtrl 2404;
 _save_btn = _display displayCtrl 2405;
+_controls_btn = _display displayCtrl 2406;
 
 if !(gps_init_done) then {
 	_nav_btn ctrlEnable false;
@@ -52,6 +60,7 @@ _help_btn ctrlSetTooltip (["STR_MENU_TT_HELP"] call misc_fnc_localize);
 _option_btn ctrlSetTooltip (["STR_MENU_TT_OPTIONS"] call misc_fnc_localize);
 _quit_btn ctrlSetTooltip (["STR_MENU_TT_QUIT"] call misc_fnc_localize);
 
+_controls_btn ctrlAddEventHandler ["ButtonClick",gps_menu_fnc_loadControlsMenu];
 _nav_btn ctrlAddEventHandler ["ButtonClick",gps_menu_fnc_loadNavMenu];
 _help_btn ctrlAddEventHandler ["ButtonClick",gps_menu_fnc_GPSHelp];
 _option_btn ctrlAddEventHandler ["ButtonClick",gps_menu_fnc_loadOptionsMenu];

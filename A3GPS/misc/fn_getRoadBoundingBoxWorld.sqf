@@ -37,7 +37,6 @@ _bbw = _fullbb apply {
 	_road modelToWorld ([_x,-_direction] call BIS_fnc_rotateVector2D)
 };
 
+//{[nil,_x] call misc_fnc_createMarker}foreach ([roadAt player] call misc_fnc_getRoadBoundingBoxWorld);
+
 _bbw
-
-
-// {[nil,_x] call misc_fnc_createMarker}foreach ([roadAt player] call misc_fnc_getRoadBoundingBoxWorld);

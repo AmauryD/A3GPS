@@ -32,7 +32,7 @@ _map ctrlAddEventHandler ["Draw",{
         24,
         0
 	];
-	_map ctrlMapAnimAdd [0,(0.04 max (_speed / 1000)) min 0.1,visiblePosition _vehPlayer];
+	_map ctrlMapAnimAdd [0,(0.06 max (_speed / 1000)) min 0.1,visiblePosition _vehPlayer];
 	ctrlMapAnimCommit _map;
 }];
 

@@ -12,22 +12,27 @@ params [
 ];
 
 _color = ["marker_color"] call misc_fnc_getSetting;
-_colorRGBA = getArray (configFile >> "CfgMarkerColors" >> _color >> "color");
-_scale = ((4 * 0.15) * 10^(abs log (ctrlMapScale _ctrl))) max 5; // from Waffle SS. (https://community.bistudio.com/wiki/drawIcon)
+_colorTexture = _color call bis_fnc_colorRGBATOTexture;
 _dir = getDir player;
 
 _toDraw = (missionNamespace getVariable ["gps_draw_points",[]]) select [0,_maxDraw];
 
+private _fn_midPoint = {
+	params ["_a","_b"];
+	[((_a select 0) + (_b select 0)) / 2,((_a select 1) + (_b select 1)) / 2,0]
+};
+
 {
+	_previous = _toDraw param [_forEachIndex - 1,_toDraw select _forEachIndex];
 	_next = _toDraw select (_forEachIndex + 1);
 	if (isNil "_next") exitWith {
 		_ctrl drawIcon 
 		[
 			'\A3\ui_f\data\Map\Markers\Military\flag_CA.paa',
-			_colorRGBA,
+			_color,
 			_x,
-			_scale * 1.5,
-			_scale * 1.5,
+			0.5 / ctrlMapScale _ctrl,
+			0.5 / ctrlMapScale _ctrl,
 			0,
 			'',
 			1,
@@ -36,18 +41,22 @@ _toDraw = (missionNamespace getVariable ["gps_draw_points",[]]) select [0,_maxDr
 			'right'
 		];
 	};
-	_ctrl drawIcon 
+	_ctrl drawRectangle 
 	[
-		'\A3\ui_f\data\Map\Markers\Military\arrow_CA.paa',
-		_colorRGBA,
-		_x,
-		_scale,
-		_scale,
+		[_previous,_x] call _fn_midPoint,
+		4,
+		(_previous distance _x) / 1.75,
+		[_previous getDir _x,(_previous getDir _x) - _dir] select _isRelativeToPlayer,
+		_color,
+		_colorTexture
+	];
+	_ctrl drawRectangle 
+	[
+		[_x,_next] call _fn_midPoint,
+		4,
+		(_next distance _x) / 1.75,
 		[_x getDir _next,(_x getDir _next) - _dir] select _isRelativeToPlayer,
-		'',
-		1,
-		0.03,
-		'TahomaB',
-		'right'
+		_color,
+		_colorTexture
 	];
 }foreach _toDraw;

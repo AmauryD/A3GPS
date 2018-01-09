@@ -5,13 +5,21 @@
 	@Modified : 4/02/17
 	@Description : the GPS menu init , difficult to read but i really don't like making menus
 **/
+#define EH_MENU_NAME "menu_nav"
 
 disableSerialization;
 
 if(!isNull findDisplay 369853) exitWith {};
 
+// EH 
+_canOpen = ["gps_menu_opening",[EH_MENU_NAME],true] call misc_fnc_callScriptedEventHandlerReturn;
+if (!_canOpen) exitWith {};
+
 createDialog "GPS_MENU_MAP";
 _display = findDisplay 369853;
+
+[missionNameSpace,"gps_menu_opened",[EH_MENU_NAME,_display]] spawn BIS_fnc_callScriptedEventHandler;
+
 _map = _display displayCtrl 2201;
 _saved_list = _display displayCtrl 1500;
 _saved_exec = _display displayCtrl 1600;

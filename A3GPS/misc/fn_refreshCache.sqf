@@ -7,50 +7,54 @@
 **/
 
 
-if(isNil {profileNamespace getVariable "gps_saved"}) then {  // to store path nodes position
+private _saved = profileNamespace getVariable "gps_saved";
+
+if(isNil "_saved") then {  // to store path nodes position
 	profileNameSpace setVariable ["gps_saved",[]];
 }else{
-	private _saved = profileNamespace getVariable "gps_saved";
 	if !(_saved isEqualType []) exitWith {
 		profileNameSpace setVariable ["gps_saved",[]];
 		systemChat "GPS : Corrupted data were erased";
 	};
 };
 
-private _saved = profileNamespace getVariable "gps_settings";
-
-if(isNil "_saved") then {
-	profileNameSpace setVariable ["gps_settings",
-	[
-		["lang",
-			["default_lang","en"] call gps_fnc_getConfigSetting
-		],
-		["marker_color",
-			["default_marker_color","ColorGreen"] call gps_fnc_getConfigSetting
-		],
-		["quicknav_open_key",
-			["default_quicknav_open_key",-1] call gps_fnc_getConfigSetting
-		],
-		["quicknav_switch_key",
-			["default_quicknav_switch_key",-1] call gps_fnc_getConfigSetting
-		],
-		["quicknav_execute_key",
-			["default_quicknav_execute_key",-1] call gps_fnc_getConfigSetting
-		]
-	]];
-}else{
-	{
-		_val = [_saved,_x] call bis_fnc_getFromPairs;
-		if (isNil "_val") then {
-			[_x,
-				["default_" + _x] call gps_fnc_getConfigSetting
-			] call misc_fnc_setSetting;
-		};
-	}foreach [
-		"lang",
-		"marker_color",
-		"quicknav_open_key",
-		"quicknav_switch_key",
-		"quicknav_execute_key"
-	];
+if (isNil {profileNamespace getVariable "gps_settings"}) then {
+	profileNamespace setVariable ["gps_settings",[]];
 };
+
+private _settings = profileNamespace getVariable "gps_settings";
+
+_lang = [_settings,"lang"] call bis_fnc_getFromPairs;
+_default = ["default_lang","en"] call gps_fnc_getConfigSetting;
+
+if (isNil "_lang") then {
+	[_settings,"lang",_default] call bis_fnc_setToPairs;
+}else{
+	if !(_lang isEqualType _default) then {
+		[_settings,"lang",_default] call bis_fnc_setToPairs;
+	};
+};
+
+_markersColors = [_settings,"marker_color"] call bis_fnc_getFromPairs;
+_default = ["default_marker_color",[0,0,0,0]] call gps_fnc_getConfigSetting;
+
+if (isNil "_markersColors") then {
+	[_settings,"marker_color",_default] call bis_fnc_setToPairs;
+}else{
+	if !(_markersColors isEqualType _default) then {
+		[_settings,"marker_color",_default] call bis_fnc_setToPairs;
+	};
+};
+
+{
+	_keyID = getNumber (_x >> "default");
+	_current = [_settings,configName _x,[]] call bis_fnc_getFromPairs;
+	if (_current isEqualTo []) then {
+		[_settings,configName _x,[_keyID]] call bis_fnc_setToPairs;
+	}else{
+		if !(_current isEqualType []) then {
+			[_settings,configName _x,[_keyID]] call bis_fnc_setToPairs;
+		};
+	};
+}foreach ("true" configClasses (missionConfigFile >> "CfgGPS" >> "Keys"));
+

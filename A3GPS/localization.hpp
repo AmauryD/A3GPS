@@ -44,6 +44,20 @@ class GPS_Localization {
 		en="Options menu";
 		fr="Menu des options";
 	};
+	//keys
+	class STR_quicknav_open_key {
+		en="Open/Close quicknav";
+		fr="Ouvrir/Fermer quicknav";
+	};
+	class STR_quicknav_switch_key {
+		en="Next quicknav tab";
+		fr="Prochain quicknav";
+	};
+	class STR_quicknav_execute_key {
+		en="Execute quicknav";
+		fr="Exécuter quicknav";
+	};
+	//end keys
 	class STR_MENU_TT_SAVE {
 		en="Save current path";
 		fr="Sauvegarder le trajet actuel";

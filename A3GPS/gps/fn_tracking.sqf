@@ -10,9 +10,7 @@ private _path = +(_this select 0); // copy path
 private _fullPath = +(_this select 1); // copy fullPath
 private _goal = _this select 2;
 
-// this is temp
 _path = [_path apply {getPosATL _x}] call gps_fnc_RDP;
-_path = _path arrayIntersect _path;
 _path = _path apply {[_x,1] call bis_fnc_nearestRoad};
 _path deleteAt 0; // delete first node , she's useless
 
@@ -87,15 +85,19 @@ try {
 				["c",getPos _next_node,str _dir,nil,"ColorBlue"] call misc_fnc_createMarker;
 			#endif
 
+			if (_dir >= 135 && _dir <= 225) exitWith {
+				_path deleteAt (_path find _next_node);
+			};
+
 			_infos = switch (true) do
 			{	
-				case (_dir >= 180):  {
+				case (_dir >= 225):  {
 					[
 						["STR_ROAD_TURN_RIGHT"] call misc_fnc_localize,
 						["icons\direction_fork_right.paa"] call gps_fnc_composeFilePath
 					]
 				};
-				case (_dir <= 180): { 
+				case (_dir <= 135): { 
 					[
 						["STR_ROAD_TURN_LEFT"] call misc_fnc_localize,
 						["icons\direction_fork_left.paa"] call gps_fnc_composeFilePath

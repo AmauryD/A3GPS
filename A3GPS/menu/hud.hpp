@@ -44,6 +44,8 @@ class gps_hud
 			colorMainCountlines[] = {0,0,0,0};
 			colorCountlinesWater[] = {0,0,0,0};
 			colorCountlines[] = {0,0,0,0};
+			scaleMin = 0.1;
+			scaleMax = 0.1;
 			class Tree
 			{
 				color[] =  {0,0,0,0};

@@ -16,8 +16,13 @@ _controls_list = _display displayCtrl 1500;
 _keys_list = _display displayCtrl 1501;
 _del_btn = _display displayCtrl 1600;
 _add_btn = _display displayCtrl 1601;
+_header = _display displayCtrl 1001;
 
 [missionNameSpace,"gps_menu_opened",[EH_MENU_NAME,_display]] spawn BIS_fnc_callScriptedEventHandler;
+
+_header ctrlSetText (["STR_MENU_CONTROLS_HEADER"] call misc_fnc_localize);
+_del_btn ctrlSetText (["STR_MENU_CONTROLS_DEL_KEY_BTN"] call misc_fnc_localize);
+_add_btn ctrlSetText (["STR_MENU_CONTROLS_ADD_KEY_BTN"] call misc_fnc_localize);
 
 {
 	_name = [getText (_x >> "name")] call misc_fnc_localize;

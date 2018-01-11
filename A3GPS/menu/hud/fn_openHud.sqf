@@ -32,8 +32,6 @@ _map ctrlAddEventHandler ["Draw",{
         24,
         0
 	];
-	_map ctrlMapAnimAdd [0,(0.06 max (_speed / 1000)) min 0.1,visiblePosition _vehPlayer];
-	ctrlMapAnimCommit _map;
 }];
 
 _map ctrlAddEventHandler ["Draw",{[_this select 0,true,100] call gps_menu_fnc_drawPath}];

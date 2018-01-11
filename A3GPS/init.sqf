@@ -131,13 +131,6 @@ waitUntil {!isNull player};
 	//uiSleep 2;
 #endif
 
-[] spawn gps_fnc_mapRoutes; 
-
-waitUntil {
-  !isNull ((findDisplay 12) displayCtrl 51)
-};
-((findDisplay 12) displayCtrl 51) ctrlAddEventHandler ["Draw",gps_menu_fnc_drawPath];
-
 [missionNamespace,"gps_loaded",{
 	[
 		["STR_QUICKNAV_OPTION_STATION"] call misc_fnc_localize,
@@ -157,7 +150,15 @@ waitUntil {
 		}
 	] call gps_menu_fnc_addQuickNavOption;
 
-	if((["default_keyHandling_enable"] call gps_fnc_getConfigSetting) == 1) then {
-		(findDisplay 46) displayAddEventHandler ["KeyDown",gps_menu_fnc_handleQuickNavActions];
-	};
+	(findDisplay 46) displayAddEventHandler ["KeyDown",gps_menu_fnc_handleQuickNavActions];
 }] call bis_fnc_addScriptedEventHandler;
+
+[] call gps_fnc_mapRoutes; 
+
+/*
+Too much fps lost with big paths
+waitUntil {
+  !isNull ((findDisplay 12) displayCtrl 51)
+};
+((findDisplay 12) displayCtrl 51) ctrlAddEventHandler ["Draw",gps_menu_fnc_drawPath];
+*/ 

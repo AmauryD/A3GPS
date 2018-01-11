@@ -59,6 +59,7 @@ _nav_btn ctrlSetTooltip  (["STR_MENU_TT_NAV"] call misc_fnc_localize);
 _help_btn ctrlSetTooltip (["STR_MENU_TT_HELP"] call misc_fnc_localize);
 _option_btn ctrlSetTooltip (["STR_MENU_TT_OPTIONS"] call misc_fnc_localize);
 _quit_btn ctrlSetTooltip (["STR_MENU_TT_QUIT"] call misc_fnc_localize);
+_controls_btn ctrlSetTooltip (["STR_MENU_TT_CONTROLS"] call misc_fnc_localize);
 
 _controls_btn ctrlAddEventHandler ["ButtonClick",gps_menu_fnc_loadControlsMenu];
 _nav_btn ctrlAddEventHandler ["ButtonClick",gps_menu_fnc_loadNavMenu];

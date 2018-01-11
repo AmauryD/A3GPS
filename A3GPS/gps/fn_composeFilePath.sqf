@@ -2,9 +2,9 @@
   @Author : [Utopia] Amaury
   @Creation : 20/12/17
   @Modified : --
-  @Description : 
+  @Description : is this file usefull ?
 **/
 
 params ["_path"];
 
-format ["%1%2",gps_dir,_path];
+gps_dir + _path

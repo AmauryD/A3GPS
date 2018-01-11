@@ -228,7 +228,6 @@ class gps_menu_map {
 			y = 0.296 * safezoneH + safezoneY;
 			w = 0.119531 * safezoneW;
 			h = 0.238 * safezoneH;
-			sizeEx = 0.9 * GUI_GRID_H;
 		};
 		class exec_saved: A3GPS_RscButton
 		{

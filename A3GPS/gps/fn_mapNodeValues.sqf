@@ -21,7 +21,7 @@ private _crossRoad_isHighWay = [_crossRoad] call gps_fnc_isHighWay;
   private _previous = _crossRoad;
 
   // faster than while {true}
-  for "_i" from 0 to 1 step 0 do {
+  while {true} do {
     _connected = [_currRoad] call gps_fnc_roadsConnectedTo;
     _countConnected = count _connected;
     _segmentValue = _segmentValue + (_previous distance2D _currRoad);

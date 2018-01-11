@@ -175,7 +175,7 @@
 #define GUI_GRID_WAbs			((safezoneW / safezoneH) min 1.2)
 #define GUI_GRID_HAbs			(GUI_GRID_WAbs / 1.2)
 #define GUI_GRID_W			(GUI_GRID_WAbs / 40)
-#define GUI_GRID_H			(GUI_GRID_HAbs / 25)
+#define GUI_GRID_H			((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)
 #define GUI_GRID_X			(safezoneX)
 #define GUI_GRID_Y			(safezoneY + safezoneH - GUI_GRID_HAbs)
 
@@ -222,8 +222,8 @@
 	    class LineMarker
 	    {
 	        lineDistanceMin = 3e-005;
-	        lineLengthMin = 0.1;
-	        lineWidthThick = 0.1;
+	        lineLengthMin = 0;
+	        lineWidthThick = 0;
 	        lineWidthThin = 0.1;
 	        textureComboBoxColor = "#(argb,8,8,3)color(1,1,1,1)";
 	    };

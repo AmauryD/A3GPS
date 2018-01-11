@@ -11,11 +11,9 @@ scriptName "gps_virtual_mapping";
 _start = diag_tickTime;
 [format [["STR_LOG_VMAP_INIT_START"] call misc_fnc_localize]] call gps_fnc_log;
 
-gps_data_map_center = [worldSize / 2,worldSize / 2,0];
-
 ["getting roads ..."] call gps_fnc_log;
 gps_allRoads = [] call gps_fnc_getAllRoads;
-["done"] call gps_fnc_log;
+["done in " + str round (diag_tickTime - _start)] call gps_fnc_log;
 
 private _gps_allRoadsWithInter = [];
 private _gps_allCrossRoads = [];
@@ -51,15 +49,20 @@ _gps_allRoadsWithInter = gps_allRoads apply { //FINALLY FIXED THIS
   [_road,_connected]
 };
 
-["done"] call gps_fnc_log;
+["done in " + str round (diag_tickTime - _start)] call gps_fnc_log;
 ["mapping node values ..."] call gps_fnc_log;
+
+// FSM call (unscheduled) should speed up a little the thing , no frames were lost on my side
+_fsmPath = gps_dir + "call.fsm";
 
 {
   _connected = [gps_roadsWithConnected,str (_x select 0)] call misc_fnc_hashTable_find;
   if (count _connected > 2) then {
-    _x call gps_fnc_mapNodeValues;
+    [_x,gps_fnc_mapNodeValues] execFSM _fsmPath;
+    uiSleep 0.01;
   };
-}foreach _gps_allRoadsWithInter;
+  true
+}count _gps_allRoadsWithInter;
 
 
 [format["Loaded : %1 roads",count gps_allRoads]] call gps_fnc_log;

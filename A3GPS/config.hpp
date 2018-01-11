@@ -20,8 +20,6 @@ class CfgGPS {
 
 	//quicknav
 	// see https://community.bistudio.com/wiki/DIK_KeyCodes for the keys number
-	default_keyHandling_enable = true; //usefull when you want to implement in your own keyHandling file
-
 	class Keys {
 		class quicknav_open_key {
 			default = 15;

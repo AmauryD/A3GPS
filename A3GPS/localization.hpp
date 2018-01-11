@@ -46,25 +46,30 @@ class GPS_Localization {
 	};
 	//keys
 	class STR_quicknav_open_key {
-		en="Open/Close quicknav";
-		fr="Ouvrir/Fermer quicknav";
+		en="Open/Close nav. rapide";
+		fr="Ouvrir/Fermer nav. rapide";
 	};
 	class STR_quicknav_switch_key {
 		en="Next quicknav tab";
-		fr="Prochain quicknav";
+		fr="Prochain nav. rapide";
 	};
 	class STR_quicknav_execute_key {
 		en="Execute quicknav";
-		fr="Exécuter quicknav";
+		fr="Exécuter nav. rapide";
 	};
 	//end keys
+
+	class STR_MENU_KEY_CHOICE {
+		en="Choose a key";
+		fr="Choisissez une touche";
+	};
 	class STR_MENU_TT_SAVE {
 		en="Save current path";
 		fr="Sauvegarder le trajet actuel";
 	};
-	class STR_MENU_KEY_CHOICE {
-		en="Choose a key";
-		fr="Choisissez une touche";
+	class STR_MENU_TT_CONTROLS {
+		en="Keybinding";
+		fr="Touches";
 	};
 	class STR_MENU_TT_QUIT {
 		en="Close window.";
@@ -214,6 +219,18 @@ class GPS_Localization {
 		en = "Quicknav keys";
 		fr = "Touches nav. rapide";
 	};
+	class STR_MENU_CONTROLS_HEADER {
+		en = "Controls";
+		fr = "Contrôles";
+	};
+	class STR_MENU_CONTROLS_ADD_KEY_BTN {
+		en = "Add key";
+		fr = "Ajouter une touche";
+	};
+	class STR_MENU_CONTROLS_DEL_KEY_BTN {
+		en = "Delete key";
+		fr = "Supprimer une touche";
+	};
 	class STR_QUICKNAV_OPTION_STATION {
 		en = "< Service station >";
 		fr = "< Station service >";
@@ -231,8 +248,8 @@ class GPS_Localization {
 		fr = "Vous êtes arrivé à destination , merci d'avoir utilisé A3GPS™";
 	};
 	class STR_MENU_INFO {
-		en = "<t align='center' size='1.5'>GPS version %1</t><br/>by <t align='center' underline='true'> [utopia]Amaury . </t>";
-		fr = "<t align='center' size='1.5'>GPS version %1</t><br/>par <t align='center' underline='true'> [utopia]Amaury . </t>";
+		en = "<t align='center' size='1.5'>GPS version %1</t><br/>by <t align='center' underline='true'> AmauryD .</t><br/><t>This project is open-source and available on GitHub.</t><br/><t>To navigate , open the navigation menu and shift-click on the map.</t>";
+		fr = "<t align='center' size='1.5'>GPS version %1</t><br/>par <t align='center' underline='true'> AmauryD .</t><br/><t>Ce projet est open-source et disponible sur GitHub.</t><br/><t>Pour naviguer , ouvrez le menu de navigation et shif-click sur la carte.</t>";
 	};
 	class STR_MENU_CONFIRM_DROP_DATA_CONTENT {
 		en = "Are you sure ? This will erase all your saved data and settings";

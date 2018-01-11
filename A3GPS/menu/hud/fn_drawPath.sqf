@@ -31,8 +31,8 @@ private _fn_midPoint = {
 			'\A3\ui_f\data\Map\Markers\Military\flag_CA.paa',
 			_color,
 			_x,
-			0.5 / ctrlMapScale _ctrl,
-			0.5 / ctrlMapScale _ctrl,
+			32,
+			32,
 			0,
 			'',
 			1,
@@ -44,7 +44,7 @@ private _fn_midPoint = {
 	_ctrl drawRectangle 
 	[
 		[_previous,_x] call _fn_midPoint,
-		4,
+		4.5,
 		(_previous distance _x) / 1.75,
 		[_previous getDir _x,(_previous getDir _x) - _dir] select _isRelativeToPlayer,
 		_color,
@@ -53,7 +53,7 @@ private _fn_midPoint = {
 	_ctrl drawRectangle 
 	[
 		[_x,_next] call _fn_midPoint,
-		4,
+		4.5,
 		(_next distance _x) / 1.75,
 		[_x getDir _next,(_x getDir _next) - _dir] select _isRelativeToPlayer,
 		_color,

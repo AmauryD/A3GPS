@@ -34,4 +34,4 @@ _map ctrlAddEventHandler ["Draw",{
 	];
 }];
 
-_map ctrlAddEventHandler ["Draw",{[_this select 0,true,100] call gps_menu_fnc_drawPath}];
+_map ctrlAddEventHandler ["Draw",{[_this select 0,true] call gps_menu_fnc_drawPath}];

@@ -136,7 +136,7 @@ waitUntil {!isNull player};
 		["STR_QUICKNAV_OPTION_STATION"] call misc_fnc_localize,
 		{
 			[
-				[nearestObjects [player,["Land_fs_feed_F"],3000],player] call bis_fnc_nearestPosition
+				[nearestTerrainObjects [player,["FUELSTATION"],3000],player] call bis_fnc_nearestPosition
 			] spawn gps_fnc_main;
 		}
 	] call gps_menu_fnc_addQuickNavOption;
@@ -151,14 +151,7 @@ waitUntil {!isNull player};
 	] call gps_menu_fnc_addQuickNavOption;
 
 	(findDisplay 46) displayAddEventHandler ["KeyDown",gps_menu_fnc_handleQuickNavActions];
+	((findDisplay 12) displayCtrl 51) ctrlAddEventHandler ["Draw",gps_menu_fnc_drawPath];
 }] call bis_fnc_addScriptedEventHandler;
 
 [] call gps_fnc_mapRoutes; 
-
-/*
-Too much fps lost with big paths
-waitUntil {
-  !isNull ((findDisplay 12) displayCtrl 51)
-};
-((findDisplay 12) displayCtrl 51) ctrlAddEventHandler ["Draw",gps_menu_fnc_drawPath];
-*/ 

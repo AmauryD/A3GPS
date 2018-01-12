@@ -25,6 +25,7 @@ _saved_list = _display displayCtrl 1500;
 _saved_exec = _display displayCtrl 1600;
 _saved_delete = _display displayCtrl 1601;
 
+_map setVariable ["gps_path_points",[]];
 
 _saved_delete ctrlSetText (["STR_MENU_DELETE_SAVED_PATH"] call misc_fnc_localize);
 _saved_exec ctrlSetText (["STR_MENU_LOAD_SAVED_PATH"] call misc_fnc_localize);
@@ -109,12 +110,16 @@ _map ctrlAddEventHandler ["Draw",{
 _map ctrlAddEventHandler ["Draw",gps_menu_fnc_drawPath];
 
 _map ctrlAddEventHandler ["MouseButtonClick",{
-	params ["_control","_btn","_xCoord","_yCoord","_shift"];
+	params ["_control","_btn","_xCoord","_yCoord","_shift","_ctrl","_alt"];
 
 	_pos = _control ctrlMapScreenToWorld [_xCoord, _yCoord];
 
-	if(_shift) then {
-		[_pos] spawn gps_fnc_main;
+	if (_ctrl || _shift) then {
+		(_control getVariable "gps_path_points") pushBackUnique _pos;
+		if(_shift) then {
+			[_control getVariable "gps_path_points"] spawn gps_fnc_main;
+			_control setVariable ["gps_path_points",[]];
+		};
 	};
 }];
 

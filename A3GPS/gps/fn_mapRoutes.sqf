@@ -25,9 +25,9 @@ gps_roadsWithConnected =  ["gps_roadsWithConnected"] call misc_fnc_hashTable_cre
 
 _gps_allRoadsWithInter = gps_allRoads apply { //FINALLY FIXED THIS 
   private _road = _x;
+  private _near = getPosATL _road nearRoads 14;
   private _connected = roadsConnectedTo _road;
 
-  private _near = getPosATL _road nearRoads 15;
   {
      if(count (roadsConnectedTo _x) == 1) then {
         _rID = str _x;
@@ -39,9 +39,8 @@ _gps_allRoadsWithInter = gps_allRoads apply { //FINALLY FIXED THIS
         };
      };
   }foreach ((_near - _connected) - [_road]);
-
+  
   _currentConnected = [gps_roadsWithConnected,str _road] call misc_fnc_hashTable_find;
-
   if(isNil "_currentConnected") then {
       [gps_roadsWithConnected,str _road,_connected] call misc_fnc_hashTable_set;
   }else{

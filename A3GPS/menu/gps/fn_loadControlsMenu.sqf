@@ -1,4 +1,11 @@
+#include "..\..\macros.h"
 #define EH_MENU_NAME "menu_controls"
+/**
+	@Author : [Utopia] Amaury
+	@Creation : --
+	@Modified : --
+	@Description : --
+**/
 
 disableSerialization;
 
@@ -20,12 +27,12 @@ _header = _display displayCtrl 1001;
 
 [missionNameSpace,"gps_menu_opened",[EH_MENU_NAME,_display]] spawn BIS_fnc_callScriptedEventHandler;
 
-_header ctrlSetText (["STR_MENU_CONTROLS_HEADER"] call misc_fnc_localize);
-_del_btn ctrlSetText (["STR_MENU_CONTROLS_DEL_KEY_BTN"] call misc_fnc_localize);
-_add_btn ctrlSetText (["STR_MENU_CONTROLS_ADD_KEY_BTN"] call misc_fnc_localize);
+_header ctrlSetText (["STR_MENU_CONTROLS_HEADER"] call gps_fnc_localize);
+_del_btn ctrlSetText (["STR_MENU_CONTROLS_DEL_KEY_BTN"] call gps_fnc_localize);
+_add_btn ctrlSetText (["STR_MENU_CONTROLS_ADD_KEY_BTN"] call gps_fnc_localize);
 
 {
-	_name = [getText (_x >> "name")] call misc_fnc_localize;
+	_name = [getText (_x >> "name")] call gps_fnc_localize;
 	_idx = _controls_list lbAdd _name;
 	_controls_list lbSetData [_idx,configName _x];
 }foreach ("true" configClasses (missionConfigFile >> "CfgGPS" >> "Keys"));
@@ -33,7 +40,7 @@ _add_btn ctrlSetText (["STR_MENU_CONTROLS_ADD_KEY_BTN"] call misc_fnc_localize);
 // seems weird but it's fine
 _display setVariable ["refresh_key_list",{
 	params ["_list","_class"];
-	_allKeys = [_class,[]] call misc_fnc_getSetting;
+	_allKeys = [_class,[]] call gps_fnc_getSetting;
 
 	lbClear _list;
 	{

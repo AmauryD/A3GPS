@@ -1,10 +1,10 @@
 #include "..\macros.h"
 /**
-	@Author : [Utopia] Amaury
-	@Creation : 1/02/17
-	@Modified : 23/10/17
-	@Description : 
-  TODO : Need to improve this file
+  @Author : [Utopia] Amaury
+  @Creation : 1/02/17
+  @Modified : 23/10/17
+  @Description :
+  @Return : ARRAY - linked crossroads with weight
 **/
 params [
    "_crossRoad",

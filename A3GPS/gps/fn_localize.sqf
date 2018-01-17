@@ -4,11 +4,11 @@
 	@Creation : ??
 	@Modified : 23/10/17
 	@Description : Localize from gps locale file
-		Return : String 
+	@Return : String 
 **/
 params [
 	["_key","",[""]],
-	["_lang",["lang"] call misc_fnc_getSetting,[""]]
+	["_lang",["lang"] call gps_fnc_getSetting,[""]]
 ];
 
 private _return = _key;

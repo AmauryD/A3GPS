@@ -4,7 +4,7 @@
 	@Creation : ??/11/17
 	@Modified : --
 	@Description : Check if points are overlapping in world space
-		Return : Boolean
+	@Return : BOOLEAN
 **/
 
 params [

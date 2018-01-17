@@ -3,7 +3,8 @@
   @Author : [Utopia] Amaury
   @Creation : 5/02/17
   @Modified : 27/12/17
-  @Description : functions to create the markers and the arrows on the map with a node path
+  @Description : functions to generate the full path from AStar node path
+  @Return : ARRAY - array of roads
 **/
 
 params [
@@ -43,7 +44,7 @@ private	_fullPath = [];
 	   	if (count _connected > 2) exitWith {};
 
 	   	_old = _currRoad;
-
+	   	
 	    {
 	      if !(_x isEqualTo _previous) exitWith {
 	        _previous = _currRoad;

@@ -3,20 +3,19 @@
   @Author : [Utopia] Amaury
   @Creation : 1/02/17
   @Modified : 22/10/17
-  @Description :trying to make a virtual map because arma road system ...
-  				this file has changed so much ...
+  @Description : generate the road graph and assign connections to roads.
+  @Return : Nothing
 **/
 scriptName "gps_virtual_mapping";
 
 _start = diag_tickTime;
-[format [["STR_LOG_VMAP_INIT_START"] call misc_fnc_localize]] call gps_fnc_log;
+[format [["STR_LOG_VMAP_INIT_START"] call gps_fnc_localize]] call gps_fnc_log;
 
 ["getting roads ..."] call gps_fnc_log;
 gps_allRoads = [] call gps_fnc_getAllRoads;
 ["done in " + str round (diag_tickTime - _start)] call gps_fnc_log;
 
 private _gps_allRoadsWithInter = [];
-private _gps_allCrossRoads = [];
 
 gps_allCrossRoadsWithWeight = ["gps_allCrossRoadsWithWeight"] call misc_fnc_hashTable_create;
 gps_roadsWithConnected =  ["gps_roadsWithConnected"] call misc_fnc_hashTable_create;
@@ -64,10 +63,7 @@ _fsmPath = gps_dir + "call.fsm";
   true
 }count _gps_allRoadsWithInter;
 
-
-[format["Loaded : %1 roads",count gps_allRoads]] call gps_fnc_log;
-
-[format [["STR_LOG_VMAP_INIT_DONE"] call misc_fnc_localize,round (diag_tickTime - _start)]] call gps_fnc_log;
+[format [["STR_LOG_VMAP_INIT_DONE"] call gps_fnc_localize,round (diag_tickTime - _start)]] call gps_fnc_log;
 
 gps_init_done = true;
 [missionNameSpace,"gps_loaded",[]] call BIS_fnc_callScriptedEventHandler;

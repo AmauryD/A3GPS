@@ -4,7 +4,7 @@
 	@Creation : ??/10/17
 	@Modified : --
 	@Description : get the road bounding box in position world
-		Return : Array 
+	@Return : Array - BoundingBox 4 positions (rectangle)
 **/
 
 params [
@@ -31,12 +31,8 @@ _fullbb = [
 	]
 ];
 
-_bbw = _fullbb apply {
+_fullbb apply {
 	_x set [0,(_x select 0) * _widthMultiplicator];
 	_x set [1,(_x select 1) * _lenghtMultiplicator];
 	_road modelToWorld ([_x,-_direction] call BIS_fnc_rotateVector2D)
 };
-
-//{[nil,_x] call misc_fnc_createMarker}foreach ([roadAt player] call misc_fnc_getRoadBoundingBoxWorld);
-
-_bbw

@@ -38,7 +38,7 @@ if !(gps_init_done) then {
 		private _count = 0;
 		while {!gps_init_done && !isNull _nav_btn} do {
 			_count = _count + 1;
-			_text = ["STR_LOADING"] call misc_fnc_localize;
+			_text = ["STR_LOADING"] call gps_fnc_localize;
 			for "_i" from 1 to _count do {
 				_text = _text + ".";
 			};
@@ -49,17 +49,17 @@ if !(gps_init_done) then {
 			uisleep 0.5;
 		};
 		_nav_btn ctrlEnable true;
-		_nav_btn ctrlSetTooltip  (["STR_MENU_TT_NAV"] call misc_fnc_localize);
+		_nav_btn ctrlSetTooltip  (["STR_MENU_TT_NAV"] call gps_fnc_localize);
 	};
 };
  
-_kill_btn ctrlSetTooltip (["STR_MENU_TT_KILL"] call misc_fnc_localize);
-_save_btn ctrlSetTooltip (["STR_MENU_TT_SAVE"] call misc_fnc_localize);
-_nav_btn ctrlSetTooltip  (["STR_MENU_TT_NAV"] call misc_fnc_localize);
-_help_btn ctrlSetTooltip (["STR_MENU_TT_HELP"] call misc_fnc_localize);
-_option_btn ctrlSetTooltip (["STR_MENU_TT_OPTIONS"] call misc_fnc_localize);
-_quit_btn ctrlSetTooltip (["STR_MENU_TT_QUIT"] call misc_fnc_localize);
-_controls_btn ctrlSetTooltip (["STR_MENU_TT_CONTROLS"] call misc_fnc_localize);
+_kill_btn ctrlSetTooltip (["STR_MENU_TT_KILL"] call gps_fnc_localize);
+_save_btn ctrlSetTooltip (["STR_MENU_TT_SAVE"] call gps_fnc_localize);
+_nav_btn ctrlSetTooltip  (["STR_MENU_TT_NAV"] call gps_fnc_localize);
+_help_btn ctrlSetTooltip (["STR_MENU_TT_HELP"] call gps_fnc_localize);
+_option_btn ctrlSetTooltip (["STR_MENU_TT_OPTIONS"] call gps_fnc_localize);
+_quit_btn ctrlSetTooltip (["STR_MENU_TT_QUIT"] call gps_fnc_localize);
+_controls_btn ctrlSetTooltip (["STR_MENU_TT_CONTROLS"] call gps_fnc_localize);
 
 _controls_btn ctrlAddEventHandler ["ButtonClick",gps_menu_fnc_loadControlsMenu];
 _nav_btn ctrlAddEventHandler ["ButtonClick",gps_menu_fnc_loadNavMenu];
@@ -82,7 +82,7 @@ _save_btn ctrlAddEventHandler ["ButtonClick",{
 
 		if (scriptDone gps_curr_thread || isNil "gps_current_goal") exitWith {};
 
-		_saveName = [["STR_SELECT_SAVED_PATH_NAME"] call misc_fnc_localize,ctrlParent _control] call misc_fnc_editDialog;
+		_saveName = [["STR_SELECT_SAVED_PATH_NAME"] call gps_fnc_localize,ctrlParent _control] call misc_fnc_editDialog;
 
 		if (_saveName isEqualTo "") exitWith {};
 		

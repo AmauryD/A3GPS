@@ -13,7 +13,7 @@ _btn = _disp displayCtrl 1600;
 _btn ctrlEnable false;
 _text = _disp displayCtrl 1100;
 
-_text ctrlSetStructuredText parseText format["<t align='center'>%1</t>",["STR_QUICKNAV_HEADER"] call misc_fnc_localize];
+_text ctrlSetStructuredText parseText format["<t align='center'>%1</t>",["STR_QUICKNAV_HEADER"] call gps_fnc_localize];
 
 _options = missionNamespace getVariable ["gps_quickNav_options",[]];
 

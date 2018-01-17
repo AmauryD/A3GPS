@@ -4,7 +4,7 @@
 	@Creation : 1/02/17
 	@Modified : 23/10/17
 	@Description : creates a local marker , really simple .
-		Return : String - marker name
+	@Return : STRING - marker name
 **/
 
 params [

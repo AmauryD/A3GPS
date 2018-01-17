@@ -5,6 +5,7 @@
   @Modified : 23/10/17
   @Description : insert fake node on the path
   TODO : delete fake nodes later
+  @Return : NOTHING
 **/
 params [
 	["_road",objNull,[objNull]]

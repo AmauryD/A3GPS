@@ -4,7 +4,7 @@
 	@Creation : 1/02/17
 	@Modified : 4/02/17
 	@Description : finds the nearest location near point/object.
-		Return : Location 
+	@Return : LOCATION - nearest location 
 **/
 
 params [
@@ -17,6 +17,5 @@ _locations = nearestLocations [_position, _types, _radius];
 
 if (_locations isEqualTo []) exitWith {locationNull};
 
-_result = [_locations,_position] call bis_fnc_nearestPosition;
-
-_result
+// return nearest location
+[_locations,_position] call bis_fnc_nearestPosition

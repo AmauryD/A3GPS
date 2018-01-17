@@ -4,7 +4,7 @@
 	@Creation : 12/05/17
 	@Modified : 23/10/17
 	@Description : Set a gps setting value to the gps_settings global array
-		Return : Nothing ?
+	@Return : Nothing ?
 **/
 
 params [

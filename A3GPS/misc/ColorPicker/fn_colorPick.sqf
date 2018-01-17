@@ -1,4 +1,11 @@
-// Simple RGB color picker
+#include "..\..\macros.h"
+/**
+	@Author : [Utopia] Amaury
+	@Creation : --
+	@Modified : --
+	@Description : Simple RGB color picker menu.
+	@Return : ARRAY - R,G,B,A 
+**/
 
 disableSerialization;
 
@@ -17,8 +24,8 @@ if (count _defaultColor isEqualTo 3) then {
 private _display = _parent createDisplay "colorPicker";
 private _keyText = _display displayCtrl 1001;
 
-(_display displayCtrl 1601) ctrlSetText (["STR_CANCEL"] call misc_fnc_localize);
-(_display displayCtrl 1600) ctrlSetText (["STR_OK"] call misc_fnc_localize);
+(_display displayCtrl 1601) ctrlSetText (["STR_CANCEL"] call gps_fnc_localize);
+(_display displayCtrl 1600) ctrlSetText (["STR_OK"] call gps_fnc_localize);
 (_display displayCtrl 1000) ctrlSetText "ColorPicker";
 
 _r_slider = _display displayCtrl 1900;

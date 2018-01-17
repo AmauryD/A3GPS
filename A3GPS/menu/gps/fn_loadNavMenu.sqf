@@ -26,8 +26,8 @@ _saved_exec = _display displayCtrl 1600;
 _saved_delete = _display displayCtrl 1601;
 
 
-_saved_delete ctrlSetText (["STR_MENU_DELETE_SAVED_PATH"] call misc_fnc_localize);
-_saved_exec ctrlSetText (["STR_MENU_LOAD_SAVED_PATH"] call misc_fnc_localize);
+_saved_delete ctrlSetText (["STR_MENU_DELETE_SAVED_PATH"] call gps_fnc_localize);
+_saved_exec ctrlSetText (["STR_MENU_LOAD_SAVED_PATH"] call gps_fnc_localize);
 
 _saved = profileNamespace getVariable ["gps_saved",[]];
 _savedWorldData = [_saved,worldName,[]] call bis_fnc_getFromPairs; 

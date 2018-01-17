@@ -10,12 +10,7 @@ params [
 	["_isHUD",false,[false]]
 ];
 
-private _fn_midPoint = {
-	params ["_a","_b"];
-	[((_a select 0) + (_b select 0)) / 2,((_a select 1) + (_b select 1)) / 2,0]
-};
-
-_color = ["marker_color"] call misc_fnc_getSetting;
+_color = ["marker_color"] call gps_fnc_getSetting;
 _colorTexture = _color call bis_fnc_colorRGBATOTexture;
 _dir = getDir player;
 
@@ -53,7 +48,7 @@ _toDraw = _toDraw select {_x distance _lookingAT <= (_scale * 10000)};
 
 	_ctrl drawRectangle 
 	[
-		[_previous,_x] call _fn_midPoint,
+		[_previous,_x] call misc_fnc_midPoint,
 		4.5,
 		(_previous distance _x) / 1.75,
 		[_previous getDir _x,(_previous getDir _x) - _dir] select _isHUD,
@@ -62,7 +57,7 @@ _toDraw = _toDraw select {_x distance _lookingAT <= (_scale * 10000)};
 	];
 	_ctrl drawRectangle 
 	[
-		[_x,_next] call _fn_midPoint,
+		[_x,_next] call misc_fnc_midPoint,
 		4.5,
 		(_next distance _x) / 1.75,
 		[_x getDir _next,(_x getDir _next) - _dir] select _isHUD,

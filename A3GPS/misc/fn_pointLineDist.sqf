@@ -1,3 +1,11 @@
+/*
+	@Author : https://en.wikipedia.org/wiki/Distance_from_a_point_to_a_line
+	@Created : --
+	@Modified : --
+	@Description : --
+	@Return : SCALAR
+*/
+
 params ["_point", "_start", "_end"];
 
 private _n = _end vectorDiff _start;

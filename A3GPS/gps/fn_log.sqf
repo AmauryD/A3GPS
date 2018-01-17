@@ -4,7 +4,7 @@
 	@Creation : 22/10/17
 	@Modified : 23/10/17
 	@Description : Log function of GPS , diag_log anything to RPT with file name
-		Return : Nothing
+	@Return : Nothing
 **/
 params ["_anything"];
 

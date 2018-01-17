@@ -46,7 +46,7 @@ private _fn_correctAngle = {
 	_dir
 };
 
-private _color = ["marker_color"] call misc_fnc_getSetting;
+private _color = ["marker_color"] call gps_fnc_getSetting;
 private _return = true;
 
 try {
@@ -61,7 +61,7 @@ try {
 
 			if(_next_node_index_fullPath >= (count _fullPath - 2)) exitWith {
 				[
-					format [["STR_ROAD_ARRIVED_IN"] call misc_fnc_localize,(vehicle player distance _goal) toFixed 1],
+					format [["STR_ROAD_ARRIVED_IN"] call gps_fnc_localize,(vehicle player distance _goal) toFixed 1],
 					"A3\ui_f\data\Map\Markers\Military\flag_CA.paa",
 					format ["%1Km",[vehicle player distance _goal,2] call misc_fnc_metersToKilometers]
 				] call gps_menu_fnc_setGPSInfo;
@@ -93,19 +93,19 @@ try {
 			{	
 				case (_dir >= 225):  {
 					[
-						["STR_ROAD_TURN_RIGHT"] call misc_fnc_localize,
+						["STR_ROAD_TURN_RIGHT"] call gps_fnc_localize,
 						["icons\direction_fork_right.paa"] call gps_fnc_composeFilePath
 					]
 				};
 				case (_dir <= 135): { 
 					[
-						["STR_ROAD_TURN_LEFT"] call misc_fnc_localize,
+						["STR_ROAD_TURN_LEFT"] call gps_fnc_localize,
 						["icons\direction_fork_left.paa"] call gps_fnc_composeFilePath
 					]
 				};
 				default {
 					[
-						["STR_ROAD_TURN_LEFT"] call misc_fnc_localize,
+						["STR_ROAD_TURN_LEFT"] call gps_fnc_localize,
 						["icons\direction_fork_left.paa"] call gps_fnc_composeFilePath
 					]
 				};
@@ -128,7 +128,7 @@ try {
 				throw "RECALCULATE_PATH";
 			};
 			[
-				["STR_GPS_LOST"] call misc_fnc_localize,
+				["STR_GPS_LOST"] call gps_fnc_localize,
 				"A3\ui_f\data\Map\Markers\Military\unknown_CA.paa",
 				format ["%1Km",[vehicle player distance _goal,2] call misc_fnc_metersToKilometers]
 			] call gps_menu_fnc_setGPSInfo;

@@ -1,4 +1,19 @@
 #include "..\..\..\macros.h"
+/**
+	@Author : 
+		[Utopia] Amaury
+	@Contributors :
+		Code34
+	@Creation : --
+	@Modified : --
+	@Description : 
+		AStar algorithm
+		http://theory.stanford.edu/~amitp/GameProgramming/ImplementationNotes.html
+		https://en.wikipedia.org/wiki/A*_search_algorithm
+		http://theory.stanford.edu/~amitp/GameProgramming/AStarComparison.html
+		https://www.redblobgames.com/pathfinding/a-star/introduction.html
+	@Return : ARRAY - hashTable
+**/
 
 params [
 	"_startRoute",

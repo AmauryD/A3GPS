@@ -4,7 +4,7 @@
 	@Creation : 04/11/17
 	@Modified : --
 	@Description : converts meters to kilometers
-		Return : string
+	@Return : STRING
 **/
 
 params [

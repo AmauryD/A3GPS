@@ -14,13 +14,13 @@ _handled = false;
 if(dialog) exitWith {_handled};
 	
 _handled = switch (true) do {
-	case (_key in (["quicknav_open_key"] call misc_fnc_getSetting)): {
+	case (_key in (["quicknav_open_key"] call gps_fnc_getSetting)): {
 		call gps_menu_fnc_quickNavCreate
 	};
-	case (_key in (["quicknav_switch_key"] call misc_fnc_getSetting)): {
+	case (_key in (["quicknav_switch_key"] call gps_fnc_getSetting)): {
 		call gps_menu_fnc_quickNavNextOption
 	};
-	case (_key in (["quicknav_execute_key"] call misc_fnc_getSetting)): {
+	case (_key in (["quicknav_execute_key"] call gps_fnc_getSetting)): {
 		call gps_menu_fnc_quickNavExecuteCurrentOption
 	};
 	default	{

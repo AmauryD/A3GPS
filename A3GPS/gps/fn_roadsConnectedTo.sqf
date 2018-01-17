@@ -3,7 +3,8 @@
   @Author : [Utopia] Amaury
   @Creation : 1/02/17
   @Modified : 5/02/17
-  @Description :
+  @Description : get connected roads to a road
+  @Return : OBJECT - road
 **/
 
 params [

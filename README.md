@@ -1,6 +1,6 @@
 # A3GPS v1.0 
 
-:information_source: v1.1 should be released this 29 january
+:information_source: v1.1 should be released this 2 February*
 
 ## Description
 

@@ -2,7 +2,7 @@
 
 ## Description
 
-This branch is made for server usage of the GPS algorithm.
+This branch is made for server usage of the GPS algorithm but can also be used on client.
 
 ## Installation 
 

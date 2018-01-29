@@ -31,7 +31,7 @@ _gps_allRoadsWithInter = gps_allRoads apply {
 
   if (count _connected > 1) then {
     {
-      if(count (roadsConnectedTo _x) == 1) then {
+      if(count (roadsConnectedTo _x) < 3) then {
         _rID = str _x;
         _connected pushBack _x;
         if([gps_roadsWithConnected,_rID] call misc_fnc_hashTable_exists) then {

@@ -16,7 +16,7 @@ Translation available for english and french languages.
 
 The path is not always the shortest , this script is subject to new updates , stay tuned ! 	
 
-The GPS will take 2-3 minutes to load and compute all the roads data but you can still access the menu.
+The GPS will take 1-2 minutes to load and compute all the roads data but you can still access the menu.
 
 ## Features
 - Shortest path calculation to arrive at a selected route.
@@ -44,7 +44,7 @@ Add this line :
 ```
 
 ### Import the data of your current map
-Put [the folder](https://github.com/AmauryD/A3GPS/tree/master/data) with the name of your map inside your gps data folder.
+Put [the folder](https://github.com/AmauryD/A3GPS/tree/master/data) with the name of your map inside the gps_core/data folder.
 
 ### To call the Menu
 

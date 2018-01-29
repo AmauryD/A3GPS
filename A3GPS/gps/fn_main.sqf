@@ -19,7 +19,7 @@ _position = _position call bis_fnc_position;
 private _startRoute = [getPosATL vehicle player,1000] call bis_fnc_nearestRoad;
 private _endRoute = [_position,1000] call bis_fnc_nearestRoad;
 
-if (!gps_init_done) exitWith {hintSilent (["STR_GPS_NOT_LOADED"] call gps_fnc_localize)};
+if (!gps_core_init_done) exitWith {hintSilent (["STR_GPS_NOT_LOADED"] call gps_fnc_localize)};
 if (isNull _endRoute) exitWith {hintSilent (["STR_NO_VALID_END_ROAD"] call gps_fnc_localize)};
 if (isNull _startRoute) exitWith {hintSilent (["STR_NO_VALID_START_ROAD"] call gps_fnc_localize)};
 
@@ -31,8 +31,8 @@ gps_curr_thread = _thisScript;
 
 [] call gps_fnc_deletePathHelpers;
 
-[_startRoute] call gps_fnc_insertFakeNode;
-[_endRoute] call gps_fnc_insertFakeNode;
+[_startRoute] call gps_core_fnc_insertFakeNode;
+[_endRoute] call gps_core_fnc_insertFakeNode;
 
 private _color = ["marker_color"] call gps_fnc_getSetting;
 
@@ -41,10 +41,10 @@ try {
 
 	waitUntil {
 		_startRoute = [getPosATL vehicle player,1000] call bis_fnc_nearestRoad;
-		[_startRoute] call gps_fnc_insertFakeNode;
+		[_startRoute] call gps_core_fnc_insertFakeNode;
 		[] call gps_fnc_deletePathHelpers;
-		private _path = [_startRoute,_endRoute] call gps_fnc_generateNodePath;
-		private _fullPath = [_path] call gps_fnc_generatePathHelpers;
+		private _path = [_startRoute,_endRoute] call gps_core_fnc_generateNodePath;
+		private _fullPath = [_path] call gps_core_fnc_generatePathHelpers;
 		[] call gps_menu_fnc_openHud;
 		[_path,_fullPath,_endRoute] call gps_fnc_tracking;
 	};
@@ -65,4 +65,4 @@ try {
 	[_exception] call gps_fnc_log;
 };
 
-[] call gps_fnc_deleteNameSpaces;
+[] call misc_fnc_hashTable_deleteNameSpaces;

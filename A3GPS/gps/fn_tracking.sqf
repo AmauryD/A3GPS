@@ -10,7 +10,7 @@ private _path = +(_this select 0); // copy path
 private _fullPath = +(_this select 1); // copy fullPath
 private _goal = _this select 2;
 
-_path = [_path apply {getPosATL _x}] call gps_fnc_RDP;
+_path = [_path apply {getPosATL _x}] call gps_core_fnc_RDP;
 _path = _path apply {[_x,1] call bis_fnc_nearestRoad};
 _path deleteAt 0; // delete first node , she's useless
 
@@ -94,19 +94,19 @@ try {
 				case (_dir >= 225):  {
 					[
 						["STR_ROAD_TURN_RIGHT"] call gps_fnc_localize,
-						["icons\direction_fork_right.paa"] call gps_fnc_composeFilePath
+						gps_dir + "icons\direction_fork_right.paa"
 					]
 				};
 				case (_dir <= 135): { 
 					[
 						["STR_ROAD_TURN_LEFT"] call gps_fnc_localize,
-						["icons\direction_fork_left.paa"] call gps_fnc_composeFilePath
+						gps_dir + "icons\direction_fork_left.paa"
 					]
 				};
 				default {
 					[
 						["STR_ROAD_TURN_LEFT"] call gps_fnc_localize,
-						["icons\direction_fork_left.paa"] call gps_fnc_composeFilePath
+						gps_dir + "icons\direction_fork_left.paa"
 					]
 				};
 			};

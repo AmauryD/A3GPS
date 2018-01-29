@@ -6,7 +6,7 @@
 #include "menu\common.hpp"
 #include "menu\menu.hpp"
 #include "misc\keyChoice\keyChoice.hpp"
-#include "misc\text_dialog.hpp"
+#include "misc\EditDialog\text_dialog.hpp"
 #include "misc\colorPicker\colorPicker.hpp"
 #include "localization.hpp"
 

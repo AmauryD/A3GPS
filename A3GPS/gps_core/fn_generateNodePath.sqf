@@ -1,4 +1,4 @@
-#include "..\macros.h"
+#include "macros.h"
 /**
   @Author : [Utopia] Amaury
   @Creation : 8/06/17
@@ -12,7 +12,7 @@ params [
 	["_goalRoute",objNull,[objNull]]
 ];
 
-private _came_from = [_startRoute,_goalRoute,gps_allCrossRoadsWithWeight] call gps_fnc_AStar;
+private _came_from = [_startRoute,_goalRoute,gps_allCrossRoadsWithWeight] call gps_core_fnc_aStar;
 
 if(_came_from isEqualTo []) then { throw "PATH_NOT_FOUND" };
 

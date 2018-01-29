@@ -32,8 +32,8 @@ for "_i" from 1 to _end step 1 do {
 
 if (_dmax > _epsilon) then {
     // resursive
-    private _recResults1 = [_pointList select [0,_index + 1],_epsilon] call gps_fnc_RDP;
-    private _recResults2 = [_pointList select [_index,_end],_epsilon] call gps_fnc_RDP;
+    private _recResults1 = [_pointList select [0,_index + 1],_epsilon] call gps_core_fnc_RDP;
+    private _recResults2 = [_pointList select [_index,_end],_epsilon] call gps_core_fnc_RDP;
     (_recResults1 select [0,count _recResults1 - 1]) + _recResults2
 }else{
     [_pointList select 0,_pointList select _end];

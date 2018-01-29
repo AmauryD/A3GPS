@@ -9,5 +9,5 @@
 **/
 terminate gps_curr_thread;
 [] call gps_fnc_deletePathHelpers;
-[] call gps_fnc_deleteNameSpaces;
+[] call misc_fnc_hashTable_deleteNameSpaces;
 gps_current_goal = nil;

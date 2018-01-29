@@ -33,7 +33,10 @@ private _cost_so_far = [] call misc_fnc_hashTable_create;
 [_frontier,0,_counter,_startRoute] call misc_fnc_PQ_insert;
 [_cost_so_far,RID(_startRoute),0] call misc_fnc_hashTable_set;
 
-while {count _frontier > 0} do {
+for "_i" from 0 to 1 step 0 do {
+	// check if frontier is empty
+	if (_frontier isEqualTo []) exitWith {};
+
 	// get road with lowest value in queue
 	_current = [_frontier] call misc_fnc_PQ_get;
 

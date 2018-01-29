@@ -1,4 +1,4 @@
-#include "..\macros.h"
+#include "macros.h"
 /**
 	@Author : [Utopia] Amaury
 	@Creation : 22/10/17
@@ -21,7 +21,7 @@ compileFinal format["%1%2",
 	_header,
 	preprocessFileLineNumbers format
 	["%1%2%3",
-		gps_dir + _path,
+		gps_core_dir + _path,
 		if (_path isEqualTo "") then {""}else{"\"},
 		_fileName
 	]

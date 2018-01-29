@@ -11,11 +11,10 @@ params [
 	["_lang",["lang"] call gps_fnc_getSetting,[""]]
 ];
 
-private _return = _key;
 private _cfgEntry = missionConfigFile >> "GPS_Localization" >> _key;
 
 if(isClass _cfgEntry) then {
-	_return = getText (_cfgEntry >> _lang);
+	getText (_cfgEntry >> _lang);
+}else{
+	_key
 };
-
-_return

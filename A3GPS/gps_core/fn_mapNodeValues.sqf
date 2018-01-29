@@ -1,4 +1,4 @@
-#include "..\macros.h"
+#include "macros.h"
 /**
   @Author : [Utopia] Amaury
   @Creation : 1/02/17
@@ -13,7 +13,7 @@ params [
 ];
 
 private _linkedCrossRoads = [];
-private _crossRoad_isHighWay = [_crossRoad] call gps_fnc_isHighWay;
+private _crossRoad_isHighWay = [_crossRoad] call misc_fnc_isHighWay;
 
 {
   private _currRoad = _x;
@@ -21,14 +21,14 @@ private _crossRoad_isHighWay = [_crossRoad] call gps_fnc_isHighWay;
   private _previous = _crossRoad;
 
   // faster than while {true}
-  while {true} do {
-    _connected = [_currRoad] call gps_fnc_roadsConnectedTo;
+  for "_i" from 0 to 1 step 0 do {
+    _connected = [_currRoad] call gps_core_fnc_roadsConnectedTo;
+    if (isNil "_connected") exitWith {}; // has this error on Tanoa , i don't know why
     _countConnected = count _connected;
     _segmentValue = _segmentValue + (_previous distance2D _currRoad);
 
-    _currRoad_isHighWay = [_currRoad] call gps_fnc_isHighWay;
-
     if(_countConnected > 2 || _currRoad in _exceptions || _countConnected isEqualTo 1) exitWith {  
+      _currRoad_isHighWay = [_currRoad] call misc_fnc_isHighWay;
       if(_currRoad_isHighWay && _crossRoad_isHighWay) then {
         _segmentValue = (_segmentValue / 3); 
       };
@@ -36,17 +36,12 @@ private _crossRoad_isHighWay = [_crossRoad] call gps_fnc_isHighWay;
     };
 
     _old = _currRoad;
-
-    {
-      if !(_x isEqualTo _previous) exitWith {
-        _previous = _currRoad;
-        _currRoad = _x;
-      };
-    } forEach _connected;
-
+    _currRoad = (_connected select { !(_x isEqualTo _previous) }) param [0,_old];
+    _previous = _old;
     if(_currRoad isEqualTo _old) exitWith {};
   };
-} forEach _linkedTo;
+  false // it's a count , we need to return a boolean , i use it because it's a little faster than foreach
+} count _linkedTo;
 
 [gps_allCrossRoadsWithWeight,str _crossRoad,_linkedCrossRoads] call misc_fnc_hashTable_set;
 

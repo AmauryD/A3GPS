@@ -30,13 +30,13 @@ _kill_btn = _display displayCtrl 2404;
 _save_btn = _display displayCtrl 2405;
 _controls_btn = _display displayCtrl 2406;
 
-if !(gps_init_done) then {
+if !(gps_core_init_done) then {
 	_nav_btn ctrlEnable false;
 	[_nav_btn] spawn {
 		disableSerialization;
 		params ["_nav_btn"];
 		private _count = 0;
-		while {!gps_init_done && !isNull _nav_btn} do {
+		while {!gps_core_init_done && !isNull _nav_btn} do {
 			_count = _count + 1;
 			_text = ["STR_LOADING"] call gps_fnc_localize;
 			for "_i" from 1 to _count do {

@@ -1,7 +1,5 @@
 # A3GPS v1.0 
 
-:information_source: v1.1 should be released this 2 February*.
-
 Also working on the [wiki](https://github.com/AmauryD/A3GPS/wiki).
 
 ## Description

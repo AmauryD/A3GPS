@@ -1,5 +1,4 @@
 class GPS_Localization {
-	pl = "";
 	
 	class STR_languages {
 		en = "English";

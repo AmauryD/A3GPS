@@ -8,7 +8,7 @@ A3GPS provides a 'real' GPS for Arma 3.
 
 Don't hesitate to report me bugs or suggestions , it'll be with pleasure !
 
-Translation available for english and french languages.
+Translation available for english , french and polish languages.
 
 ### Informations
 

@@ -1,4 +1,4 @@
-# A3GPS v1.0 
+# A3GPS v1.1
 
 Also working on the [wiki](https://github.com/AmauryD/A3GPS/wiki).
 

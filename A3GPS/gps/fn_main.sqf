@@ -8,11 +8,9 @@
 **/
 scriptName "gps_main_thread";
 
-_valid = params [
+params [
 	["_position",[],[[],objNull,locationNull,grpNull,""]]
 ];
-
-if (!_valid) exitWith {};
 
 _position = _position call bis_fnc_position;
 
@@ -23,9 +21,13 @@ if (!gps_core_init_done) exitWith {hintSilent (["STR_GPS_NOT_LOADED"] call gps_f
 if (isNull _endRoute) exitWith {hintSilent (["STR_NO_VALID_END_ROAD"] call gps_fnc_localize)};
 if (isNull _startRoute) exitWith {hintSilent (["STR_NO_VALID_START_ROAD"] call gps_fnc_localize)};
 
+// if user want to override conditions for the function to run
+_canLaunch = ["gps_main_start",[_startRoute,_endRoute],true] call misc_fnc_callScriptedEventHandlerReturn;
+if (!_canLaunch) exitWith {};
+
 [] call gps_fnc_killGPS;
 
-gps_curr_thread = _thisScript;
+gps_current_thread = _thisScript;
 
 [["STR_INIT"] call gps_fnc_localize] call gps_menu_fnc_setGPSInfo;
 
@@ -33,8 +35,6 @@ gps_curr_thread = _thisScript;
 
 [_startRoute] call gps_core_fnc_insertFakeNode;
 [_endRoute] call gps_core_fnc_insertFakeNode;
-
-private _color = ["marker_color"] call gps_fnc_getSetting;
 
 try {
 	gps_current_goal = getPosATL _endRoute;

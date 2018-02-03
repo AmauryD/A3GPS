@@ -21,8 +21,6 @@ misc_fnc_getCurrentDir = {
 };
 
 gps_dir = [__FILE__] call misc_fnc_getCurrentDir;
- 
-[] execVM (gps_dir + "gps_core\init.sqf");
 
 gps_fnc_compile = compileFinal	preprocessFileLineNumbers (gps_dir + "gps\fn_compile.sqf");
 gps_fnc_log = ["gps","fn_log",true] call gps_fnc_compile;
@@ -86,10 +84,6 @@ misc_fnc_colorPicker = ["misc\ColorPicker","fn_colorPick"] call gps_fnc_compile;
 ["Compiling functions done"] call gps_fnc_log;
 [missionNameSpace,"gps_functions_compiled",[]] spawn BIS_fnc_callScriptedEventHandler;
 
-[] call gps_fnc_refreshCache;
-
-gps_curr_thread = scriptNull;
-
 // Subscribe to the gps_core_loaded EH before launching mapping
 [missionNamespace,"gps_core_loaded",{
 	[
@@ -110,6 +104,22 @@ gps_curr_thread = scriptNull;
 		}
 	] call gps_menu_fnc_addQuickNavOption;
 
+	waitUntil {
+		!isNull findDisplay 46
+	};
 	(findDisplay 46) displayAddEventHandler ["KeyDown",gps_menu_fnc_handleQuickNavActions];
 	((findDisplay 12) displayCtrl 51) ctrlAddEventHandler ["Draw",gps_menu_fnc_drawPath];
+
+	[missionNamespace,"gps_loaded",[]] spawn BIS_fnc_callScriptedEventHandler;
+	gps_init_done = true;
 }] call bis_fnc_addScriptedEventHandler;
+
+//GPS global variables
+gps_current_thread = scriptNull;
+gps_current_goal = [0,0,0];
+gps_init_done = false;
+
+[] execVM (gps_dir + "gps_core\init.sqf");
+
+//refresh cache for currupted/missing data in profileNameSpace
+[] call gps_fnc_refreshCache;

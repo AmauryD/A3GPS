@@ -17,7 +17,7 @@ _text ctrlSetStructuredText parseText format["<t align='center'>%1</t>",["STR_QU
 
 _options = missionNamespace getVariable ["gps_quickNav_options",[]];
 
-if(!(missionNamespace getVariable ["gps_init_done",false])) exitWith {
+if(!(missionNamespace getVariable ["gps_core_init_done",false])) exitWith {
 	_btn ctrlSetText "Loading ...";
 };
 

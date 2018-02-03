@@ -22,7 +22,9 @@ _lastRoad = _toDraw select (count _toDraw - 1);
 
 _scale = ctrlMapScale _ctrl;
 _lookingAT = [_ctrl ctrlMapScreenToWorld [0.5,0.5],getPosATL player] select _isHUD;
-_toDraw = _toDraw select {_x distance _lookingAT <= (_scale * 10000)};
+_toDraw = _toDraw select {
+	_x distance _lookingAT <= (_scale * 10000)
+};
 
 {
 	_previous = _toDraw param [_forEachIndex - 1,_toDraw select _forEachIndex];
@@ -48,7 +50,7 @@ _toDraw = _toDraw select {_x distance _lookingAT <= (_scale * 10000)};
 
 	_ctrl drawRectangle 
 	[
-		[_previous,_x] call misc_fnc_midPoint,
+		[getPosATL _previous,getPosATL _x] call misc_fnc_midPoint,
 		4.5,
 		(_previous distance _x) / 1.75,
 		[_previous getDir _x,(_previous getDir _x) - _dir] select _isHUD,
@@ -57,7 +59,7 @@ _toDraw = _toDraw select {_x distance _lookingAT <= (_scale * 10000)};
 	];
 	_ctrl drawRectangle 
 	[
-		[_x,_next] call misc_fnc_midPoint,
+		[getPosATL _x,getPosATL _next] call misc_fnc_midPoint,
 		4.5,
 		(_next distance _x) / 1.75,
 		[_x getDir _next,(_x getDir _next) - _dir] select _isHUD,

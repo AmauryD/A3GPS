@@ -25,7 +25,7 @@ private _fn_findNextNode = {
 	// select from the current node to the end
 	_nextPathRange = _fullPath select [_fullPath find _nearestRoadInFullPath,count _fullPath];
 
-	gps_draw_points = _nextPathRange apply {getPosATL _x};
+	gps_draw_points = _nextPathRange;
 
 	// select the nearest
 	(_nextPathRange select {_x in _path}) param [0,objNull];

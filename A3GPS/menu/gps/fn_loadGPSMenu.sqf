@@ -80,7 +80,7 @@ _save_btn ctrlAddEventHandler ["ButtonClick",{
 		disableSerialization;
 		params ["_control"];
 
-		if (scriptDone gps_curr_thread || isNil "gps_current_goal") exitWith {};
+		if (scriptDone gps_current_thread || isNil "gps_current_goal") exitWith {};
 
 		_saveName = [["STR_SELECT_SAVED_PATH_NAME"] call gps_fnc_localize,ctrlParent _control] call misc_fnc_editDialog;
 

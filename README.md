@@ -29,31 +29,7 @@ The GPS will take 1-2 minutes to load and compute all the roads data but you can
 
 ## Installation 
 
-### In your description.ext file 
-Add this line : 
-```sqf
-  #include "path_to_gps_folder\config.hpp"
-```
-
-### In your init file
-Add this line : 
-```sqf
-  [] execVM "path_to_gps_folder\init.sqf"
-```
-
-### Import the data of your current map
-Put [the folder](https://github.com/AmauryD/A3GPS/tree/master/data) with the name of your map inside the gps_core/data folder.
-
-### To call the Menu
-
-Use the function **gps_menu_fnc_loadGPSMenu** to call the menu 
-#### Exemple if you want to open it with an AddAction
-```sqf
-   player addAction ["Open GPS",gps_menu_fnc_loadGPSMenu];
-```
-
-Now it should work , have fun !
-To navigate , menu >> navigation >> shift + click on the map where you want to go
+[Installation is now on the wiki](https://github.com/AmauryD/A3GPS/wiki/Installation)
 
 ## Known Issues
 

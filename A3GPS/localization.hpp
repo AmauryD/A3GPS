@@ -306,7 +306,7 @@ class GPS_Localization {
 	class STR_ARRIVED {
 		en = "You have arrived at destination , thank's for using A3GPS™";
 		fr = "Vous êtes arrivé à destination , merci d'avoir utilisé A3GPS™";
-		pl = "Jesteś u celu, dziękujemy za skorzystanie z A3GPS™"";
+		pl = "Jesteś u celu, dziękujemy za skorzystanie z A3GPS™";
 	};
 	class STR_MENU_INFO {
 		en = "<t align='center' size='1.5'>GPS version %1</t><br/>by <t align='center' underline='true'> AmauryD .</t><br/><t>This project is open-source and available on GitHub.</t><br/><t>To navigate , open the navigation menu and shift-click on the map.</t>";

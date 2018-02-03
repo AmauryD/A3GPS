@@ -216,7 +216,7 @@ class GPS_Localization {
 	class STR_MENU_HINT_NEW_PATH {
 		en = "Click on the with <t underline='true'>SHIFT+CLICK</t> on the road where you want to go."; // my english is not good enough ...
 		fr = "Cliquez sur la carte du menu en faisant <t underline='true'>SHIFT+CLICK</t> sur la route où vous voulez aller.<br/>Le GPS va ensuite essayer de trouver le chemin le plus court jusqu'a ce point.<br/>Cette opération peut prendre jusqu'a 30 secondes en fonction de la distance et la complexité du trajet.";
-		pl = "Click on the with <t underline='true'>SHIFT+KLIK MYSZY</t> na drodze gdzie chcesz dojechać.";
+		pl = "Naciśnij <t underline='true'>SHIFT+PRZYCISK MYSZY</t> na drodze gdzie chcesz dojechać.";
 	};
 	class STR_MENU_HINT_DELETE_SAVED_PATH {
 		en = "Delete a saved path in the list.";

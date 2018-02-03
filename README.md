@@ -1,7 +1,5 @@
 # A3GPS v1.1
 
-Also working on the [wiki](https://github.com/AmauryD/A3GPS/wiki).
-
 ## Description
 
 A3GPS provides a 'real' GPS for Arma 3.
@@ -30,7 +28,3 @@ The GPS will take 1-2 minutes to load and compute all the roads data but you can
 ## Installation 
 
 [Installation is now on the wiki](https://github.com/AmauryD/A3GPS/wiki/Installation)
-
-## Known Issues
-
-- If you have already a **RscTitles** class , just place the 2 #include inside the class in config.hpp and move it to your other **RscTitles** class.

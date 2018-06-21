@@ -22,6 +22,7 @@ _lastRoad = _toDraw select (count _toDraw - 1);
 
 _scale = ctrlMapScale _ctrl;
 _lookingAT = [_ctrl ctrlMapScreenToWorld [0.5,0.5],getPosATL player] select _isHUD;
+
 _toDraw = _toDraw select {
 	_x distance _lookingAT <= (_scale * 10000)
 };
@@ -48,22 +49,26 @@ _toDraw = _toDraw select {
 	};
 	if (isNil "_next") exitWith {};
 
-	_ctrl drawRectangle 
-	[
-		[getPosATL _previous,getPosATL _x] call misc_fnc_midPoint,
-		4.5,
-		(_previous distance _x) / 1.75,
-		[_previous getDir _x,(_previous getDir _x) - _dir] select _isHUD,
-		_color,
-		_colorTexture
-	];
-	_ctrl drawRectangle 
-	[
-		[getPosATL _x,getPosATL _next] call misc_fnc_midPoint,
-		4.5,
-		(_next distance _x) / 1.75,
-		[_x getDir _next,(_x getDir _next) - _dir] select _isHUD,
-		_color,
-		_colorTexture
-	];
+	_x_connected = [_x] call gps_core_fnc_roadsConnectedTo;
+
+	if (_previous in _x_connected && _next in _x_connected) then {
+		_ctrl drawRectangle 
+		[
+			[getPosATL _previous,getPosATL _x] call misc_fnc_midPoint,
+			4.5,
+			(_previous distance _x) / 1.75,
+			[_previous getDir _x,(_previous getDir _x) - _dir] select _isHUD,
+			_color,
+			_colorTexture
+		];
+		_ctrl drawRectangle 
+		[
+			[getPosATL _x,getPosATL _next] call misc_fnc_midPoint,
+			4.5,
+			(_next distance _x) / 1.75,
+			[_x getDir _next,(_x getDir _next) - _dir] select _isHUD,
+			_color,
+			_colorTexture
+		];
+	};
 }foreach _toDraw;

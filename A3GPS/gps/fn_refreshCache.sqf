@@ -25,38 +25,24 @@ if (isNil {profileNamespace getVariable "gps_settings"}) then {
 
 private _settings = profileNamespace getVariable "gps_settings";
 
-_lang = [_settings,"lang"] call bis_fnc_getFromPairs;
-_default = ["default_lang","en"] call gps_fnc_getConfigSetting;
+{
+	_x params ["_name","_defaultValue"];
 
-if (isNil "_lang") then {
-	[_settings,"lang",_default] call bis_fnc_setToPairs;
-}else{
-	if !(_lang isEqualType _default) then {
-		[_settings,"lang",_default] call bis_fnc_setToPairs;
+	_value = [_settings,_name] call bis_fnc_getFromPairs;
+	_default = ["default_" + _name,_defaultValue] call gps_fnc_getConfigSetting;
+
+	if (isNil "_value") then {
+		[_settings,_name,_default] call bis_fnc_setToPairs;
+	}else{
+		if !(_value isEqualType _default) then {
+			[_settings,_name,_default] call bis_fnc_setToPairs;
+		};
 	};
-};
-
-_markersColors = [_settings,"marker_color"] call bis_fnc_getFromPairs;
-_default = ["default_marker_color",[0,0,0,0]] call gps_fnc_getConfigSetting;
-
-if (isNil "_markersColors") then {
-	[_settings,"marker_color",_default] call bis_fnc_setToPairs;
-}else{
-	if !(_markersColors isEqualType _default) then {
-		[_settings,"marker_color",_default] call bis_fnc_setToPairs;
-	};
-};
-
-_metric = [_settings,"metric"] call bis_fnc_getFromPairs;
-_default = ["default_metric","km"] call gps_fnc_getConfigSetting;
-
-if (isNil "_metric") then {
-	[_settings,"metric",_default] call bis_fnc_setToPairs;
-}else{
-	if !(_markersColors isEqualType _default) then {
-		[_settings,"metric",_default] call bis_fnc_setToPairs;
-	};
-};
+}forEach [
+	["marker_color",[0,0,0,0]],
+	["lang","en"],
+	["metric","km"]
+];
 
 {
 	_keyID = getNumber (_x >> "default");

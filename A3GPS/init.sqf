@@ -32,7 +32,7 @@ _gpsFolder = "gps";
 gps_fnc_deletePathHelpers = [_gpsFolder,"fn_deletePathHelpers"] call gps_fnc_compile;
 gps_fnc_tracking = [_gpsFolder,"fn_tracking"] call gps_fnc_compile;
 gps_fnc_main = [_gpsFolder,"fn_main"] call gps_fnc_compile;
-gps_fnc_refreshCache = ["misc","fn_refreshCache"] call gps_fnc_compile;
+gps_fnc_refreshCache = [_gpsFolder,"fn_refreshCache"] call gps_fnc_compile;
 gps_fnc_killGPS = [_gpsFolder,"fn_killGPS"] call gps_fnc_compile;
 gps_fnc_getConfigSetting = [_gpsFolder,"fn_getConfigSetting"] call gps_fnc_compile;
 gps_fnc_getSetting = [_gpsFolder,"fn_getSetting"] call gps_fnc_compile;
@@ -69,7 +69,7 @@ gps_menu_fnc_addQuickNavOption = [_quickNavFolder,"fn_addQuickNavOption"] call g
 _miscFolder = "misc";
 misc_fnc_nearestLocation = [_miscFolder,"fn_nearestLocation"] call gps_fnc_compile;
 misc_fnc_nearestRoadInArray = [_miscFolder,"fn_nearestRoadInArray"] call gps_fnc_compile;
-misc_fnc_metersToKilometers = [_miscFolder,"fn_metersToKilometers"] call gps_fnc_compile;
+misc_fnc_distanceStr = [_miscFolder,"fn_distanceStr"] call gps_fnc_compile;
 misc_fnc_midPoint = [_miscFolder,"fn_midPoint"] call gps_fnc_compile;
 
 // RscEdit text dialog

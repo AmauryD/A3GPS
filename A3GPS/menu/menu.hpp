@@ -308,6 +308,25 @@ class gps_menu_options {
 			w = 0.111549 * safezoneW;
 			h = 0.034 * safezoneH;
 		};
+		class metric_txt: A3GPS_RscText
+		{
+			idc = 1002;
+
+			text = "Metric"; //--- ToDo: Localize;
+			x = 0.340625 * safezoneW + safezoneX;
+			y = 0.414 * safezoneH + safezoneY;
+			w = 0.135452 * safezoneW;
+			h = 0.034 * safezoneH;
+		};
+		class metric_list: A3GPS_RscCombo
+		{
+			idc = 2101;
+
+			x = 0.492031 * safezoneW + safezoneX;
+			y = 0.414 * safezoneH + safezoneY;
+			w = 0.111549 * safezoneW;
+			h = 0.034 * safezoneH;
+		};
 		class drop_data_btn: A3GPS_RscButton
 		{
 			idc = 1600;

@@ -31,27 +31,15 @@ private _fn_findNextNode = {
 	(_nextPathRange select {_x in _path}) param [0,objNull];
 };
 
-private _fn_vectorAngle = {
-	params ["_vector_1","_vector_2"];
-	_vector_1 params ["_x1","_y1"]; 
-	_vector_2 params ["_x2","_y2"]; 
-	(_y2 atan2 _x2) - (_y1 atan2 _x1)
-};
-
-private _fn_correctAngle = {
-	params [["_dir",0,[0]]];
-
-	_dir = if (_dir < 0) then {_dir + 360}else{_dir};
-	_dir = if (_dir > 360) then {_dir - 360}else{_dir};
-	_dir
-};
-
-private _color = ["marker_color"] call gps_fnc_getSetting;
 private _return = true;
 
 try {
 	while {vehicle player distance _goal > 15} do { //this script thread will be destroyed when arrived 
+		scopeName "tracking_loop";
+
 		private ["_next_node","_dir"];
+
+		private _metric = ["metric"] call gps_fnc_getSetting;
 
 		// regarde sur le full path node la position du joueur par rapport à la fin
 		_next_node = [_path,_fullPath] call _fn_findNextNode;
@@ -61,66 +49,40 @@ try {
 
 			if(_next_node_index_fullPath >= (count _fullPath - 2)) exitWith {
 				[
-					format [["STR_ROAD_ARRIVED_IN"] call gps_fnc_localize,(vehicle player distance _goal) toFixed 1],
+					format [["STR_ROAD_ARRIVED_IN"] call gps_fnc_localize,[vehicle player distance _goal,1,_metric] call misc_fnc_distanceStr],
 					"A3\ui_f\data\Map\Markers\Military\flag_CA.paa",
-					format ["%1Km",[vehicle player distance _goal,2] call misc_fnc_metersToKilometers]
+					[vehicle player distance _goal,2] call misc_fnc_distanceStr
 				] call gps_menu_fnc_setGPSInfo;
 			};
 
 			_next_node_previous = if (_next_node_index_fullPath < 2) then {_fullPath select 0}else{_fullPath select (_next_node_index_fullPath - 2)};
 			_next_node_next = _fullPath select (_next_node_index_fullPath + 2);
 
-			_vector_1 = getPosASL _next_node vectorFromTo getPosASL _next_node_previous; 
-			_vector_2 = getPosASL _next_node vectorFromTo getPosASL _next_node_next; 
+			_vector_1 = getPosASL _next_node vectorFromTo getPosASL _next_node_next; 
+			_vector_2 = getPosASL _next_node_previous vectorFromTo getPosASL _next_node; 
 
-			_angle = [_vector_2,_vector_1] call _fn_vectorAngle;
-			_dir = [_angle] call _fn_correctAngle;
+			// new select syntax omagad
+			_diff = (_vector_1 # 0)*(_vector_2 # 1)-(_vector_1 # 1)*(_vector_2 # 0);
+			_distanceToNode = vehicle player distance _next_node;
 
-			#ifdef GPS_DEV
-				deleteMarker "a";
-				deleteMarker "b";
-				deleteMarker "c";
-				["a",getPos _next_node_previous,str _next_node_previous,nil,"ColorRed"] call misc_fnc_createMarker;
-				["b",getPos _next_node_next,str _next_node_next,nil,"ColorGreen"] call misc_fnc_createMarker;
-				["c",getPos _next_node,str _dir,nil,"ColorBlue"] call misc_fnc_createMarker;
-			#endif
-
-			if (_dir >= 135 && _dir <= 225) exitWith {
-				_path deleteAt (_path find _next_node);
-			};
-
-			_infos = switch (true) do
-			{	
-				case (_dir >= 225):  {
-					[
-						["STR_ROAD_TURN_RIGHT"] call gps_fnc_localize,
-						gps_dir + "icons\direction_fork_right.paa"
-					]
-				};
-				case (_dir <= 135): { 
-					[
-						["STR_ROAD_TURN_LEFT"] call gps_fnc_localize,
-						gps_dir + "icons\direction_fork_left.paa"
-					]
-				};
-				default {
-					[
-						["STR_ROAD_TURN_LEFT"] call gps_fnc_localize,
-						gps_dir + "icons\direction_fork_left.paa"
-					]
-				};
-			};
-
-			_dist = vehicle player distance _next_node;
-			if (_dist > 1000) then {
-				_infos set [0,format[_infos select 0,([_dist,2] call misc_fnc_metersToKilometers) + "Km"]];
+			if (_diff > 0.3) then {
+				[
+						format[["STR_ROAD_TURN_RIGHT"] call gps_fnc_localize,[_distanceToNode,2,_metric] call misc_fnc_distanceStr],
+						gps_dir + "icons\direction_fork_right.paa",
+						[vehicle player distance _goal,1,_metric] call misc_fnc_distanceStr
+				] call gps_menu_fnc_setGPSInfo;
 			}else{
-				_infos set [0,format[_infos select 0,(_dist toFixed 1) + "m"]];
+				if (_diff < -0.3) then {
+					[
+						format[["STR_ROAD_TURN_LEFT"] call gps_fnc_localize,[_distanceToNode,2,_metric] call misc_fnc_distanceStr],
+						gps_dir + "icons\direction_fork_left.paa",
+						[vehicle player distance _goal,1,_metric] call misc_fnc_distanceStr
+					] call gps_menu_fnc_setGPSInfo;
+				}else{
+					_path deleteAt (_path find _next_node);
+					breakTo "tracking_loop";
+				};
 			};
-
-			_infos pushBack format ["%1Km",[vehicle player distance _goal,2] call misc_fnc_metersToKilometers];
-
-			_infos call gps_menu_fnc_setGPSInfo;
 
 			uiSleep 0.5;
 		}else{
@@ -130,7 +92,7 @@ try {
 			[
 				["STR_GPS_LOST"] call gps_fnc_localize,
 				"A3\ui_f\data\Map\Markers\Military\unknown_CA.paa",
-				format ["%1Km",[vehicle player distance _goal,2] call misc_fnc_metersToKilometers]
+				[vehicle player distance _goal,1,_metric] call misc_fnc_distanceStr
 			] call gps_menu_fnc_setGPSInfo;
 		};
 	};

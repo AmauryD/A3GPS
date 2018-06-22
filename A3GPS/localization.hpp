@@ -1,3 +1,5 @@
+// Thank's to KifKick for polish traduction
+
 class GPS_Localization {
 	
 	class STR_languages {
@@ -14,6 +16,16 @@ class GPS_Localization {
 		en="Loading";
 		fr="Chargement en cours";
 		pl = "Wczytywanie";
+	};
+	class STR_MILES {
+		en="Miles";
+		fr="Miles";
+		// missing pl
+	};
+	class STR_KILOMETERS {
+		en="Kilometers";
+		fr="Kilomètres";
+		// missing pl
 	};
 	class STR_NO {
 		en="No.";
@@ -102,6 +114,11 @@ class GPS_Localization {
 		en="Language : ";
 		fr="Langue :";
 		pl = "Język :";
+	};
+	class STR_MENU_OPTIONS_METRIC {
+		en="Metric : ";
+		fr="Métrique : ";
+		// missing pl
 	};
 	class STR_MENU_OPTIONS_SAVE_PATH {
 		en="Save Path";

@@ -47,6 +47,17 @@ if (isNil "_markersColors") then {
 	};
 };
 
+_metric = [_settings,"metric"] call bis_fnc_getFromPairs;
+_default = ["default_metric","km"] call gps_fnc_getConfigSetting;
+
+if (isNil "_metric") then {
+	[_settings,"metric",_default] call bis_fnc_setToPairs;
+}else{
+	if !(_markersColors isEqualType _default) then {
+		[_settings,"metric",_default] call bis_fnc_setToPairs;
+	};
+};
+
 {
 	_keyID = getNumber (_x >> "default");
 	_current = [_settings,configName _x,[]] call bis_fnc_getFromPairs;

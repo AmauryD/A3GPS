@@ -25,3 +25,5 @@ jobs:
     # Runs a single command using the runners shell
     - name: sqflint
       uses: arma-actions/sqflint@v1.0
+      with:
+        args: --exit w --directory A3GPS

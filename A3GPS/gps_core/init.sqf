@@ -54,7 +54,6 @@ misc_fnc_getRoadDir = [_core_miscFolder,"fn_getRoadDir"] call gps_core_fnc_compi
 misc_fnc_arePolygonsOverlapping = [_core_miscFolder,"fn_arePolygonsOverlapping"] call gps_core_fnc_compile;
 misc_fnc_pointLineDist = [_core_miscFolder,"fn_pointLineDist"] call gps_core_fnc_compile;
 misc_fnc_callScriptedEventHandlerReturn = [_core_miscFolder,"fn_callScriptedEventHandlerReturn"] call gps_core_fnc_compile;
-misc_fnc_isHighway = [_core_miscFolder,"fn_isHighWay"] call gps_core_fnc_compile;
 
 /** Priority Queue **/
 misc_fnc_PQ_get = ["misc\PriorityQueue","fn_get"] call gps_core_fnc_compile;

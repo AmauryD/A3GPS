@@ -13,7 +13,7 @@ params [
 ];
 
 private _linkedCrossRoads = [];
-private _crossRoad_isHighWay = [_crossRoad] call misc_fnc_isHighWay;
+private _crossRoad_isHighWay = ((getRoadInfo _crossRoad) # 0) == "MAIN ROAD";
 
 {
   private _currRoad = _x;
@@ -28,7 +28,7 @@ private _crossRoad_isHighWay = [_crossRoad] call misc_fnc_isHighWay;
     _segmentValue = _segmentValue + (_previous distance2D _currRoad);
 
     if(_countConnected > 2 || _currRoad in _exceptions || _countConnected isEqualTo 1) exitWith {  
-      _currRoad_isHighWay = [_currRoad] call misc_fnc_isHighWay;
+      _currRoad_isHighWay = ((getRoadInfo _currRoad) # 0) == "MAIN ROAD";
       if(_currRoad_isHighWay && _crossRoad_isHighWay) then {
         _segmentValue = (_segmentValue / 3); 
       };

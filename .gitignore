@@ -1,3 +1,5 @@
 description.ext
 init.sqf
 mission.sqm
+
+/A3GPS/gps_core/data/*

@@ -15,9 +15,12 @@ if (count ([_road] call gps_core_fnc_roadsConnectedTo) > 2) exitWith {}; //alrea
 
 [gps_fakeNodes,str _road,_road] call misc_fnc_hashTable_set;
 
-_nodes = (allVariables gps_fakeNodes) apply {gps_fakeNodes getVariable _x};
-
-_res = [_road,[_road] call gps_core_fnc_roadsConnectedTo,_nodes] call gps_core_fnc_mapNodeValues;
+private _nodes = (allVariables gps_fakeNodes) apply {gps_fakeNodes getVariable _x};
+private _res = [
+  _road,
+  [_road] call gps_core_fnc_roadsConnectedTo,
+  _nodes
+] call gps_core_fnc_mapNodeValues;
 
 {
 	[_x select 0,[_x select 0] call gps_core_fnc_roadsConnectedTo,_nodes] call gps_core_fnc_mapNodeValues;

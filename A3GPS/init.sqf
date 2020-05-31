@@ -1,4 +1,4 @@
-#include <macros.h>
+#include "macros.h"
 /**
 	@Author : [Utopia] Amaury
 	@Creation : 1/02/17
@@ -8,11 +8,11 @@
 misc_fnc_getCurrentDir = {
 	params [["_fullPath","",[""]]];
 
-	_fullPath = toLower _fullPath;
-	_completeMissionName = toLower format [".%1",worldName];
+	private _fullPath = toLower _fullPath;
+	private _completeMissionName = toLower format [".%1",worldName];
 
-	_missionDir = _fullPath select [(_fullPath find _completeMissionName) + count _completeMissionName];
-	_allDirs = _missionDir splitString "\";
+	private _missionDir = _fullPath select [(_fullPath find _completeMissionName) + count _completeMissionName];
+	private _allDirs = _missionDir splitString "\";
 	if (count _allDirs <= 1) exitWith {
 		""
 	};
@@ -28,7 +28,7 @@ gps_fnc_log = ["gps","fn_log",true] call gps_fnc_compile;
 ["Compiling functions..."] call gps_fnc_log;
 
 /** GPS FUNCTIONS , PATH COMPUTATION FUNCTIONS ARE NOW IN CORE MODULE  **/
-_gpsFolder = "gps";
+private _gpsFolder = "gps";
 gps_fnc_deletePathHelpers = [_gpsFolder,"fn_deletePathHelpers"] call gps_fnc_compile;
 gps_fnc_tracking = [_gpsFolder,"fn_tracking"] call gps_fnc_compile;
 gps_fnc_main = [_gpsFolder,"fn_main"] call gps_fnc_compile;
@@ -41,7 +41,7 @@ gps_fnc_localize = [_gpsFolder,"fn_localize"] call gps_fnc_compile;
 
 /** GPS MENU FUNCTIONS **/
 //HUD
-_hudFolder = "menu\hud";
+private _hudFolder = "menu\hud";
 gps_menu_fnc_setGPSInfo = [_hudFolder,"fn_setGPSInfo"] call gps_fnc_compile; // = update
 gps_menu_fnc_loadHud = [_hudFolder,"fn_loadHud"] call gps_fnc_compile;
 gps_menu_fnc_openHud = [_hudFolder,"fn_openHud"] call gps_fnc_compile;
@@ -49,7 +49,7 @@ gps_menu_fnc_closeHud = [_hudFolder,"fn_closeHud"] call gps_fnc_compile;
 gps_menu_fnc_drawPath = [_hudFolder,"fn_drawPath"] call gps_fnc_compile;
 
 //main menu
-_gpsMenuFolder = "menu\gps";
+private _gpsMenuFolder = "menu\gps";
 gps_menu_fnc_gpsHelp = [_gpsMenuFolder,"fn_gpsHelp"] call gps_fnc_compile;
 gps_menu_fnc_loadGPSMenu =  [_gpsMenuFolder,"fn_loadGPSMenu"] call gps_fnc_compile;
 gps_menu_fnc_loadNavMenu =  [_gpsMenuFolder,"fn_loadNavMenu"] call gps_fnc_compile;
@@ -57,7 +57,7 @@ gps_menu_fnc_loadOptionsMenu =  [_gpsMenuFolder,"fn_loadOptionsMenu"] call gps_f
 gps_menu_fnc_loadControlsMenu =  [_gpsMenuFolder,"fn_loadControlsMenu"] call gps_fnc_compile;
 
 //quicknav
-_quickNavFolder = "menu\quicknav";
+private _quickNavFolder = "menu\quicknav";
 gps_menu_fnc_quickNavCreate = [_quickNavFolder,"fn_quickNavCreate"] call gps_fnc_compile;
 gps_menu_fnc_quickNavExecuteCurrentOption = [_quickNavFolder,"fn_quickNavExecuteCurrentOption"]  call gps_fnc_compile;
 gps_menu_fnc_quickNavNextOption =  [_quickNavFolder,"fn_quickNavNextOption"] call gps_fnc_compile;
@@ -66,7 +66,7 @@ gps_menu_fnc_handleQuickNavActions = [_quickNavFolder,"fn_handleQuickNavActions"
 gps_menu_fnc_addQuickNavOption = [_quickNavFolder,"fn_addQuickNavOption"] call gps_fnc_compile;
 
 /** MISCELLANEOUS FUNCTIONS (usable everywhere) **/
-_miscFolder = "misc";
+private _miscFolder = "misc";
 misc_fnc_nearestLocation = [_miscFolder,"fn_nearestLocation"] call gps_fnc_compile;
 misc_fnc_nearestRoadInArray = [_miscFolder,"fn_nearestRoadInArray"] call gps_fnc_compile;
 misc_fnc_distanceStr = [_miscFolder,"fn_distanceStr"] call gps_fnc_compile;

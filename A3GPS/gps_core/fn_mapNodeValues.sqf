@@ -22,20 +22,25 @@ private _crossRoad_isHighWay = ((getRoadInfo _crossRoad) # 0) == "MAIN ROAD";
 
   // faster than while {true}
   for "_i" from 0 to 1 step 0 do {
-    _connected = [_currRoad] call gps_core_fnc_roadsConnectedTo;
+    private _connected = [_currRoad] call gps_core_fnc_roadsConnectedTo;
     if (isNil "_connected") exitWith {}; // has this error on Tanoa , i don't know why
-    _countConnected = count _connected;
+    private _countConnected = count _connected;
     _segmentValue = _segmentValue + (_previous distance2D _currRoad);
 
     if(_countConnected > 2 || _currRoad in _exceptions || _countConnected isEqualTo 1) exitWith {  
-      _currRoad_isHighWay = ((getRoadInfo _currRoad) # 0) == "MAIN ROAD";
-      if(_currRoad_isHighWay && _crossRoad_isHighWay) then {
-        _segmentValue = (_segmentValue / 3); 
+      private _currRoad_type = (getRoadInfo _currRoad) # 0;
+
+      if(_currRoad_type == "MAIN ROAD" && _crossRoad_isHighWay) then {
+        _segmentValue = _segmentValue / 3; 
       };
+      if(_currRoad_type == "ROAD") then {
+        _segmentValue = _segmentValue / 2; 
+      };
+
       _linkedCrossRoads pushBack [_currRoad,_segmentValue];
     };
 
-    _old = _currRoad;
+    private _old = _currRoad;
     _currRoad = (_connected select { !(_x isEqualTo _previous) }) param [0,_old];
     _previous = _old;
     if(_currRoad isEqualTo _old) exitWith {};

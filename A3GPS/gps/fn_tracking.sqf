@@ -17,13 +17,13 @@ _path deleteAt 0; // delete first node , she's useless
 private _fn_findNextNode = {
 	params ["_path","_fullPath"];
 
-	_nearestRoadInFullPath = [getPosATL player,30,_fullPath] call misc_fnc_nearestRoadInArray;
+	private _nearestRoadInFullPath = [getPosATL player,30,_fullPath] call misc_fnc_nearestRoadInArray;
 
 	// if no road is found , exit
 	if (isNull _nearestRoadInFullPath) exitWith {objNull};
 
 	// select from the current node to the end
-	_nextPathRange = _fullPath select [_fullPath find _nearestRoadInFullPath,count _fullPath];
+	private _nextPathRange = _fullPath select [_fullPath find _nearestRoadInFullPath,count _fullPath];
 
 	gps_draw_points = _nextPathRange;
 
@@ -37,15 +37,13 @@ try {
 	while {vehicle player distance _goal > 15} do { //this script thread will be destroyed when arrived 
 		scopeName "tracking_loop";
 
-		private ["_next_node","_dir"];
-
 		private _metric = ["metric"] call gps_fnc_getSetting;
 
 		// regarde sur le full path node la position du joueur par rapport à la fin
-		_next_node = [_path,_fullPath] call _fn_findNextNode;
+		private _next_node = [_path,_fullPath] call _fn_findNextNode;
 
 		if !(isNull _next_node) then {
-			_next_node_index_fullPath = _fullPath find _next_node;
+			private _next_node_index_fullPath = _fullPath find _next_node;
 
 			if(_next_node_index_fullPath >= (count _fullPath - 2)) exitWith {
 				[
@@ -55,15 +53,15 @@ try {
 				] call gps_menu_fnc_setGPSInfo;
 			};
 
-			_next_node_previous = if (_next_node_index_fullPath < 2) then {_fullPath select 0}else{_fullPath select (_next_node_index_fullPath - 2)};
-			_next_node_next = _fullPath select (_next_node_index_fullPath + 2);
+			private _next_node_previous = if (_next_node_index_fullPath < 2) then {_fullPath select 0}else{_fullPath select (_next_node_index_fullPath - 2)};
+			private _next_node_next = _fullPath select (_next_node_index_fullPath + 2);
 
-			_vector_1 = getPosASL _next_node vectorFromTo getPosASL _next_node_next; 
-			_vector_2 = getPosASL _next_node_previous vectorFromTo getPosASL _next_node; 
+			private _vector_1 = getPosASL _next_node vectorFromTo getPosASL _next_node_next; 
+			private _vector_2 = getPosASL _next_node_previous vectorFromTo getPosASL _next_node; 
 
 			// new select syntax omagad
-			_diff = (_vector_1 # 0)*(_vector_2 # 1)-(_vector_1 # 1)*(_vector_2 # 0);
-			_distanceToNode = vehicle player distance _next_node;
+			private _diff = (_vector_1 # 0)*(_vector_2 # 1)-(_vector_1 # 1)*(_vector_2 # 0);
+			private _distanceToNode = vehicle player distance _next_node;
 
 			if (_diff > 0.3) then {
 				[

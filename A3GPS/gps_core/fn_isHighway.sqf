@@ -24,10 +24,10 @@ private _vectorDir = [
 ];
 
 // check one side
-_pos1 = _roadPos vectorAdd (_vectorDir vectorMultiply HIGHWAY_RADIUS);
+private _pos1 = _roadPos vectorAdd (_vectorDir vectorMultiply HIGHWAY_RADIUS);
 
 //check opposite side
-_vectorDir = _vectorDir vectorMultiply -1;
-_pos2 = _roadPos vectorAdd (_vectorDir vectorMultiply HIGHWAY_RADIUS);
+private _vectorDir = _vectorDir vectorMultiply -1;
+private _pos2 = _roadPos vectorAdd (_vectorDir vectorMultiply HIGHWAY_RADIUS);
 
 isOnRoad _pos1 && isOnRoad _pos2

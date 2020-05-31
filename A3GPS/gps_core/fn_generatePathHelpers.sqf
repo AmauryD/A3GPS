@@ -31,7 +31,7 @@ private	_fullPath = [];
 
 	  // faster than while {true}
 	  for "_i" from 0 to 1 step 0 do {
-	    _connected = [_currRoad] call gps_core_fnc_roadsConnectedTo;
+	    private _connected = [_currRoad] call gps_core_fnc_roadsConnectedTo;
 
 	    _passedBy pushBack _currRoad;
 
@@ -43,7 +43,7 @@ private	_fullPath = [];
 
 	   	if (count _connected > 2) exitWith {};
 
-	   	_old = _currRoad;
+	   	private _old = _currRoad;
 	   
 	    {
 	      if !(_x isEqualTo _previous) exitWith {

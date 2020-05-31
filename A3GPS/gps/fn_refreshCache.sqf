@@ -28,8 +28,8 @@ private _settings = profileNamespace getVariable "gps_settings";
 {
 	_x params ["_name","_defaultValue"];
 
-	_value = [_settings,_name] call bis_fnc_getFromPairs;
-	_default = ["default_" + _name,_defaultValue] call gps_fnc_getConfigSetting;
+	private _value = [_settings,_name] call bis_fnc_getFromPairs;
+	private _default = ["default_" + _name,_defaultValue] call gps_fnc_getConfigSetting;
 
 	if (isNil "_value") then {
 		[_settings,_name,_default] call bis_fnc_setToPairs;
@@ -45,8 +45,8 @@ private _settings = profileNamespace getVariable "gps_settings";
 ];
 
 {
-	_keyID = getNumber (_x >> "default");
-	_current = [_settings,configName _x,[]] call bis_fnc_getFromPairs;
+	private _keyID = getNumber (_x >> "default");
+	private _current = [_settings,configName _x,[]] call bis_fnc_getFromPairs;
 	if (_current isEqualTo []) then {
 		[_settings,configName _x,[_keyID]] call bis_fnc_setToPairs;
 	}else{

@@ -22,7 +22,7 @@ if (isNull _endRoute) exitWith {hintSilent (["STR_NO_VALID_END_ROAD"] call gps_f
 if (isNull _startRoute) exitWith {hintSilent (["STR_NO_VALID_START_ROAD"] call gps_fnc_localize)};
 
 // if user want to override conditions for the function to run
-_canLaunch = ["gps_main_start",[_startRoute,_endRoute],true] call misc_fnc_callScriptedEventHandlerReturn;
+private _canLaunch = ["gps_main_start",[_startRoute,_endRoute],true] call misc_fnc_callScriptedEventHandlerReturn;
 if (!_canLaunch) exitWith {};
 
 [] call gps_fnc_killGPS;

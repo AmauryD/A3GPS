@@ -7,7 +7,7 @@
   @Return : ARRAY - array of roads
 **/
 
-_allRoads = parseSimpleArray loadFile (gps_core_dir +  format["data\%1\AllRoads.sqf",worldName]);
+private _allRoads = parseSimpleArray loadFile (gps_core_dir +  format["data\%1\AllRoads.sqf",worldName]);
 
 if (isNil "_allRoads") exitWith {
 	if hasInterface then {
@@ -18,7 +18,7 @@ if (isNil "_allRoads") exitWith {
 
 // return all roads
 _allRoads apply {
-	_road = (_x nearRoads 0.1) param [0,objNull];
+	private _road = (_x nearRoads 0.1) param [0,objNull];
 	if (isNull _road) then {
 		[_x,20] call bis_fnc_nearestROad; // damn bridges
 	}else{

@@ -1,4 +1,4 @@
-#include <macros.h>
+#include "macros.h"
 /**
 	@Author : [Utopia] Amaury
 	@Creation : 28/01/18
@@ -11,11 +11,11 @@
 misc_fnc_getCurrentDir = {
 	params [["_fullPath","",[""]]];
 
-	_fullPath = toLower _fullPath;
-	_completeMissionName = toLower format [".%1",worldName];
+	private _fullPath = toLower _fullPath;
+	private _completeMissionName = toLower format [".%1",worldName];
 
-	_missionDir = _fullPath select [(_fullPath find _completeMissionName) + count _completeMissionName];
-	_allDirs = _missionDir splitString "\";
+	private _missionDir = _fullPath select [(_fullPath find _completeMissionName) + count _completeMissionName];
+	private _allDirs = _missionDir splitString "\";
 	if (count _allDirs <= 1) exitWith {
 		""
 	};
@@ -25,7 +25,7 @@ misc_fnc_getCurrentDir = {
 
 gps_core_dir = [__FILE__] call misc_fnc_getCurrentDir;
 
-_coreFolder = "";
+private _coreFolder = "";
 
 gps_core_fnc_compile = compileFinal	preprocessFileLineNumbers (gps_core_dir + "fn_compile.sqf");
 gps_core_fnc_log = [_coreFolder,"fn_log",true] call gps_core_fnc_compile;
@@ -42,12 +42,12 @@ gps_core_fnc_generateNodePath = [_coreFolder,"fn_generateNodePath"] call gps_cor
 gps_core_fnc_generatePathHelpers = [_coreFolder,"fn_generatePathHelpers"] call gps_core_fnc_compile;
 
 /** core algorithms **/
-_core_algorithms = "algorithms";
+private _core_algorithms = "algorithms";
 gps_core_fnc_aStar = [_core_algorithms + "\AStar","fn_AStar"] call gps_core_fnc_compile;
 gps_core_fnc_RDP = [_core_algorithms + "\RDP","fn_RDP"] call gps_core_fnc_compile;
 
 /** core misc functions **/
-_core_miscFolder = "misc";
+private _core_miscFolder = "misc";
 misc_fnc_createMarker = [_core_miscFolder,"fn_createmarker"] call gps_core_fnc_compile;
 misc_fnc_getRoadBoundingBoxWorld = [_core_miscFolder,"fn_getRoadBoundingBoxWorld"] call gps_core_fnc_compile;
 misc_fnc_getRoadDir = [_core_miscFolder,"fn_getRoadDir"] call gps_core_fnc_compile;
@@ -64,7 +64,7 @@ misc_fnc_Q_get = ["misc\Queue","fn_get"] call gps_core_fnc_compile;
 misc_fnc_Q_insert = ["misc\Queue","fn_insert"] call gps_core_fnc_compile;
 
 /** HashTable (dictionary in this case) **/
-_hashTableDir = "misc\hashTable";
+private _hashTableDir = "misc\hashTable";
 misc_fnc_hashTable_find = [_hashTableDir,"fn_find"] call gps_core_fnc_compile;
 misc_fnc_hashTable_set = [_hashTableDir,"fn_set"] call gps_core_fnc_compile;
 misc_fnc_hashTable_create = [_hashTableDir,"fn_create"] call gps_core_fnc_compile;

@@ -26,6 +26,7 @@ class gps_hud
 			mapOrientation = 1;
 			moveOnEdges = 1;
 			showCountourInterval = 1;
+                        widthRailWay = 1;
 
 			x = -0.00210969 * safezoneW + safezoneX;
 			y = 0.313012 * safezoneH + safezoneY;
